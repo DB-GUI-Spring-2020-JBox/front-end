@@ -1,0 +1,33 @@
+#account-form {
+    background: #fff;
+    border-radius: 0.5em;
+    padding: 3em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+}
+
+#register-button-container {
+    margin-top: 2em;
+}
+
+#login-button-container {
+    margin-top: 1.5em;
+}
+
+#account-header {
+    margin-bottom: 1em;
+}
+
+.required > label::after {
+    content: '*';
+    color: red;
+    font-weight: bold;
+    margin-left: 0.25rem;
+}
+
+.form-label-group {
+    margin-bottom: 1em;
+}
+
+.alert-danger {
+    margin-top: 1.5em;
+}

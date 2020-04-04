@@ -17,7 +17,7 @@ class App extends React.Component {
 				<style type="text/css">
 					{`
 						body {
-							  background: #fff;
+							  background: #eee;
 						}
 					`}
 				</style>
@@ -25,7 +25,8 @@ class App extends React.Component {
 				<Navbar bg="dark" variant="dark">
 					<Navbar.Brand href="/">JBox</Navbar.Brand>
 					<Nav className="ml-auto">
-						<Nav.Link href="/login">Logout</Nav.Link>
+						{this.state.isAuthenticated && 
+							<Nav.Link href="/login">Logout</Nav.Link>}
 					</Nav>
 				</Navbar>
 

@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import './login.css';
+import './accounts.css';
 
 
 export const Login = (props) => {
 
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [invalidCred, setInvalidCred] = useState(false);
 
     function login(event) {
         // Authenticate user
 
-        if (username && password) {
-            props.userHasAuthenticated(true);
-        }
-
         event.preventDefault();
         event.stopPropagation();
+
+        let accounts = JSON.parse(localStorage.getItem('accounts'));
+        let userAccount = accounts.find(x => (x.email === email && x.password === password));
+
+        if (!(email && password) || !userAccount) {
+            setInvalidCred(true);
+            return;
+        }
+
+        props.userHasAuthenticated(true);
     }
 
     if (props.isAuthenticated) {
@@ -25,16 +32,20 @@ export const Login = (props) => {
 
     return (
     <>
-        <form id="login-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={ e => login(e) }>
+        <form id="account-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={ e => login(e) }>
             <h1 className="text-center">Sign In</h1>
+            { invalidCred && 
+                <p className="alert alert-danger">
+                    Invalid email or password
+                </p> }
             <div className="form-label-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="email">Email</label>
                 <input 
                     type="text"
-                    id="username"
+                    id="email"
                     className="form-control"
-                    value={ username.username }
-                    onChange={ e => setUsername({ username: e.target.value }) }/>
+                    value={ email }
+                    onChange={ e => setEmail(e.target.value) }/>
             </div>
             <div className="form-label-group mt-3">
                 <label htmlFor="password">Password</label>
@@ -42,15 +53,21 @@ export const Login = (props) => {
                     type="password"
                     id="password"
                     className="form-control"
-                    value={ password.password }
-                    onChange={ e => setPassword({ password: e.target.value }) }/>
+                    value={ password }
+                    onChange={ e => setPassword(e.target.value) }/>
             </div>
-            <div className="form-label-group w-100 text-center mt-4">
+
+            <div id="login-button-container" className="text-center">
                 <button 
                     type="submit"
                     className="btn btn-info">
                     Login
                 </button>
+            </div>
+
+            <div id="register-button-container" className="text-center">
+                <span>Need an account? </span>
+                <a href="/register">Register here</a>
             </div>
         </form>
     </>

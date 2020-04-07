@@ -9,6 +9,12 @@ export const Login = (props) => {
     const [password, setPassword] = useState("");
     const [invalidCred, setInvalidCred] = useState(false);
 
+    // //DELETE before pushing
+    // //------------------------------------------------------------------------------------
+     props.userHasAuthenticated(true);
+    // //------------------------------------------------------------------------------------
+
+
     function login(event) {
         // Authenticate user
 
@@ -22,7 +28,6 @@ export const Login = (props) => {
             setInvalidCred(true);
             return;
         }
-
         props.userHasAuthenticated(true);
     }
 
@@ -34,13 +39,13 @@ export const Login = (props) => {
     <>
         <form id="account-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={ e => login(e) }>
             <h1 className="text-center">Sign In</h1>
-            { invalidCred && 
+            { invalidCred &&
                 <p className="alert alert-danger">
                     Invalid email or password
                 </p> }
             <div className="form-label-group">
                 <label htmlFor="email">Email</label>
-                <input 
+                <input
                     type="text"
                     id="email"
                     className="form-control"
@@ -49,7 +54,7 @@ export const Login = (props) => {
             </div>
             <div className="form-label-group mt-3">
                 <label htmlFor="password">Password</label>
-                <input 
+                <input
                     type="password"
                     id="password"
                     className="form-control"
@@ -58,7 +63,7 @@ export const Login = (props) => {
             </div>
 
             <div id="login-button-container" className="text-center">
-                <button 
+                <button
                     type="submit"
                     className="btn btn-info">
                     Login

@@ -23,7 +23,7 @@ export const Login = (props) => {
             return;
         }
 
-        sessionStorage.setItem("isAuthenticated", "1");
+        sessionStorage.setItem("isAuthenticated", "true");
     }
 
     if (sessionStorage.getItem("isAuthenticated") == "true") {

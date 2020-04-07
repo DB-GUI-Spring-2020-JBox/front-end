@@ -1,18 +1,21 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import AppliedRoute from './AppliedRoute';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Login, Register } from './Accounts';
 import { Home } from './Home';
+import { Article } from './Articles';
 
 
 export default function Routes({ appProps }) {
     return (
-        <Switch>
-            <AppliedRoute path="/" exact component={ Home } appProps={ appProps } />	
-            <AppliedRoute path="/login" exact component={ Login } appProps={ appProps } />
-            <AppliedRoute path="/register" exact component={ Register } appProps={ appProps } />
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact component={ Home } appProps={ appProps } />	
+                <Route path="/login" exact component={ Login } appProps={ appProps } />
+                <Route path="/register" exact component={ Register } appProps={ appProps } />
+                <Route path="/articles/:articleId" exact component={ Article } appProps={ appProps } />
 
-            {/* ADD CATCH FOR INVALID URLS */}
-        </Switch>
+                {/* ADD CATCH FOR INVALID URLS */}
+            </Switch>
+        </BrowserRouter>
     );
 }

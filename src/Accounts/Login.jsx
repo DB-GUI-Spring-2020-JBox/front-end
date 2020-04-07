@@ -32,7 +32,7 @@ export const Login = (props) => {
     }
 
     if (props.isAuthenticated) {
-        return (<Redirect to="/" push/>);
+        return (<Redirect to="/Home" push/>);
     }
 
     return (

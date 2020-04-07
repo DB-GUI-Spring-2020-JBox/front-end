@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
 import { ArticleCard } from '../Articles';
 
 // Sample data
@@ -46,7 +45,6 @@ const articles = [
       articles: []
     }
 
-
     render () {
       return <>
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
@@ -57,20 +55,21 @@ const articles = [
       						{this.state.category}
         					<span class="caret"></span></button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    { categories.map((d, i) => <button class="dropdown-item">{ d }</button> ) }
+                    { categories.map((d, i) => <button class="dropdown-item" onClick={ e => this.setState({ category: d })}>{ d }</button> ) }
       	  				</div>
       					</div>
             </div>
           </div>
             <section>
-                { this.state.category === "All Categories" &&
+                { this.state.category === 'All Categories' &&
                 articles.map((a, i) =>
                     <ArticleCard
                         title={ a.title }
                         image={ a.image }
                         snippet={ a.snippet }
                         author={ a.author }
-                        date={ a.date }/>)
+                        date={ a.date }
+                        category={ a.category }/>)
                }
                 { this.state.category.length > 0 &&
                   articles.map(article => {
@@ -80,7 +79,8 @@ const articles = [
                           image={ article.image }
                           snippet={ article.snippet }
                           author={ article.author }
-                          date={ article.date }/>})
+                          date={ article.date }
+                          category={ article.category }/>})
                 }
             </section>
 
@@ -89,6 +89,17 @@ const articles = [
 
               </div>
             </div>
+            <section>
+            { articles.map(article => {
+                  return <ArticleCard
+                      title={ article.title }
+                      image={ article.image }
+                      snippet={ article.snippet }
+                      author={ article.author }
+                      date={ article.date }
+                      category={ article.category }/>})
+            }
+            </section>
           </div>
     </>;
   }

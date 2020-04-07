@@ -28,9 +28,9 @@ class App extends React.Component {
 						<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" width="20" height="15"/>
   					<span class="caret"></span></button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	    				<a class="dropdown-item" href="/">Home</a>
-							<a class="dropdown-item" href="/">My Profile</a>
-	    				<a class="dropdown-item" href="/">Search Articles</a>
+	    				<a class="dropdown-item" href="/home">Home</a>
+							<a class="dropdown-item" href="/profile">My Profile</a>
+	    				<a class="dropdown-item" href="/search">Search Articles</a>
 							<a class="dropdown-item" href="/">Post Article</a>
 							<a class="dropdown-item" href="/">Contact</a>
 	  				</div>

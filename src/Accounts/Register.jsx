@@ -18,8 +18,6 @@ export const Register = (props) => {
     const [complete, setComplete] = useState(false);
 
     function register(event) {
-        // Authenticate user
-
         event.preventDefault();
         event.stopPropagation();
 
@@ -56,7 +54,7 @@ export const Register = (props) => {
         return (<Redirect to="/login" push/>)
     }
 
-    if (props.isAuthenticated) {
+    if (sessionStorage.getItem("isAuthenticated") == "true") {
         return (<Redirect to="/" push/>);
     }
 

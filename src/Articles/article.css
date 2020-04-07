@@ -1,0 +1,12 @@
+
+#article {
+    border: 0 solid #fff;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+    padding: 5em;
+    margin-top: 3em;
+}
+
+#article-body {
+    font-size: medium;
+    text-indent: 5em;
+}

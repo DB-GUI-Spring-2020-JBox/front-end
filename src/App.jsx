@@ -5,11 +5,6 @@ import './index.css';
 
 
 class App extends React.Component {
-	
-	state = {
-		isAuthenticated: false,
-		userHasAuthenticated: x => this.setState({ isAuthenticated: x })
-	}
 
 	render() {
 		return (
@@ -25,12 +20,12 @@ class App extends React.Component {
 				<Navbar bg="dark" variant="dark">
 					<Navbar.Brand href="/">JBox</Navbar.Brand>
 					<Nav className="ml-auto">
-						{this.state.isAuthenticated && 
+						{ sessionStorage.getItem("isAuthenticated") == "true" &&
 							<Nav.Link href="/login">Logout</Nav.Link>}
 					</Nav>
 				</Navbar>
 
-				<Routes appProps={ this.state }/>
+				<Routes />
 			</>
 		);
 	}

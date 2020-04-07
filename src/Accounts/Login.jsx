@@ -23,11 +23,11 @@ export const Login = (props) => {
             return;
         }
 
-        props.userHasAuthenticated(true);
+        sessionStorage.setItem("isAuthenticated", "1");
     }
 
-    if (props.isAuthenticated) {
-        return (<Redirect to="/" push/>);
+    if (sessionStorage.getItem("isAuthenticated") == "true") {
+        return (<Redirect to="/" push />);
     }
 
     return (

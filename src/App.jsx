@@ -20,8 +20,8 @@ class App extends React.Component {
 				<Navbar bg="dark" variant="dark">
 					<Navbar.Brand href="/">JBox</Navbar.Brand>
 					<Nav className="ml-auto">
-						{ sessionStorage.getItem("isAuthenticated") == "true" &&
-							<Nav.Link href="/login">Logout</Nav.Link>}
+						{ sessionStorage.getItem("isAuthenticated") === "true" &&
+							<Nav.Link onClick={ () => sessionStorage.setItem("isAuthenticated", "false") } >Logout</Nav.Link>}
 					</Nav>
 				</Navbar>
 

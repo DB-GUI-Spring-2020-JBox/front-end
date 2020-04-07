@@ -54,12 +54,10 @@ export const Register = (props) => {
         return (<Redirect to="/login" push/>)
     }
 
-    if (sessionStorage.getItem("isAuthenticated") == "true") {
-        return (<Redirect to="/" push/>);
-    }
-
     return (
     <>
+        { sessionStorage.getItem("isAuthenticated") === "true" &&
+            (<Redirect to="/" push/>) }
         <form id="account-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={ e => register(e) }>
             <h1 id="account-header" className="text-center">Create an Account</h1>
             <div className={`form-label-group required`}>

@@ -1,5 +1,5 @@
 
-export const articles = 
+export const articles =
 [
     {
         title: "Thousands of Zoom video calls left exposed on open Web",
@@ -15,6 +15,97 @@ export const articles =
             name: "Drew Harwell"
         },
         category: "Technology"
+    }
+]
+
+export const feed = [
+    {
+        title: "Article 1 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Billy Bob",
+        date: "April 7, 2020",
+        category: "Technology"
+    },
+    {
+        title: "Article 2 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "John Smith",
+        date: "April 7, 2020",
+        category: "Health"
+    },
+    {
+        title: "Article 3 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Sally Seaborn",
+        date: "April 7, 2020",
+        category: "Wealth"
+    },
+    {
+        title: "Article 4 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Billy Bob",
+        date: "April 7, 2020",
+        category: "Technology"
+    },
+    {
+        title: "Article 5 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "John Smith",
+        date: "April 7, 2020",
+        category: "Health"
+    },
+    {
+        title: "Article 6 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Sally Seaborn",
+        date: "April 7, 2020",
+        category: "Wealth"
+    },
+    {
+        title: "Article 7 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "John Smith",
+        date: "April 7, 2020",
+        category: "Health"
+    },
+    {
+        title: "Article 8 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Sally Seaborn",
+        date: "April 7, 2020",
+        category: "Wealth"
+    },
+    {
+        title: "Article 9 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Billy Bob",
+        date: "April 7, 2020",
+        category: "Technology"
+    },
+    {
+        title: "Article 10 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "John Smith",
+        date: "April 7, 2020",
+        category: "Health"
+    },
+    {
+        title: "Article 11 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Sally Seaborn",
+        date: "April 7, 2020",
+        category: "Wealth"
     }
 ]
 

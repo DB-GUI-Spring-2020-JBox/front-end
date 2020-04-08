@@ -1,12 +1,37 @@
 
 #article {
-    border: 0 solid #fff;
-    box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
-    padding: 5em;
+    border: 0.1em solid #ddd;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0);
+    padding: 4em 10em;
     margin-top: 3em;
 }
 
+#article-header {
+    margin-bottom: 2em;
+}
+
+#article-header > h1{
+    font-size: 3rem;
+}
+
+#article-date {
+    color: gray;
+    font-size: 1rem;
+    margin: 1.5em 0;
+}
+
+#article-author {
+    font-size: 1.2em;
+}
+
+#article-category {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
 #article-body {
-    font-size: medium;
-    text-indent: 5em;
+    font-size: 1.2rem;
+    line-height: 2em;
+    padding-right: 10em;
 }

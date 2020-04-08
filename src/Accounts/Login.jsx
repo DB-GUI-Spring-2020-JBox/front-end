@@ -38,8 +38,8 @@ export class Login extends React.Component {
         return (
             <>
                 {sessionStorage.getItem("isAuthenticated") === "true" &&
-                  (<Redirect to="/" push />)}
-                <form id="account-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={ e => this.login(e) }>
+                    (<Redirect to="/" push />)}
+                <form id="account-form" className="col-sm-9 col-md-7 col-lg-4 mt-5 mx-auto border-0" onSubmit={ e => this.login(e) }>
                     <h1 className="text-center">Sign In</h1>
                     { this.state.invalidCred &&
                         <p className="alert alert-danger">

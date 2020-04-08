@@ -36,10 +36,6 @@ const articles = [
 //export const Home = (props) => {
   export class Home extends React.Component {
 
-    // if (sessisonStorage.getItem('isAuthenticated') === "false") {
-    //     return <Redirect to="/login"/>;
-    // }
-
     state = {
       category: 'All Categories',
       articles: []
@@ -47,7 +43,7 @@ const articles = [
 
     render () {
       return <>
-        {sessionStorage.getItem("isAuthenticated") === null &&
+        {sessionStorage.getItem("isAuthenticated") !== "true" &&
           (<Redirect to="/login"/>)}
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
           <div className="latest-stories">
@@ -64,7 +60,7 @@ const articles = [
           </div>
             <section>
                 { this.state.category === 'All Categories' &&
-                articles.map((a, i) =>
+                  articles.map((a, i) =>
                     <ArticleCard
                         title={ a.title }
                         image={ a.image }
@@ -73,17 +69,18 @@ const articles = [
                         date={ a.date }
                         category={ a.category }
                         key={ i }/>)
-               }
+                }
                 { this.state.category.length > 0 &&
-                  articles.map(article => {
-                    if(this.state.category === article.category)
-                      return <ArticleCard
-                          title={ article.title }
-                          image={ article.image }
-                          snippet={ article.snippet }
-                          author={ article.author }
-                          date={ article.date }
-                          category={ article.category }/>})
+                  articles.map((a, i) => {
+                  if(this.state.category === a.category)
+                    return <ArticleCard
+                        title={ a.title }
+                        image={ a.image }
+                        snippet={ a.snippet }
+                        author={ a.author }
+                        date={ a.date }
+                        category={ a.category }
+                        key={ i }/>})
                 }
             </section>
 
@@ -91,18 +88,17 @@ const articles = [
               <div className = "row" style={{marginTop: '4em', display: 'flex', justifyContent: 'space-between'}}> <h1>Your Feed</h1>
               </div>
             </div>
-
             <section>
-            { articles.map((a, i) =>
+              { articles.map((a, i) =>
                 <ArticleCard
-                    title={ a.title }
-                    image={ a.image }
-                    snippet={ a.snippet }
-                    author={ a.author }
-                    date={ a.date }
-                    category={ a.category }
-                    key={ i }/>)
-            }
+                  title={ a.title }
+                  image={ a.image }
+                  snippet={ a.snippet }
+                  author={ a.author }
+                  date={ a.date }
+                  category={ a.category }
+                  key={ i }/>)
+              }
             </section>
           </div>
     </>;

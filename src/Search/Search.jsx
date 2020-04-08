@@ -1,18 +1,12 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 import './search.css';
 
-//export const Home = (props) => {
   export class Search extends React.Component {
 
-    // if (!sessionStorage.getItem('isAuthenticated')) {
-    //     return <Redirect to="/login"/>;
-    // }
-
     state = {
- 
-    }
 
+    }
 
     render () {
       return <>

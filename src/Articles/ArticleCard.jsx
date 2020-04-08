@@ -7,7 +7,7 @@ export const ArticleCard = props => {
             <div className="card-header">{ props.title }
               <span style={{ float: 'right' }}><b>{ props.category }</b></span>
             </div>
-            <div className="card-img"><img src={ props.image } alt={ props.title } width="200" height="120"/></div>
+            <div className="card-img text-center"><img src={ props.image } alt={ props.title } width="200" height="120"/></div>
             <div className="card-body">{ props.snippet }</div>
             <div className="card-footer"><i>By</i> <b>{ props.author }</b>  <i>{ props.date }</i></div>
         </div>

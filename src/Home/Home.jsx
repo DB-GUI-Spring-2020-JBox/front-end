@@ -5,7 +5,7 @@ import { feed } from '../SampleData/articles';
 
 // Sample data
 
-const categories = ["All Categories", "Health", "Technology", "Wealth"]
+const categories = ["All Categories", "Health", "Tech", "Wealth"]
 
 //export const Home = (props) => {
   export class Home extends React.Component {
@@ -38,96 +38,60 @@ const categories = ["All Categories", "Health", "Technology", "Wealth"]
             </div>
           </div>
           <div className="container-fluid" style={{marginTop: '4em', justifyContent: 'space-between'}}>
-            <div className="text-center">
-              <ArticleCard
-                  title={ this.featured.title }
-                  image={ this.featured.image }
-                  snippet={ this.featured.snippet }
-                  author={ this.featured.author }
-                  date={ this.featured.date }
-                  category={ this.featured.category }/>
+            <div>
+                <ArticleCard title={ this.featured.title } image={ this.featured.image } snippet={ this.featured.snippet } author={ this.featured.author }
+                    date={ this.featured.date } category={ this.featured.category }/>
             </div>
           </div>
-          <div className="container-fluid bg-3 text-center">
+          <div className="container-fluid bg-3">
             <div className="row">
-            { this.state.category === 'All Categories' &&
-            this.firstRow.map((a, i) => {
+            { this.firstRow.map((a, i) => {
                 return <div className="col-sm-3">
-                    <ArticleCard
-                        title={ a.title }
-                        image={ a.image }
-                        snippet={ a.snippet }
-                        author={ a.author }
-                        date={ a.date }
-                        category={ a.category }
-                        key={ i }/>
-                      </div>})
+                    <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                        date={ a.date } category={ a.category } key={ i }/>
+                    </div>})
             }
             </div>
           </div>
-          <div className="container-fluid bg-3 text-center">
+          <div className="container-fluid bg-3">
             <div className="row">
-            { this.state.category === 'All Categories' &&
-            this.secondRow.map((a, i) => {
+            { this.secondRow.map((a, i) => {
                 return <div className="col-sm-3">
-                    <ArticleCard
-                        title={ a.title }
-                        image={ a.image }
-                        snippet={ a.snippet }
-                        author={ a.author }
-                        date={ a.date }
-                        category={ a.category }
-                        key={ i }/>
-                      </div>})
+                    <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                        date={ a.date } category={ a.category } key={ i }/>
+                    </div>})
             }
             </div>
           </div>
 
-          <div className="latest-stories">
+
+
+          <div className="personal-feed">
             <div className = "row" style={{marginTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <h1>Your Feed</h1>
             </div>
           </div>
           <div className="container-fluid" style={{marginTop: '4em', justifyContent: 'space-between'}}>
-            <div className="text-center">
-              <ArticleCard
-                  title={ this.featured.title }
-                  image={ this.featured.image }
-                  snippet={ this.featured.snippet }
-                  author={ this.featured.author }
-                  date={ this.featured.date }
-                  category={ this.featured.category }/>
+            <div>
+              <ArticleCard title={ this.featured.title } image={ this.featured.image } snippet={ this.featured.snippet }
+                  author={ this.featured.author } date={ this.featured.date } category={ this.featured.category }/>
             </div>
           </div>
-          <div className="container-fluid bg-3 text-center">
+          <div className="container-fluid bg-3">
             <div className="row">
-            { this.state.category === 'All Categories' &&
-            this.firstRow.map((a, i) => {
+            { this.firstRow.map((a, i) => {
                 return <div className="col-sm-3">
-                    <ArticleCard
-                        title={ a.title }
-                        image={ a.image }
-                        snippet={ a.snippet }
-                        author={ a.author }
-                        date={ a.date }
-                        category={ a.category }
-                        key={ i }/>
-                      </div>})
+                <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                    date={ a.date } category={ a.category } key={ i }/>
+                  </div>})
             }
             </div>
           </div>
-          <div className="container-fluid bg-3 text-center">
+          <div className="container-fluid bg-3">
             <div className="row">
-            { this.state.category === 'All Categories' &&
-            this.secondRow.map((a, i) => {
+            { this.secondRow.map((a, i) => {
                 return <div className="col-sm-3">
-                    <ArticleCard
-                        title={ a.title }
-                        image={ a.image }
-                        snippet={ a.snippet }
-                        author={ a.author }
-                        date={ a.date }
-                        category={ a.category }
-                        key={ i }/>
+                    <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                        date={ a.date } category={ a.category } key={ i }/>
                       </div>})
             }
             </div>

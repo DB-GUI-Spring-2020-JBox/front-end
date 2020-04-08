@@ -11,6 +11,7 @@ class App extends React.Component {
 		userHasAuthenticated: x => this.setState({ isAuthenticated: x })
 	}
 
+
 	render() {
 		return (
 			<>
@@ -21,18 +22,17 @@ class App extends React.Component {
 						}
 					`}
 				</style>
-
 				<Navbar bg="dark" variant="dark">
-				<div class="dropdown">
-  				<button class="btn" type="button" data-toggle="dropdown">
+				<div className="dropdown">
+  				<button className="btn" type="button" data-toggle="dropdown">
 						<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" width="20" height="15"/>
-  					<span class="caret"></span></button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	    				<a class="dropdown-item" href="/home">Home</a>
-							<a class="dropdown-item" href="/profile">My Profile</a>
-	    				<a class="dropdown-item" href="/search">Search Articles</a>
-							<a class="dropdown-item" href="/">Post Article</a>
-							<a class="dropdown-item" href="/">Contact</a>
+  					<span className="caret"></span></button>
+						<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	    				<a className="dropdown-item" href="/">Home</a>
+							<a className="dropdown-item" href="/profile">My Profile</a>
+	    				<a className="dropdown-item" href="/search">Search Articles</a>
+							<a className="dropdown-item" href="/">Post Article</a>
+							<a className="dropdown-item" href="/">Contact</a>
 	  				</div>
 					</div>
 					<Navbar.Brand href="/">JBox</Navbar.Brand>

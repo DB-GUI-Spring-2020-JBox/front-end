@@ -18,8 +18,6 @@ export const Register = (props) => {
     const [complete, setComplete] = useState(false);
 
     function register(event) {
-        // Authenticate user
-
         event.preventDefault();
         event.stopPropagation();
 
@@ -28,8 +26,8 @@ export const Register = (props) => {
         }
 
         let account = new Account(
-            firstName, 
-            lastName, 
+            firstName,
+            lastName,
             email,
             password);
 
@@ -48,7 +46,7 @@ export const Register = (props) => {
         let emailPattern = /[\w]+@[\w]+\.[\w]{2,}/;
         if (emailPattern.test(email))
             return true;
-        else 
+        else
             return false;
     }
 
@@ -56,17 +54,15 @@ export const Register = (props) => {
         return (<Redirect to="/login" push/>)
     }
 
-    if (props.isAuthenticated) {
-        return (<Redirect to="/" push/>);
-    }
-
     return (
     <>
+        { sessionStorage.getItem("isAuthenticated") === "true" &&
+            (<Redirect to="/" push/>) }
         <form id="account-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={ e => register(e) }>
             <h1 id="account-header" className="text-center">Create an Account</h1>
             <div className={`form-label-group required`}>
                 <label htmlFor="username">First name</label>
-                <input 
+                <input
                     type="text"
                     id="username"
                     className={`form-control ${!validFirstName && "is-invalid"}`}
@@ -81,7 +77,7 @@ export const Register = (props) => {
             </div>
             <div className="form-label-group required">
                 <label htmlFor="lastName">Last name</label>
-                <input 
+                <input
                     type="text"
                     id="lastName"
                     className={`form-control ${!validLastName && "is-invalid"}`}
@@ -95,7 +91,7 @@ export const Register = (props) => {
             </div>
             <div className="form-label-group required">
                 <label htmlFor="email">Email</label>
-                <input 
+                <input
                     type="text"
                     id="email"
                     className={`form-control ${!validEmail && "is-invalid"}`}
@@ -106,7 +102,7 @@ export const Register = (props) => {
                             setValidEmail(false);
                         else
                             setValidEmail(true);
-                    } } 
+                    } }
                     onBlur={ () => {
                         if (validateEmail())
                             setValidEmail(true);
@@ -117,7 +113,7 @@ export const Register = (props) => {
 
             <div className="form-label-group required">
                 <label htmlFor="password">Password</label>
-                <input 
+                <input
                     type="password"
                     id="password"
                     className={`form-control ${!validPassword && "is-invalid"}`}
@@ -132,7 +128,7 @@ export const Register = (props) => {
             </div>
 
             <div id="login-button-container" className="text-center">
-                <button 
+                <button
                     type="submit"
                     className="btn btn-info">
                     Submit

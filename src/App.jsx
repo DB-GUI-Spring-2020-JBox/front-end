@@ -35,10 +35,10 @@ class App extends React.Component {
 								<a className="dropdown-item" href="/">Contact</a>
 	  					</div>
 						</div>
-					<Navbar.Brand href="/">JBox<img src={require('./Images/logoHead.png')} style={{marginLeft: "10px", marginBottom: "-10px", marginTop: "-10px"}} alt="" height="35" width="35"/></Navbar.Brand>
+					<Navbar.Brand href="/">JBox<img src={require('./Images/logoHead.png')} style={{position: "absolute", left: "48vw", marginTop: "-12px"}} alt="" height="53" width="53"/></Navbar.Brand>
 					<Nav className="ml-auto">
 					{ sessionStorage.getItem("isAuthenticated") === "true" &&
-						<Nav.Link onClick={ () => sessionStorage.setItem("isAuthenticated", "false") } >Logout</Nav.Link>}
+						<Nav.Link onClick={ () => sessionStorage.setItem("isAuthenticated", "false") } href="/">Logout</Nav.Link>}
 					</Nav>
 				</Navbar>
 

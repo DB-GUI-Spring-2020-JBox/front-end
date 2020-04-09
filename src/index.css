@@ -13,6 +13,7 @@ code {
     monospace;
 }
 
+
 #root {
   position: relative;
   min-height: 100vh;
@@ -23,12 +24,74 @@ code {
   overflow: hidden;
   display: block;
   position: relative;
-  padding-bottom: px; /* height of your footer */
+  padding-bottom: 250px; /* height of your footer */
 }
 
 footer {
-  background-color: black;
+  background-color: rgb(54, 58, 63);
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.site-footer {
+  background-color: rgb(54, 58, 63);
+  padding: 45px 0 20px;
+  font-size: 15px;
+  bottom: 0;
+  line-height: 24px;
+  color: #737373;
+}
+
+.site-footer hr {
+  border-top-color: #bbb;
+  opacity: 0.5;
+}
+
+.site-footer hr.small {
+  margin: 20px 0;
+}
+
+.site-footer h6 {
+  color: #fff;
+  font-size: 16px;
+  margin-top:5px;
+  letter-spacing:2px
+}
+
+.site-footer a {
+  color: #737373;
+}
+
+.footer-links {
+  padding-left: 0;
+  list-style: none;
+}
+
+.footer-links a:hover {
+  color: green;
+  text-decoration: none;
+}
+
+.copyright-text {
+  margin: 0;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin-bottom: 4px;
+  margin-top: -50px;
+  width: 48px;
+  height: 40px;
+}
+
+.social-icons {
+  float: right;
+  margin-bottom: -5px;
+}
+
+@media only screen and (max-width: 800px) {
+  .footer-head, .links, .footer-links, .footer-title {
+    display: none;
+  }
 }

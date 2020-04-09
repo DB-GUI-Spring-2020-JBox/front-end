@@ -21,12 +21,13 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
 
     render () {
       return <>
+        <div style={{background: "rgb(238, 238, 238)", paddingBottom: "3em"}}>
         {sessionStorage.getItem("isAuthenticated") !== "true" &&
           (<Redirect to="/login"/>)}
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
 
           <div className="latest-stories">
-            <div className = "row" style={{marginTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <h1>Latest Stories</h1>
+            <div className = "row" style={{paddingTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <h1>Latest Stories</h1>
               <div className="dropdown" style={{paddingTop: '10px'}} >
         				<button className="btn dropdown-toggle" type="button" data-toggle="dropdown">
       						{this.state.category}
@@ -96,7 +97,8 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
             }
             </div>
           </div>
-          </div>
+        </div>
+      </div>
     </>;
   }
 }

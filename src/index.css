@@ -13,6 +13,11 @@ code {
     monospace;
 }
 
+.drop a {
+  color: white;
+  font-size: 20px;
+  margin: 5px;
+}
 
 #root {
   position: relative;
@@ -20,11 +25,13 @@ code {
 }
 
 .content-wrap {
-  min-height: 100vh; /* will cover the 100% of viewport */
+  min-height: 100vh;
   overflow: hidden;
   display: block;
   position: relative;
-  padding-bottom: 250px; /* height of your footer */
+  padding-bottom: 250px;
+  background-image: url("./Images/background.jpg");
+  background-attachment: fixed;
 }
 
 footer {

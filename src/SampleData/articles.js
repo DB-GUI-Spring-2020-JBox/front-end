@@ -106,6 +106,30 @@ export const feed = [
         author: "Sally Seaborn",
         date: "April 7, 2020",
         category: "Wealth"
+    },
+    {
+        title: "Article 9 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Billy Bob",
+        date: "April 7, 2020",
+        category: "Politics"
+    },
+    {
+        title: "Article 10 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "John Smith",
+        date: "April 7, 2020",
+        category: "Politics"
+    },
+    {
+        title: "Article 11 Title",
+        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        snippet: "Here is a sample snippet for an article that would show up on the home page.",
+        author: "Sally Seaborn",
+        date: "April 7, 2020",
+        category: "Politics"
     }
 ]
 

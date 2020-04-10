@@ -1,8 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './browse.css';
+import { feed } from '../SampleData/articles';
+import { ArticleCard } from '../Articles';
 
-const categories = ["All Categories", "Health", "Tech", "Wealth"]
+
+
+const categories = ["Health", "Technology", "Wealth", "Politics"]
 
 export class Browse extends React.Component {
 
@@ -16,15 +20,23 @@ export class Browse extends React.Component {
       {sessionStorage.getItem("isAuthenticated") !== "true" &&
         (<Redirect to="/login"/>)}
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
-          <div className = "row-fluid"> <p>Browse All Stories</p>
-            <div className="dropdown">
-              <button className="btn dropdown-toggle" type="button" data-toggle="dropdown" style={{ fontSize: "30px"}}>
-                {this.state.category}
-                <span className="caret"></span></button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ fontSize: "30px"}}>
-                  { categories.map((d, i) => <button className="dropdown-item" onClick={ e => this.setState({ category: d })} key={i}>{ d }</button> ) }
-                </div>
+          <div className="stories"> <p>Stories</p>
+
+          { categories.map((category, j) =>
+              <div>
+                <h4>{ category }</h4>
+              <div className="scrollmenu">
+            { feed.map((a, i) => {
+              if(a.category === category)
+                return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0"}}>
+                    <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                        date={ a.date } category={ a.category } key={ i }/>
+                    </div>})
+            }
               </div>
+            </div>
+          )}
+
           </div>
         </div>
     </>;

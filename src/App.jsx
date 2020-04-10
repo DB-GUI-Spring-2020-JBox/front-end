@@ -31,7 +31,7 @@ class App extends React.Component {
 					<Navbar bg="dark" variant="dark">
 						<div className="dropdown">
   						<button className="btn" type="button" data-toggle="dropdown" style={{marginTop: "-4px"}}>
-								<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" alt="" width="30" height="20"/>
+								<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" alt="" width="30" height="20" style={{marginTop: "-10px"}}/>
   							<span className="caret"></span></button>
 							<div className="dropdown-menu drop" aria-labelledby="dropdownMenuButton" style={{border: "none", margin: "8px 0px 0px -20px", paddingRight: "5px", background: "rgb(54, 58, 63)"}}>
 	    					<a className="dropdown-item" href="/">Home</a>

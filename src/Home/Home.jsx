@@ -4,8 +4,6 @@ import { ArticleCard } from '../Articles';
 import { feed } from '../SampleData/articles';
 import './home.css';
 
-// Sample data
-
 const categories = ["All Categories", "Health", "Tech", "Wealth"]
 
 //export const Home = (props) => {
@@ -29,11 +27,11 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
 
           <div className="latest-stories">
             <div className = "row-fluid" style={{marginBottom: "-30px", paddingTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Latest Stories</p>
-              <div className="dropdown" style={{paddingTop: '10px'}} >
-        				<button className="btn dropdown-toggle" type="button" data-toggle="dropdown" style={{ fontSize: "30px"}}>
-      						{this.state.category}
+              <div className="dropdown" style={{paddingTop: '25px'}} >
+        				<button className="btn dropdown-toggle" type="button" data-toggle="dropdown" style={{ fontSize: "22.5px"}}>
+      						{ this.state.category }
         					<span className="caret"></span></button>
-                  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ fontSize: "30px"}}>
+                  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ fontSize: "22.5px"}}>
                     { categories.map((d, i) => <button className="dropdown-item" onClick={ e => this.setState({ category: d })} key={i}>{ d }</button> ) }
       	  				</div>
       					</div>
@@ -66,8 +64,6 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
             </div>
             <a className="see-all" href="/browse">see all ➞</a>
           </div>
-
-
 
           <div className="personal-feed">
             <div className = "row" style={{marginBottom: "-30px", marginTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Your Feed</p>

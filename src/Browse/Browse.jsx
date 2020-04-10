@@ -7,7 +7,8 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
 export class Browse extends React.Component {
 
     state = {
-      category: 'All Categories'
+      category: 'All Categories',
+      feed: ''
     }
 
     render () {

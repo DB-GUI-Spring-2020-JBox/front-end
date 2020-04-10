@@ -4,6 +4,7 @@ import { Login, Register } from './Accounts';
 import { Home } from './Home';
 import { Search } from './Search';
 import { Article } from './Articles';
+import { Browse } from './Browse'
 
 
 export default function Routes({ appProps }) {
@@ -15,6 +16,7 @@ export default function Routes({ appProps }) {
             <Route path="/register" exact component={ Register } appProps={ appProps } />
             <Route path="/search" exact component={ Search } appProps={ appProps } />
             <Route path="/articles/:articleId" exact component={ Article } />
+            <Route path="/browse" exact component={ Browse } />
 
             {/* ADD CATCH FOR INVALID URLS */}
         </Switch>

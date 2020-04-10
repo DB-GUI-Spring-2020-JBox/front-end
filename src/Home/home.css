@@ -1,0 +1,11 @@
+.see-all {
+  float: right;
+  color: black;
+  font-size: 25px;
+  margin-top: 10px;
+}
+
+
+.article-row {
+  display: inline-grid;
+}

@@ -20,7 +20,7 @@ export const articles =
 
 export const feed = [
     {
-        title: "Article 1 Title",
+        title: "Coronavirus. Here's what you need to know",
         image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "Billy Bob",
@@ -28,31 +28,31 @@ export const feed = [
         category: "Technology"
     },
     {
-        title: "Article 2 Title",
-        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        title: "When will renewable energy take over?",
+        image: "https://ijnet.org/sites/default/files/styles/secondary_story_home_bp_m/public/story/2020-04/matthew-t-rader-O88J7BqvrzM-unsplash.jpg?h=4bebc75e&itok=fdZP3Gvd",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "John Smith",
         date: "April 7, 2020",
         category: "Health"
     },
     {
-        title: "Article 3 Title",
-        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        title: "Here are the top 5 travel destinations for influencers",
+        image: "https://ijnet.org/sites/default/files/styles/resource_teaser/public/migrated/2017/10/35528454510_7dbd40541f_k.jpg?itok=4xHon83h",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "Sally Seaborn",
         date: "April 7, 2020",
         category: "Wealth"
     },
     {
-        title: "Article 4 Title",
-        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        title: "Everything you need to know right now",
+        image: "https://ijnet.org/sites/default/files/styles/resource_teaser/public/resource/2020-03/wordcloud5.jpg?itok=KdAmkkzg",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "Billy Bob",
         date: "April 7, 2020",
         category: "Technology"
     },
     {
-        title: "Article 5 Title",
+        title: "More coronavirus news",
         image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "John Smith",
@@ -60,7 +60,7 @@ export const feed = [
         category: "Health"
     },
     {
-        title: "Article 6 Title",
+        title: "I have no idea where this picture was taken",
         image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "Sally Seaborn",
@@ -68,16 +68,16 @@ export const feed = [
         category: "Wealth"
     },
     {
-        title: "Article 7 Title",
-        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        title: "I have no idea where this picture was taken",
+        image: "https://www.australiasnorthwest.com/sites/nw/files/styles/full_width_slider/public/jumbotron-simple/JUMBO%20TWA%20Horizontal%20Falls%20%281%29.jpg?itok=Qm80PTfb",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "John Smith",
         date: "April 7, 2020",
         category: "Health"
     },
     {
-        title: "Article 8 Title",
-        image: "https://cdn.cnn.com/cnnnext/dam/assets/200130165125-corona-virus-cdc-image-super-tease.jpg",
+        title: "Jacksonville! Because why not?",
+        image: "https://cdn.shopify.com/s/files/1/2395/7967/products/jacksonville_skyline_6a0f57ce-d89c-40d3-aa34-a55b121f3d69_530x@2x.jpg?v=1571609505",
         snippet: "Here is a sample snippet for an article that would show up on the home page.",
         author: "Sally Seaborn",
         date: "April 7, 2020",

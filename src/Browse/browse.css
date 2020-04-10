@@ -1,0 +1,19 @@
+.row-fluid {
+  margin-bottom: -30px;
+  padding-top: 5em;
+  display: flex;
+  justify-content: space-between;
+}
+
+ .row-fluid p {
+   font-size: 50px;
+   font-weight: 40;
+ }
+
+ .dropdown {
+   padding-top: 10px;
+ }
+
+.drop {
+  font-size: 30px;
+}

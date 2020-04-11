@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { ArticleCard } from '../Articles';
-// import { ArticleScroll } from '../Articles';
 import { feed } from '../SampleData/articles';
 import './home.css';
 

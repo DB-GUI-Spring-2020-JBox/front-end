@@ -3,7 +3,7 @@
     border: 0.1em solid #ddd;
     box-shadow: 0 0 0.5em rgba(0, 0, 0, 0);
     padding: 4em 10em;
-    margin-top: 3em;
+    margin: 3em auto;
 }
 
 #article-header {
@@ -33,4 +33,9 @@
 #article-body {
     font-size: 1.2rem;
     line-height: 2em;
+}
+
+#article-image {
+    margin: 3em auto;
+    width: 80%;
 }

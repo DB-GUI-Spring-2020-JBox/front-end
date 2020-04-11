@@ -5,7 +5,7 @@ import { Account } from '../models';
 import './accounts.css';
 
 
-export const Register = (props) => {
+export const Register = () => {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");

@@ -36,7 +36,8 @@ class App extends React.Component {
 							<div className="dropdown-menu drop" aria-labelledby="dropdownMenuButton" style={{border: "none", margin: "8px 0px 0px -20px", paddingRight: "5px", background: "rgb(54, 58, 63)"}}>
 	    					<a className="dropdown-item" href="/">Home</a>
 								<a className="dropdown-item" href="/profile">My Profile</a>
-	    					<a className="dropdown-item" href="/search">Search Articles</a>
+								<a className="dropdown-item" href="/browse">Browse</a>
+	    					<a className="dropdown-item" href="/search">Search</a>
 								<a className="dropdown-item" href="/">Post Article</a>
 								<a className="dropdown-item"  href="/">Contact</a>
 	  					</div>

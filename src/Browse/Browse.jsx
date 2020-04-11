@@ -19,16 +19,14 @@ export class Browse extends React.Component {
       return <>
       {sessionStorage.getItem("isAuthenticated") !== "true" &&
         (<Redirect to="/login"/>)}
-        <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
-          <div className="stories"> <p>Stories</p>
-
+          <div className="stories container-fluid"> <p style={{paddingRight: '10vw', paddingLeft: '10vw', paddingTop: "5vw"}}>Stories</p>
           { categories.map((category, j) =>
-              <div>
-                <h4>{ category }</h4>
-              <div className="scrollmenu">
+              <div style={{marginTop: "60px", marginLeft: "10vw"}}>
+                <h2>{ category }</h2><br></br>
+              <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
             { feed.map((a, i) => {
               if(a.category === category)
-                return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0"}}>
+                return <div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.date } category={ a.category } key={ i }/>
                     </div>})
@@ -36,9 +34,7 @@ export class Browse extends React.Component {
               </div>
             </div>
           )}
-
           </div>
-        </div>
     </>;
   }
 }

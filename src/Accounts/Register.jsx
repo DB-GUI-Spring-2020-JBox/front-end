@@ -26,6 +26,7 @@ export const Register = () => {
         }
 
         let account = new Account(
+            1,
             firstName,
             lastName,
             email,

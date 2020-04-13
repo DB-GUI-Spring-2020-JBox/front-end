@@ -1,0 +1,87 @@
+
+#messenger {
+  background: #fff;
+  border: 0.1em solid #ddd;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0);
+  margin: 3em auto 2em;
+}
+
+#messenger-header {
+  margin: 1em 0;
+}
+
+#message-list {
+  border: solid 0.1em #ddd;
+  overflow-y: scroll;
+  height: 60vh;
+  padding: 1em 0.5em;
+}
+
+#message-list .message {
+  border: 0;
+  margin-bottom: 0;
+  padding: 0.5em 1em;
+}
+
+#message-list .whole-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+}
+
+#message-list .whole-message .text {
+  margin-top: -0.25em;
+  margin-bottom: 0.25em;
+}
+
+#message-list .whole-message .show-date {
+  color: gray;
+}
+
+#message-list .whole-message .hide-date {
+  color: #fff;
+}
+
+#message-list .sender .text {
+  align-self: flex-end;
+}
+
+.message {
+  display: inline-block;
+}
+
+.message-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-group.sender {
+  align-items: flex-end;
+}
+
+.message-group.recipient {
+  align-items: flex-start;
+}
+
+.sender .message {
+  background: rgb(41, 41, 53);
+  color: white;
+}
+
+.recipient .message {
+  background: #ddd;
+  color: #000;
+}
+
+#chat-box {
+  margin: 1em;
+}
+
+#send-button {
+  margin: auto;
+}
+
+#chat-textarea {
+  resize: none;
+  min-height: 0;
+}

@@ -19,29 +19,6 @@ export const articles = [
     }
 ]
 
-export const users = [
-    {
-        id: 1,
-        name: "Drew Harwell",
-        email: "drewharwell@gmail.com",
-        linkToFacebook: "https://facebook.com",
-        linkToInstagram: "https://instagram.com",
-        linkToLinkedIn: "https://linkedin.com",
-        otherLink: "https://youtube.com",
-        joinDate: "September 24, 2013"
-    },
-    {
-        id: 2,
-        name: "Nicholas Crothers",
-        email: "ncrothers@smu.edu",
-        linkToFacebook: "https://facebook.com",
-        linkToInstagram: "https://instagram.com",
-        linkToLinkedIn: "https://linkedin.com",
-        otherLink: "https://youtube.com",
-        joinDate: "April 4, 2020"
-    },
-]
-
 export const feed = [
     {
         id: 1,

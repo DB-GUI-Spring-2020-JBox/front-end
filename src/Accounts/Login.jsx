@@ -32,6 +32,7 @@ export class Login extends React.Component {
         });
 
         sessionStorage.setItem("isAuthenticated", "true");
+        sessionStorage.setItem("userId", userAccount.id);
     }
 
     render() {

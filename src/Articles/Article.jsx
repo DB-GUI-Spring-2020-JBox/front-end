@@ -23,6 +23,13 @@ export class Article extends React.Component {
         }
     };
 
+    componentWillMount() {
+        let articleId = +this.props.match.params.articleId;
+        if (articleId) {
+            this.setState({ article: articles[0] });
+        }
+    }
+
     render() {
         return (
             <div id="article" className="container bg-white">
@@ -42,14 +49,6 @@ export class Article extends React.Component {
             </div>
         );
     }
-
-    componentDidMount() {
-        let articleId = +this.props.match.params.articleId;
-        if (articleId) {
-            this.setState({ article: articles[0] });
-        }
-    }
-
 };
 
 export default Article;

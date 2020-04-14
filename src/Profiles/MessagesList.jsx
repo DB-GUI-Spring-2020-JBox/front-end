@@ -24,7 +24,7 @@ export const MessagesList = props => {
 			let msg = props.messages[newIndex];
 
 			group.push((
-				<Message { ...{ msg, index: newIndex, messageClass } } />
+				<Message { ...{ msg, index: newIndex, messageClass, onEdit: index => props.onEdit(index) } } />
 			));
 
 			newIndex += 1;

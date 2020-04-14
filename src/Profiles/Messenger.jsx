@@ -21,8 +21,11 @@ export class Messenger extends React.Component {
 			}
 		],
 		currentMessage: "",
-		showDate: null,
 		messagesJSX: "",
+	}
+
+	onEdit(index) {
+		this.setState({ editMessage: index, currentMessage: this.state.messages[index].content });
 	}
 
 	sendMessage(event) {
@@ -32,14 +35,25 @@ export class Messenger extends React.Component {
 		}
 		
 		let messages = this.state.messages;
-		messages.push({
-			sender: this.state.sender,
-			recipient: this.state.recipient,
-			datePosted: new Date() / 1000,
-			content: this.state.currentMessage
-		});
 
-		this.setState({ messagesJSX: <MessagesList messages={ this.state.messages } sender={this.state.sender} /> })
+		if (this.state.editMessage >= 0) {
+			messages[this.state.editMessage].content = this.state.currentMessage;
+			this.setState({ editMessage: undefined });
+		}
+		else {
+			messages.push({
+				sender: this.state.sender,
+				recipient: this.state.recipient,
+				datePosted: new Date() / 1000,
+				content: this.state.currentMessage
+			});
+		}
+
+		this.setState({ 
+			messagesJSX: <MessagesList 
+							messages={ this.state.messages } 
+							sender={this.state.sender}
+							onEdit={ index => this.onEdit(index) } /> })
 
 		this.setState({ currentMessage: "" });
 	}
@@ -88,7 +102,7 @@ export class Messenger extends React.Component {
 								id="send-button"
 								type="button"
 								className="btn btn-primary"
-								onClick= {() => this.sendMessage() }>Send</button>
+								onClick= { () => this.sendMessage() }>Send</button>
 						</div>
 					</form>
 				</section>
@@ -97,7 +111,11 @@ export class Messenger extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setState({ messagesJSX: <MessagesList messages={ this.state.messages } sender={this.state.sender} /> });
+		this.setState({ 
+			messagesJSX: <MessagesList 
+							messages={ this.state.messages } 
+							sender={this.state.sender}
+							onEdit={ index => this.onEdit(index) } /> });
 	}
 
 	componentDidUpdate() {

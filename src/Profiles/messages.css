@@ -35,19 +35,20 @@
 }
 
 #message-list .whole-message .show-date {
+  z-index: 1;
   color: gray;
 }
 
 #message-list .whole-message .hide-date {
-  color: #fff;
+  z-index: -1;
 }
 
 #message-list .sender .text {
   align-self: flex-end;
 }
 
-.message {
-  display: inline-block;
+#message-list .message {
+  align-self: flex-end;
 }
 
 .message-group {
@@ -71,6 +72,10 @@
 .recipient .message {
   background: #ddd;
   color: #000;
+}
+
+#message-list .edit-link {
+  margin-top: -0.2em;
 }
 
 #chat-box {

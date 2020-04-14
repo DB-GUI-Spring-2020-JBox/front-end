@@ -2,18 +2,18 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './accounts.css';
 
-
 export class Login extends React.Component {
 
     state = {
         email: "",
         password: "",
-        invalidCred: false
+        invalidCred: false,
+        jwtValue: "",
     }
 
     login(event) {
         // Authenticate user
-
+        
         event.preventDefault();
         event.stopPropagation();
 
@@ -43,6 +43,7 @@ export class Login extends React.Component {
                 <form id="account-form" className="col-sm-9 col-md-7 col-lg-4 mt-5 mx-auto border-0" onSubmit={ e => this.login(e) }>
                     <div className="text-center"> <img src={require('../Images/logo.png')} alt="" height="250" width="250"/></div><br></br>
                     <h1 className="text-center">Sign In</h1>
+                    <p>{ this.state.jwtValue }</p>
                     { this.state.invalidCred &&
                         <p className="alert alert-danger">
                             Invalid email or password
@@ -69,7 +70,8 @@ export class Login extends React.Component {
                     <div id="login-button-container" className="text-center">
                         <button
                             type="submit"
-                            className="btn btn-info">
+                            className="btn btn-info"
+                            onClick={ e => this.login(e) }>
                             Login
                         </button>
                     </div>

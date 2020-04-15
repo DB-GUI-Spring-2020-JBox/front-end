@@ -4,6 +4,7 @@
   border: 0.1em solid #ddd;
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0);
   margin: 3em auto 2em;
+  padding: 0;
 }
 
 #messenger-header {
@@ -12,7 +13,7 @@
 
 #message-list {
   border: solid 0.1em #ddd;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 60vh;
   padding: 1em 0.5em;
 }
@@ -89,4 +90,15 @@
 #chat-textarea {
   resize: none;
   min-height: 0;
+}
+
+#sidebar {
+  border-right: solid #ddd 0.1em;
+  padding: 1em 0;
+  display: block;
+}
+
+#sidebar > div {
+  margin: 1em;
+  display: block;
 }

@@ -19,6 +19,16 @@ export const users = [
         otherLink: "https://youtube.com",
         joinDate: "April 4, 2020"
     },
+    {
+        id: 3,
+        name: "Mark Fontenot",
+        email: "ncrothers@smu.edu",
+        linkToFacebook: "https://facebook.com",
+        linkToInstagram: "https://instagram.com",
+        linkToLinkedIn: "https://linkedin.com",
+        otherLink: "https://youtube.com",
+        joinDate: "April 4, 2020"
+    },
 ]
 
 export const messages = [
@@ -57,5 +67,17 @@ export const messages = [
         recipient: 2,
         content: "THIS MESSAGE SHOULD NOT BE DISPLAYED",
         datePosted: 1586644059,
+    },
+    {
+        sender: 3,
+        recipient: 1,
+        content: "This is a sample message from user 2 to user 1",
+        datePosted: 1586640159,
+    },
+    {
+        sender: 1,
+        recipient: 3,
+        content: "This is a sample message from user 2 to user 1",
+        datePosted: 1586640159,
     },
 ]

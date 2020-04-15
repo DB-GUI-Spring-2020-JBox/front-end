@@ -39,7 +39,9 @@ class App extends React.Component {
 								<a className="dropdown-item" href="/browse">Browse</a>
 	    					<a className="dropdown-item" href="/search">Search</a>
 								<a className="dropdown-item" href="/">Post Article</a>
+								<a className="dropdown-item"  href="/messenger/t/2">Messenger</a>
 								<a className="dropdown-item"  href="/">Contact</a>
+								
 	  					</div>
 						</div>
 					<Navbar.Brand href="/">JBox<img src={require('./Images/logoHead.png')} style={{position: "absolute", left: "48vw", marginTop: "-12px"}} alt="" height="53" width="53"/></Navbar.Brand>

@@ -49,13 +49,29 @@ export class Messenger extends React.Component {
 			});
 		}
 
+		this.updateMessages();
+
+		this.setState({ currentMessage: "" });
+	}
+
+	updateMessages() {
 		this.setState({ 
 			messagesJSX: <MessagesList 
 							messages={ this.state.messages } 
 							sender={this.state.sender}
-							onEdit={ index => this.onEdit(index) } /> })
+							onEdit={ index => this.onEdit(index) } /> });
+	}
 
-		this.setState({ currentMessage: "" });
+	onSwitchMessages(id, name) {
+
+		this.setState({ recipient: id, recipientName: name })
+
+		let sender = +sessionStorage.getItem("userId");
+		let messages = messageList.filter(x => (x.sender === sender && x.recipient === id) || (x.sender === id && x.recipient === sender));
+		messages.sort((a, b) => a.datePosted - b.datePosted);
+
+		this.setState({ messages });
+		this.updateMessages();
 	}
 
 	componentWillMount() {
@@ -65,52 +81,76 @@ export class Messenger extends React.Component {
 		messages.sort((a, b) => a.datePosted - b.datePosted);
 		let recipientName = userList.find(x => x.id === recipient).name;
 
+		let uniqueUsers = [];
+		messageList.forEach(msg => {
+			if(msg.sender === sender && !uniqueUsers.find(x => x.id === msg.recipient)) {
+				uniqueUsers.push({id: msg.recipient, name: userList.find(x => x.id === msg.recipient).name});
+			}
+		});
+
 		this.setState({
 			sender,
 			recipient,
 			recipientName,
-			messages
+			messages,
+			uniqueUsers
 		});
 	}
 
 	render() {
 		return (
-			<div id="messenger" className="container">
-				{ sessionStorage.getItem("isAuthenticated") !== "true" &&
-				<Redirect to="/login" push /> }
+			<div id="messenger" className="container row">
+				<div id="sidebar" className="container col-4">
+					{
+						this.state.uniqueUsers.map(user => {
+						return <div 
+							onClick={ () => this.onSwitchMessages(user.id, user.name) } 
+							className={"btn " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
+						</div>})
+					}
+					{/* <div className="btn btn-primary">{ this.state.recipientName }</div>
+					<div className="btn btn-secondary">Other Name</div>
+					<div className="btn btn-secondary">Other Name</div>
+					<div className="btn btn-secondary">Other Name</div> */}
+				</div>
+				<div id="message-section" className="container col-8">
+					{ sessionStorage.getItem("isAuthenticated") !== "true" &&
+					<Redirect to="/login" push /> }
 
-				<section id="messenger-header">
-					<h2>{ this.state.recipientName }</h2>
-				</section>
-				<section id="message-list">{ this.state.messagesJSX }</section>
-				<section id="chat-box">
-					<form>
-						<div className="row form-group">
-							<textarea 
-								id="chat-textarea"
-								className="form-control col-11"
-								type="text"
-								value={ this.state.currentMessage }
-								onChange={ e => this.setState({ currentMessage: e.target.value }) }
-								onKeyPress={e => {
-									if (e.keyCode === 13 || e.which === 13) {
-										this.sendMessage(e)
-									}
-								}}
-								autoFocus/>
-							<button
-								id="send-button"
-								type="button"
-								className="btn btn-primary"
-								onClick= { () => this.sendMessage() }>Send</button>
-						</div>
-					</form>
-				</section>
+					<section id="messenger-header">
+						<h2>{ this.state.recipientName }</h2>
+					</section>
+					<section id="message-list">{ this.state.messagesJSX }</section>
+					<section id="chat-box">
+						<form>
+							<div className="row form-group">
+								<textarea 
+									id="chat-textarea"
+									className="form-control col-10"
+									type="text"
+									value={ this.state.currentMessage }
+									onChange={ e => this.setState({ currentMessage: e.target.value }) }
+									onKeyPress={e => {
+										if (e.keyCode === 13 || e.which === 13) {
+											this.sendMessage(e)
+										}
+									}}
+									autoFocus/>
+								<button
+									id="send-button"
+									type="button"
+									className="btn btn-primary"
+									onClick= { () => this.sendMessage() }>Send</button>
+							</div>
+						</form>
+					</section>
+				</div>
 			</div>
 		);
 	}
 
 	componentDidMount() {
+
 		this.setState({ 
 			messagesJSX: <MessagesList 
 							messages={ this.state.messages } 

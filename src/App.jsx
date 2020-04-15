@@ -6,8 +6,6 @@ import './index.css';
 class App extends React.Component {
 
 	state = {
-		isAuthenticated: false,
-		userHasAuthenticated: x => this.setState({ isAuthenticated: x }),
 		bgDisplay: ""
 	}
 

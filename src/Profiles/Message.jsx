@@ -4,6 +4,15 @@ export const Message = props => {
 
 	const [isHover, setIsHover] = useState(false);
 
+	const dateOptions = { 
+		month: '2-digit', 
+		day: '2-digit', 
+		year: '2-digit', 
+		hour: '2-digit', 
+		hour12: true, 
+		minute: '2-digit' 
+	}
+
 	return (
 		<div 
 			key={`m${props.index}`} 
@@ -21,7 +30,8 @@ export const Message = props => {
 						className="btn btn-link edit-link" 
 						onClick={ () => props.onEdit(props.index) }>Edit</span>
 				}
-				<span>{ new Date(props.msg.datePosted*1000).toLocaleDateString() }</span>
+				<span>{ 
+					new Date(props.msg.datePosted*1000).toLocaleString('default', dateOptions) }</span>
 			</div>
 		</div>
 	);

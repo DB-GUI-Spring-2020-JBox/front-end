@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Account } from '../models';
 import './accounts.css';
+import AccountRepository from '../Api/accountRepository';
 
 
 export const Register = () => {
@@ -16,6 +17,8 @@ export const Register = () => {
     const [validEmail, setValidEmail] = useState(true);
     const [validPassword, setValidPassword] = useState(true);
     const [complete, setComplete] = useState(false);
+
+    const accountRepository = new AccountRepository();
 
     function register(event) {
         event.preventDefault();
@@ -39,6 +42,8 @@ export const Register = () => {
         let accounts = JSON.parse(localStorage.getItem('accounts'));
         accounts.push(account);
         localStorage.setItem('accounts', JSON.stringify(accounts));
+
+        accountRepository.register(firstName, lastName, email, password);
 
         setComplete(true);
     }

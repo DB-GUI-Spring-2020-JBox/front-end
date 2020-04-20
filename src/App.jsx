@@ -6,13 +6,21 @@ import './index.css';
 class App extends React.Component {
 
 	state = {
-		bgDisplay: ""
+		bgDisplay: "",
+		dimensions: {
+			width: 0,
+			height: 0
+		}
 	}
 
 	componentDidMount() {
 		if(sessionStorage.getItem("isAuthenticated") === "true"){
 			this.setState({bgDisplay: "none"});
 		}
+	}
+
+	componentWillMount() {
+		this.setState({ dimensions: {width: window.innerWidth, height: window.innerHeight} });
 	}
 
 	render() {
@@ -37,7 +45,7 @@ class App extends React.Component {
 								<a className="dropdown-item" href="/browse">Browse</a>
 	    					<a className="dropdown-item" href="/search">Search</a>
 								<a className="dropdown-item" href="/">Post Article</a>
-								<a className="dropdown-item"  href="/messenger/t/2">Messenger</a>
+								<a className="dropdown-item"  href="/messenger">Messenger</a>
 								<a className="dropdown-item"  href="/">Contact</a>
 								
 	  					</div>

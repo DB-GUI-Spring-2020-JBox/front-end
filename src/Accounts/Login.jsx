@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './accounts.css';
+import AccountRepository from '../Api/accountRepository';
 
 export class Login extends React.Component {
 
@@ -10,6 +11,8 @@ export class Login extends React.Component {
         invalidCred: false,
         jwtValue: "",
     }
+
+    accountRepository = new AccountRepository();
 
     login(event) {
         // Authenticate user
@@ -25,14 +28,19 @@ export class Login extends React.Component {
             return;
         }
 
-        this.setState({
-            email: "",
-            password: "",
-            invalidCred: false
-        });
-
-        sessionStorage.setItem("isAuthenticated", "true");
-        sessionStorage.setItem("userId", userAccount.id);
+        if (this.accountRepository.login(this.state.email, this.state.password)) {
+            this.setState({
+                email: "",
+                password: "",
+                invalidCred: false
+            });
+    
+            sessionStorage.setItem("isAuthenticated", "true");
+            sessionStorage.setItem("userId", userAccount.id);
+        }
+        else {
+            this.setState({ invalidCred: true });
+        }
     }
 
     render() {

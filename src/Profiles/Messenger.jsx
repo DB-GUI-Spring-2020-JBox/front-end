@@ -1,28 +1,32 @@
-
 import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
 import { users as userList, messages as messageList } from '../SampleData/users';
 import { MessagesList } from './MessagesList';
 import './messages.css';
-import { Redirect } from 'react-router-dom';
 
 export class Messenger extends React.Component {
 
-	state = {
-		sender: "userid",
-		recipient: "userid",
-		recipientName: "",
-		messages: [
-			{
-				sender: "",
-				recipient: "",
-				datePosted: "",
-				content: ""
-			}
-		],
-		currentMessage: "",
-		messagesJSX: "",
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			sender: "userid",
+			recipient: "userid",
+			recipientName: "",
+			messages: [
+				{
+					sender: "",
+					recipient: "",
+					datePosted: "",
+					content: ""
+				}
+			],
+			currentMessage: "",
+			messagesJSX: "",
+		}
 	}
+
 
 	onEdit(index) {
 		this.setState({ editMessage: index, currentMessage: this.state.messages[index].content });
@@ -70,17 +74,18 @@ export class Messenger extends React.Component {
 		let messages = messageList.filter(x => (x.sender === sender && x.recipient === id) || (x.sender === id && x.recipient === sender));
 		messages.sort((a, b) => a.datePosted - b.datePosted);
 
-		this.setState({ messages });
-		this.updateMessages();
+		this.setState({ messages }, () => {
+			this.updateMessages();
+		});
 	}
 
 	componentWillMount() {
-		let sender = +sessionStorage.getItem("userId");
-		let recipient = +this.props.match.params.recipientId;
-		let messages = messageList.filter(x => (x.sender === sender && x.recipient === recipient) || (x.sender === recipient && x.recipient === sender));
-		messages.sort((a, b) => a.datePosted - b.datePosted);
-		let recipientName = userList.find(x => x.id === recipient).name;
+		if (sessionStorage.getItem("isAuthenticated") !== "true") {
+			return;
+		}
 
+		let sender = +sessionStorage.getItem("userId");
+		
 		let uniqueUsers = [];
 		messageList.forEach(msg => {
 			if(msg.sender === sender && !uniqueUsers.find(x => x.id === msg.recipient)) {
@@ -88,19 +93,30 @@ export class Messenger extends React.Component {
 			}
 		});
 
+		let messages = messageList.filter(x => (x.sender === sender && x.recipient === uniqueUsers[0].id) || (x.sender === uniqueUsers[0].id && x.recipient === sender));
+		messages.sort((a, b) => a.datePosted - b.datePosted);
+
 		this.setState({
 			sender,
-			recipient,
-			recipientName,
+			recipient: uniqueUsers[0].id,
+			recipientName: uniqueUsers[0].name,
 			messages,
 			uniqueUsers
 		});
 	}
 
 	render() {
+		if (sessionStorage.getItem("isAuthenticated") !== "true") {
+			return <Redirect to="/login" push />
+		}
+
+		const isPhone = this.props.dimensions.width < 1000;
+
 		return (
 			<div id="messenger" className="container row">
-				<div id="sidebar" className="container col-4">
+				<div id="sidebar" className="container col-3">
+					<h2 id="conversation-header">Conversations</h2>
+					<hr/>
 					{
 						this.state.uniqueUsers.map(user => {
 						return <div 
@@ -108,17 +124,18 @@ export class Messenger extends React.Component {
 							className={"btn " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
 						</div>})
 					}
-					{/* <div className="btn btn-primary">{ this.state.recipientName }</div>
-					<div className="btn btn-secondary">Other Name</div>
-					<div className="btn btn-secondary">Other Name</div>
-					<div className="btn btn-secondary">Other Name</div> */}
 				</div>
-				<div id="message-section" className="container col-8">
-					{ sessionStorage.getItem("isAuthenticated") !== "true" &&
-					<Redirect to="/login" push /> }
-
-					<section id="messenger-header">
-						<h2>{ this.state.recipientName }</h2>
+				<div id="message-section" className="container col-9">
+					<section id="messenger-header" className="row">
+						<h2 className="col-8">{ this.state.recipientName }</h2>
+						<div className={"pt-1 " + isPhone ? "col-12" : "col-4"}>
+							<Link 
+								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right")}
+								to={ "/profile/" + this.state.recipient }>
+								Go to Profile
+							</Link>
+							<span className="clearfix"></span>
+						</div>
 					</section>
 					<section id="message-list">{ this.state.messagesJSX }</section>
 					<section id="chat-box">

@@ -5,8 +5,7 @@ import { Home } from "./Home";
 import { Search } from "./Search";
 import { Article } from "./Articles";
 import { Browse } from "./Browse";
-import { Messenger } from "./Profiles";
-import { Profile } from "./Profiles";
+import { Messenger, Profile } from "./Profiles";
 
 export default function Routes({ appProps }) {
   return (
@@ -23,7 +22,7 @@ export default function Routes({ appProps }) {
         <Route path="/search" exact component={Search} appProps={appProps} />
         <Route path="/articles/:articleId" exact component={Article} />
         <Route path="/browse" exact component={Browse} />
-        <Route path="/messenger" exact component={Messenger} />
+        <Route path="/messenger" exact component={Messenger} dimensions={appProps.dimensions} />
         <Route path="/profile" exact component={Profile} />
 
         {/* ADD CATCH FOR INVALID URLS */}

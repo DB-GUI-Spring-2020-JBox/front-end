@@ -5,7 +5,9 @@ export class Profile extends React.Component {
     firstName: "",
     lastName: "",
     displayName: "",
+    password: "",
     email: "",
+    website: "",
   };
   render() {
     return (
@@ -121,6 +123,10 @@ export class Profile extends React.Component {
                             placeholder="website"
                             className="form-control here"
                             type="text"
+                            value={this.state.webiste}
+                            onChange={(e) =>
+                              this.setState({ website: e.target.value })
+                            }
                           ></input>
                         </div>
                       </div>
@@ -152,6 +158,10 @@ export class Profile extends React.Component {
                             placeholder="New Password"
                             className="form-control here"
                             type="text"
+                            value={this.state.password}
+                            onChange={(e) =>
+                              this.setState({ password: e.target.value })
+                            }
                           ></input>
                         </div>
                       </div>

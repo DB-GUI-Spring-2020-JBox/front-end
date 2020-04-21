@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 export class Profile extends React.Component {
   state = {
     username: "",
@@ -174,6 +175,19 @@ export class Profile extends React.Component {
                           >
                             Update My Profile
                           </button>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="offset-4 col-8">
+                          <Link to="/messenger/t/:recipient">
+                            <button
+                              name="submit"
+                              type="submit"
+                              className="btn btn-primary"
+                            >
+                              Messages
+                            </button>
+                          </Link>
                         </div>
                       </div>
                     </form>

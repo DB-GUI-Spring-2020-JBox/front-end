@@ -71,7 +71,7 @@ export class Messenger extends React.Component {
 
 		this.setState({ recipient: id, recipientName: name })
 
-		let sender = +sessionStorage.getItem("userId");
+		let sender = this.state.sender;
 		let messages = messageList.filter(x => (x.sender === sender && x.recipient === id) || (x.sender === id && x.recipient === sender));
 		messages.sort((a, b) => a.datePosted - b.datePosted);
 
@@ -125,7 +125,7 @@ export class Messenger extends React.Component {
 							{
 								this.state.uniqueUsers.map(user => {
 									return <Link 
-									to="/messenger"
+									to={ "/messenger/t/" + user.id }
 									onClick={ () => this.onSwitchMessages(user.id, user.name) }
 									className={ "dropdown-item " + (this.state.recipient === user.id ? "bg-light text-dark" : "") } >
 									{user.name}
@@ -141,10 +141,11 @@ export class Messenger extends React.Component {
 						<hr/>
 						{
 							this.state.uniqueUsers.map(user => {
-							return <div 
+							return <Link 
+								to={ "/messenger/t/" + user.id }
 								onClick={ () => this.onSwitchMessages(user.id, user.name) } 
-								className={"btn " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
-							</div>})
+								className={"btn btn-block " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
+							</Link>})
 						}
 					</div>
 				}
@@ -191,6 +192,11 @@ export class Messenger extends React.Component {
 
 	componentDidMount() {
 
+		let recipientId = +this.props.match.params.recipientId;
+		if (recipientId !== this.state.recipient) {
+			this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
+		}
+
 		this.setState({ 
 			messagesJSX: <MessagesList 
 							messages={ this.state.messages } 
@@ -199,6 +205,7 @@ export class Messenger extends React.Component {
 	}
 
 	componentDidUpdate() {
+
 		let box = document.getElementById('message-list');
 		box.scrollTop = box.scrollHeight;
 	}

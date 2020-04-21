@@ -22,7 +22,8 @@ export default function Routes({ appProps }) {
         <Route path="/search" exact component={Search} appProps={appProps} />
         <Route path="/articles/:articleId" exact component={Article} />
         <Route path="/browse" exact component={Browse} />
-        <Route path="/messenger" exact render={props => <Messenger {...props} dimensions={ appProps.dimensions } /> } />
+        <Route path="/messenger" render={props => <Messenger {...props} dimensions={ appProps.dimensions } /> } />
+        <Route path="/messenger/t/:recipientId" render={props => <Messenger {...props} dimensions={ appProps.dimensions } /> } />
         <Route path="/profile" exact component={Profile} />
 
         {/* ADD CATCH FOR INVALID URLS */}

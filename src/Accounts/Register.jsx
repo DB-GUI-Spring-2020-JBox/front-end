@@ -43,7 +43,7 @@ export const Register = () => {
         accounts.push(account);
         localStorage.setItem('accounts', JSON.stringify(accounts));
 
-        accountRepository.register(firstName, lastName, email, password);
+        //accountRepository.register(firstName, lastName, email, password);
 
         setComplete(true);
     }

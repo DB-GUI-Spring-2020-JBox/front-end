@@ -24,6 +24,7 @@ export class Messenger extends React.Component {
 			],
 			currentMessage: "",
 			messagesJSX: "",
+			phone: {}
 		}
 	}
 
@@ -70,7 +71,7 @@ export class Messenger extends React.Component {
 
 		this.setState({ recipient: id, recipientName: name })
 
-		let sender = +sessionStorage.getItem("userId");
+		let sender = this.state.sender;
 		let messages = messageList.filter(x => (x.sender === sender && x.recipient === id) || (x.sender === id && x.recipient === sender));
 		messages.sort((a, b) => a.datePosted - b.datePosted);
 
@@ -114,23 +115,46 @@ export class Messenger extends React.Component {
 
 		return (
 			<div id="messenger" className="container row">
-				<div id="sidebar" className="container col-3">
-					<h2 id="conversation-header">Conversations</h2>
-					<hr/>
-					{
-						this.state.uniqueUsers.map(user => {
-						return <div 
-							onClick={ () => this.onSwitchMessages(user.id, user.name) } 
-							className={"btn " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
-						</div>})
-					}
-				</div>
-				<div id="message-section" className="container col-9">
+				{ isPhone && 
+					<div className="dropdown">
+					<button className="btn" type="button" data-toggle="dropdown" >
+						<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" alt="" width="30" height="20" style={{marginTop: "-10px"}}/>
+						<span className="caret"></span></button>
+						Conversations
+					  	<div className="dropdown-menu drop" aria-labelledby="dropdownMenuButton" style={{border: "none", margin: "8px 0px 0px -20px", paddingRight: "5px", background: "rgb(54, 58, 63)"}}>
+							{
+								this.state.uniqueUsers.map(user => {
+									return <Link 
+									to={ "/messenger/t/" + user.id }
+									onClick={ () => this.onSwitchMessages(user.id, user.name) }
+									className={ "dropdown-item " + (this.state.recipient === user.id ? "bg-light text-dark" : "") } >
+									{user.name}
+									</Link>})
+							}	  
+					</div>
+					<hr className="my-0 bg-dark col-12" />	
+				  </div>
+				}
+				{ !isPhone &&
+					<div id="sidebar" className="container col-3">
+						<h2 id="conversation-header">Conversations</h2>
+						<hr/>
+						{
+							this.state.uniqueUsers.map(user => {
+							return <Link 
+								to={ "/messenger/t/" + user.id }
+								onClick={ () => this.onSwitchMessages(user.id, user.name) } 
+								className={"btn btn-block " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
+							</Link>})
+						}
+					</div>
+				}
+				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }>
 					<section id="messenger-header" className="row">
-						<h2 className="col-8">{ this.state.recipientName }</h2>
-						<div className={"pt-1 " + isPhone ? "col-12" : "col-4"}>
+						<h2 className={ isPhone ? "" : "col-8" }>{ this.state.recipientName }</h2>
+						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
 							<Link 
-								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right")}
+								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
 								to={ "/profile/" + this.state.recipient }>
 								Go to Profile
 							</Link>
@@ -168,6 +192,11 @@ export class Messenger extends React.Component {
 
 	componentDidMount() {
 
+		let recipientId = +this.props.match.params.recipientId;
+		if (recipientId !== this.state.recipient) {
+			this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
+		}
+
 		this.setState({ 
 			messagesJSX: <MessagesList 
 							messages={ this.state.messages } 
@@ -176,6 +205,7 @@ export class Messenger extends React.Component {
 	}
 
 	componentDidUpdate() {
+
 		let box = document.getElementById('message-list');
 		box.scrollTop = box.scrollHeight;
 	}

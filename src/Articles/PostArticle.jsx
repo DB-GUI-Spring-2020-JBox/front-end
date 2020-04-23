@@ -14,6 +14,7 @@ export class PostArticle extends React.Component {
       },
       button: {
         value: "Post Article",
+        color: "aqua",
       },
     };
     this.handleClick = this.handleClick.bind(this);
@@ -21,7 +22,7 @@ export class PostArticle extends React.Component {
 
   handleClick() {
     if (this.state.button.value === "Post Article") {
-      this.setState({ button: { value: "Posted" } });
+      this.setState({ button: { value: "Posted", color: "palegreen" } });
     }
   }
 
@@ -70,10 +71,12 @@ export class PostArticle extends React.Component {
             }
           />
         </div>
-
         <div>
-          <button class="submit" type="submit">
-            Post Article
+          <button
+            onClick={this.handleClick}
+            style={{ backgroundColor: this.state.button.color }}
+          >
+            {this.state.button.value}
           </button>
         </div>
       </div>

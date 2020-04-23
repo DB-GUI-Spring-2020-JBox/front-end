@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import './browse.css';
 import { feed } from '../SampleData/articles';
 import { ArticleCard } from '../Articles';
+import { BrowseRepository } from '../Api/browseRepository';
 
 
 
@@ -10,9 +11,10 @@ const categories = ["Health", "Technology", "Wealth", "Politics"]
 
 export class Browse extends React.Component {
 
+    browseRepo = new BrowseRepository();
+
     state = {
-      category: 'All Categories',
-      feed: ''
+
     }
 
     render () {
@@ -34,8 +36,12 @@ export class Browse extends React.Component {
               </div>
             </div>
           )}
-          </div>
+        </div>
     </>;
+  }
+
+  getCategoryArticles(category) {
+    return this.browseRepo.getArticles(category);
   }
 }
 

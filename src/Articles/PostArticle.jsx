@@ -1,38 +1,79 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+//import Time from "react-time";
 export class PostArticle extends React.Component {
-  state = {
-    article: {
-      title: "",
-      content: "",
-      date: "",
-      author: {
-        id: "",
-        name: "",
+  constructor() {
+    super();
+    this.state = {
+      article: {
+        title: "",
+        content: "",
+        //date: new Date(),
+        author: "",
+        category: "",
       },
-      category: "",
-    },
-  };
+      button: {
+        value: "Post Article",
+      },
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    if (this.state.button.value === "Post Article") {
+      this.setState({ button: { value: "Posted" } });
+    }
+  }
+
   render() {
     return (
       <div>
         <div>
-          <label for="email">Email:</label>
-          <input type="text" name="email" />
-          <span class="form_hint">Proper format "name@something.com"</span>
+          <label for="Title">Title:</label>
+          <input
+            id="Title"
+            name="Title"
+            placeholder="Title"
+            className="form-control here"
+            required="required"
+            type="text"
+            value={this.state.article.title}
+            onChange={(e) =>
+              this.setState({ article: { title: e.target.value } })
+            }
+          ></input>
         </div>
         <div>
-          <label for="website">Website:</label>
-          <input type="text" name="website" />
-          <span class="form_hint">Proper format "http://someaddress.com"</span>
+          <label for="Content">Content:</label>
+          <textarea
+            name="Content"
+            cols="70"
+            rows="10"
+            value={this.state.article.content}
+            onChange={(e) =>
+              this.setState({ article: { content: e.target.value } })
+            }
+          ></textarea>
         </div>
         <div>
-          <label for="message">Message:</label>
-          <textarea name="message" cols="40" rows="6"></textarea>
+          <label for="Author">Author:</label>
+          <input
+            name="Author"
+            id="Author"
+            placeholder="Author"
+            className="form-control here"
+            required="required"
+            type="text"
+            value={this.state.article.author}
+            onChange={(e) =>
+              this.setState({ article: { author: e.target.value } })
+            }
+          />
         </div>
+
         <div>
           <button class="submit" type="submit">
-            Submit Form
+            Post Article
           </button>
         </div>
       </div>

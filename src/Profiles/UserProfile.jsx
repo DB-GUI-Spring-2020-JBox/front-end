@@ -24,7 +24,7 @@ export class UserProfile extends React.Component {
   componentWillMount() {
     let userId = +this.props.match.params.userId;
     if (userId) {
-      this.setState({ user: users[userId] });
+      this.setState({ user: users[userId - 1] });
     }
   }
 

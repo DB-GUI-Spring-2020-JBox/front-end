@@ -1,9 +1,12 @@
-import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import React from "react";
+import { Redirect, Link } from "react-router-dom";
 
-import { users as userList, messages as messageList } from '../SampleData/users';
-import { MessagesList } from './MessagesList';
-import './messages.css';
+import {
+  users as userList,
+  messages as messageList,
+} from "../SampleData/users";
+import { MessagesList } from "./MessagesList";
+import "./messages.css";
 
 export class Messenger extends React.Component {
 

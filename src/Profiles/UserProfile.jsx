@@ -1,22 +1,38 @@
 import React, { Component } from "react";
 import { users } from "../SampleData/users";
+import { Button } from "react-bootstrap";
 export class UserProfile extends React.Component {
-  state = {
-    user: {
-      name: "",
-      email: "",
-      linkToFacebook: "",
-      linkToInstagram: "",
-      linkToLinkedIn: "",
-      otherLink: "",
-      joinDate: "",
-    },
-  };
+  constructor() {
+    super();
+    this.state = {
+      user: {
+        name: "",
+        email: "",
+        linkToFacebook: "",
+        linkToInstagram: "",
+        linkToLinkedIn: "",
+        otherLink: "",
+        joinDate: "",
+      },
+      button: {
+        value: "Follow",
+      },
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   componentWillMount() {
     let userId = +this.props.match.params.userId;
     if (userId) {
-      this.setState({ user: users[0] });
+      this.setState({ user: users[userId - 1] });
+    }
+  }
+
+  handleClick() {
+    if (this.state.button.value === "Follow") {
+      this.setState({ button: { value: "Unfollow" } });
+    } else {
+      this.setState({ button: { value: "Follow" } });
     }
   }
 
@@ -41,9 +57,6 @@ export class UserProfile extends React.Component {
                     {this.state.user.email}
                     <br />
                     <i class="glyphicon glyphicon-globe"></i>
-                    <a href="http://www.jquery2dotnet.com">
-                      www.jquery2dotnet.com
-                    </a>
                     <br />
                     <i class="glyphicon glyphicon-gift"></i>
                     {this.state.user.joinDate}
@@ -65,12 +78,21 @@ export class UserProfile extends React.Component {
                         <a href={this.state.user.linkToInstagram}>Instagram</a>
                       </li>
                       <li>
-                        <a href={this.state.user.linkToLinkedIn}>LinkedIm</a>
+                        <a href={this.state.user.linkToLinkedIn}>LinkedIn</a>
                       </li>
                       <li>
                         <a href={this.state.user.linkToFacebook}>Facebook</a>
                       </li>
                     </ul>
+                  </div>
+                  <div>
+                    <button
+                      onClick={this.handleClick}
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      {this.state.button.value}
+                    </button>
                   </div>
                 </div>
               </div>

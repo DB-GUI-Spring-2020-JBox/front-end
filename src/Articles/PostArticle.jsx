@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./postarticle.css";
+//import "./postarticle.css";
 //import Time from "react-time";
 
 const categories = ["All Categories", "Health", "Tech", "Wealth"];

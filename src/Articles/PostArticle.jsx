@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 //import Time from "react-time";
+
+const categories = ["All Categories", "Health", "Tech", "Wealth"];
+
 export class PostArticle extends React.Component {
   constructor() {
     super();
@@ -71,6 +74,8 @@ export class PostArticle extends React.Component {
             }
           />
         </div>
+        <p>Date Published: {new Date().toLocaleDateString()}</p>
+
         <div>
           <button
             onClick={this.handleClick}

@@ -11,7 +11,7 @@ function error(err) {
 export class AccountRepository {
 
     login(email, password) {
-        axios.post(`${hostname}/login`, { email, password })
+        axios.post(`${hostname}/api/login`, { email, password })
             .then(response => {
                 if (response === "true")
                     return true;
@@ -25,7 +25,7 @@ export class AccountRepository {
     }
 
     register(firstName, lastName, email, password) {
-        axios.post(`${hostname}/register`, { name: `${firstName} ${lastName}`, email, password })
+        axios.post(`${hostname}/api/register`, { name: `${firstName} ${lastName}`, email, password })
             .then(response => {
                 return response;
             })

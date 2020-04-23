@@ -28,7 +28,8 @@ export class Login extends React.Component {
             return;
         }
 
-        if (/*this.accountRepository.login(this.state.email, this.state.password)*/true) {
+        // if (this.accountRepository.login(this.state.email, this.state.password)) {
+        if (true) {
             this.setState({
                 email: "",
                 password: "",

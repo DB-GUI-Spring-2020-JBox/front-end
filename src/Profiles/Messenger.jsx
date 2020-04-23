@@ -155,7 +155,7 @@ export class Messenger extends React.Component {
 						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
 							<Link 
 								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
-								to={ "/profile/" + this.state.recipient }>
+								to={ "/userprofile/" + this.state.recipient }>
 								Go to Profile
 							</Link>
 							<span className="clearfix"></span>
@@ -192,10 +192,10 @@ export class Messenger extends React.Component {
 
 	componentDidMount() {
 
-		let recipientId = +this.props.match.params.recipientId;
-		if (recipientId !== this.state.recipient) {
-			this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
-		}
+		// let recipientId = +this.props.match.params.recipientId;
+		// if (recipientId !== this.state.recipient) {
+		// 	this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
+		// }
 
 		this.setState({ 
 			messagesJSX: <MessagesList 

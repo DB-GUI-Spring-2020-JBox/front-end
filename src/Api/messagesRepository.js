@@ -10,7 +10,7 @@ function error(err) {
 export class MessagesRepository {
 
     getMessages(userId) {
-        axios.get(`${hostname}/messages`, { params: { userId } })
+        axios.get(`${hostname}/api/messages`, { params: { userId } })
             .then(response => {
                 return response;
             })
@@ -20,7 +20,7 @@ export class MessagesRepository {
     }
 
     sendMessage(message) {
-        axios.post(`${hostname}/messages`, { message })
+        axios.post(`${hostname}/api/messages`, { message })
             .then(response => {
                 return response;
             })
@@ -30,7 +30,7 @@ export class MessagesRepository {
     }
 
     editMessage(message) {
-        axios.put(`${hostname}/messages`, { message })
+        axios.put(`${hostname}/api/messages`, { message })
             .then(response => {
                 return response;
             })

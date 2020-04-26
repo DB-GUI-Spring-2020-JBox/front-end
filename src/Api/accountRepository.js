@@ -10,29 +10,56 @@ function error(err) {
 
 export class AccountRepository {
 
-    login(email, password) {
-        axios.post(`${hostname}/api/login`, { email, password })
-            .then(response => {
-                if (response === "true")
-                    return true;
-                else
-                    return false;
-            })
-            .catch(err => {
-                error(err);
-                return 'error';
-            });
+    profiles() {
+        return new Promise((resolve, reject) => {
+            axios.get('/api/profiles')
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject(err);
+                });
+        })
+    }
+
+    profile(id) {
+        return new Promise((resolve, reject) => {
+            axios.get('/api/profilesUser/' + id)
+                .then(response => {
+                    resolve(response.data[0]);
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject(err);
+                });
+        })
+    }
+
+    login(username, password) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/login', { username, password })
+                .then(response => {
+                    resolve({ status: true, account: response.data.account });
+                })
+                .catch(err => {
+                    error(err);
+                    resolve({ status: false });
+                });
+        });
     }
 
     register(firstName, lastName, email, password) {
-        axios.post(`${hostname}/api/register`, { name: `${firstName} ${lastName}`, email, password })
-            .then(response => {
-                return response;
-            })
-            .catch(err => {
-                error(err);
-                return 'error';
-            });
+        return new Promise((resolve, reject) => {
+            axios.post('/api/register', { name: `${firstName} ${lastName}`, email, password })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
     }
 }
 

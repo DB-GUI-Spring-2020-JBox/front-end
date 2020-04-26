@@ -1,12 +1,10 @@
 import React from "react";
 import { Redirect, Link } from "react-router-dom";
 
-import {
-  users as userList,
-  messages as messageList,
-} from "../SampleData/users";
 import { MessagesList } from "./MessagesList";
 import "./messages.css";
+import MessagesRepository from "../Api/messagesRepository";
+import AccountRepository from "../Api/accountRepository";
 
 export class Messenger extends React.Component {
 
@@ -27,16 +25,19 @@ export class Messenger extends React.Component {
 			],
 			currentMessage: "",
 			messagesJSX: "",
-			phone: {}
+			phone: {},
+			uniqueUsers: []
 		}
 	}
 
+	messagesRepository = new MessagesRepository();
+	accountRepository = new AccountRepository();
 
-	onEdit(index) {
-		this.setState({ editMessage: index, currentMessage: this.state.messages[index].content });
+	async onEdit(index) {
+		this.setState({ editMessage: index, currentMessage: this.state.messages.find(x => x.ID === index).content });
 	}
 
-	sendMessage(event) {
+	async sendMessage(event) {
 		if (event) {
 			event.preventDefault();
 			event.stopPropagation();
@@ -45,13 +46,13 @@ export class Messenger extends React.Component {
 		let messages = this.state.messages;
 
 		if (this.state.editMessage >= 0) {
-			messages[this.state.editMessage].content = this.state.currentMessage;
+			await this.messagesRepository.editMessage({ ID: this.state.editMessage, content: this.state.currentMessage });
 			this.setState({ editMessage: undefined });
 		}
 		else {
-			messages.push({
+			await this.messagesRepository.sendMessage({
 				sender: this.state.sender,
-				recipient: this.state.recipient,
+				receiver: this.state.recipient,
 				datePosted: new Date() / 1000,
 				content: this.state.currentMessage
 			});
@@ -62,11 +63,45 @@ export class Messenger extends React.Component {
 		this.setState({ currentMessage: "" });
 	}
 
-	updateMessages() {
+	async updateMessages() {
+
+		const sender = this.state.sender;
+
+		let uniqueUsers = [];
+
+		const messageList = await this.messagesRepository.getMessages(+sessionStorage.getItem("userId"));
+
+		let userId;
+		messageList.forEach(msg => {
+			userId = undefined;
+			if(msg.receiver !== sender && !uniqueUsers.find(x => (x.ID === msg.receiver))) {
+				userId = msg.receiver;
+			}
+			else if (msg.sender !== sender && !uniqueUsers.find(x => (x.ID === msg.sender))) {
+				userId = msg.sender;
+			}
+
+			if (userId) {
+				let name = this.state.profiles.find(x => x.ID === userId).name;
+				uniqueUsers.push({ID: userId, name });
+			}
+
+		});
+		
+		messageList.sort((a, b) => a.datePosted - b.datePosted);
+		
+		this.setState({
+			recipient: uniqueUsers[0].ID,
+			recipientName: uniqueUsers[0].name,
+			messages: messageList,
+			uniqueUsers
+		});
+
 		this.setState({ 
 			messagesJSX: <MessagesList 
 							messages={ this.state.messages } 
 							sender={this.state.sender}
+							recipient={this.state.recipient}
 							onEdit={ index => this.onEdit(index) } /> });
 	}
 
@@ -74,39 +109,12 @@ export class Messenger extends React.Component {
 
 		this.setState({ recipient: id, recipientName: name })
 
-		let sender = this.state.sender;
-		let messages = messageList.filter(x => (x.sender === sender && x.recipient === id) || (x.sender === id && x.recipient === sender));
-		messages.sort((a, b) => a.datePosted - b.datePosted);
-
-		this.setState({ messages }, () => {
-			this.updateMessages();
-		});
+		this.updateMessages();
 	}
 
-	componentWillMount() {
-		if (sessionStorage.getItem("isAuthenticated") !== "true") {
-			return;
-		}
-
-		let sender = +sessionStorage.getItem("userId");
-		
-		let uniqueUsers = [];
-		messageList.forEach(msg => {
-			if(msg.sender === sender && !uniqueUsers.find(x => x.id === msg.recipient)) {
-				uniqueUsers.push({id: msg.recipient, name: userList.find(x => x.id === msg.recipient).name});
-			}
-		});
-
-		let messages = messageList.filter(x => (x.sender === sender && x.recipient === uniqueUsers[0].id) || (x.sender === uniqueUsers[0].id && x.recipient === sender));
-		messages.sort((a, b) => a.datePosted - b.datePosted);
-
-		this.setState({
-			sender,
-			recipient: uniqueUsers[0].id,
-			recipientName: uniqueUsers[0].name,
-			messages,
-			uniqueUsers
-		});
+	async loadProfiles() {
+		const profiles = await this.accountRepository.profiles();
+		this.setState({ profiles });
 	}
 
 	render() {
@@ -128,9 +136,9 @@ export class Messenger extends React.Component {
 							{
 								this.state.uniqueUsers.map(user => {
 									return <Link 
-									to={ "/messenger/t/" + user.id }
-									onClick={ () => this.onSwitchMessages(user.id, user.name) }
-									className={ "dropdown-item " + (this.state.recipient === user.id ? "bg-light text-dark" : "") } >
+									to={ "/messenger/t/" + user.ID }
+									onClick={ () => this.onSwitchMessages(user.ID, user.name) }
+									className={ "dropdown-item " + (this.state.recipient === user.ID ? "bg-light text-dark" : "") } >
 									{user.name}
 									</Link>})
 							}	  
@@ -145,9 +153,9 @@ export class Messenger extends React.Component {
 						{
 							this.state.uniqueUsers.map(user => {
 							return <Link 
-								to={ "/messenger/t/" + user.id }
-								onClick={ () => this.onSwitchMessages(user.id, user.name) } 
-								className={"btn btn-block " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
+								to={ "/messenger/t/" + user.ID }
+								onClick={ () => this.onSwitchMessages(user.ID, user.name) } 
+								className={"btn btn-block " + (this.state.recipient === user.ID ? "btn-primary" : "btn-secondary")}>{user.name}
 							</Link>})
 						}
 					</div>
@@ -193,18 +201,23 @@ export class Messenger extends React.Component {
 		);
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 
 		// let recipientId = +this.props.match.params.recipientId;
 		// if (recipientId !== this.state.recipient) {
 		// 	this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
 		// }
 
-		this.setState({ 
-			messagesJSX: <MessagesList 
-							messages={ this.state.messages } 
-							sender={this.state.sender}
-							onEdit={ index => this.onEdit(index) } /> });
+		if (sessionStorage.getItem("isAuthenticated") !== "true") {
+			return;
+		}
+
+		let sender = +sessionStorage.getItem("userId");
+		this.setState({ sender });
+
+		await this.loadProfiles();
+		
+		await this.updateMessages();
 	}
 
 	componentDidUpdate() {

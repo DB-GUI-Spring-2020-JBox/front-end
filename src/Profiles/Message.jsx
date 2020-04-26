@@ -28,10 +28,10 @@ export const Message = props => {
 				{ props.messageClass === "sender" &&
 					<span 
 						className="btn btn-link edit-link" 
-						onClick={ () => props.onEdit(props.index) }>Edit</span>
+						onClick={ () => props.onEdit(props.msg.ID) }>Edit</span>
 				}
 				<span>{ 
-					new Date(props.msg.datePosted*1000).toLocaleString('default', dateOptions) }</span>
+					new Date(props.msg.datePosted).toLocaleString('default', dateOptions) }</span>
 			</div>
 		</div>
 	);

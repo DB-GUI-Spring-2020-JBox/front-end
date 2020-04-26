@@ -10,33 +10,39 @@ function error(err) {
 export class MessagesRepository {
 
     getMessages(userId) {
-        axios.get(`${hostname}/api/messages`, { params: { userId } })
-            .then(response => {
-                return response;
-            })
-            .catch(err => {
-                error(err);
+        return new Promise((resolve, reject) => {
+            axios.get(`/api/messagesSender/${userId}`)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
             });
+        })
     }
 
     sendMessage(message) {
-        axios.post(`${hostname}/api/messages`, { message })
-            .then(response => {
-                return response;
-            })
-            .catch(err => {
-                error(err);
+        return new Promise((resolve, reject) => {
+            axios.post(`/api/messages`, { ...message })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
             });
+        });
     }
 
     editMessage(message) {
-        axios.put(`${hostname}/api/messages`, { message })
-            .then(response => {
-                return response;
-            })
-            .catch(err => {
-                error(err);
+        return new Promise((resolve, reject) => {
+            axios.put(`/api/messages/${message.ID}`, { content: message.content })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
             });
+        });
     }
 }
 

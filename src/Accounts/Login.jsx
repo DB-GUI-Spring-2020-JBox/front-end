@@ -6,7 +6,7 @@ import AccountRepository from '../Api/accountRepository';
 export class Login extends React.Component {
 
     state = {
-        email: "",
+        username: "",
         password: "",
         invalidCred: false,
         jwtValue: "",
@@ -14,57 +14,62 @@ export class Login extends React.Component {
 
     accountRepository = new AccountRepository();
 
-    login(event) {
+    async login(event) {
         // Authenticate user
         
         event.preventDefault();
         event.stopPropagation();
 
-        let accounts = JSON.parse(localStorage.getItem('accounts'));
-        let userAccount = accounts.find(x => (x.email === this.state.email && x.password === this.state.password));
-
-        if (!(this.state.email && this.state.password) || !userAccount) {
+        if (!(this.state.username && this.state.password)) {
             this.setState({ invalidCred: true });
             return;
         }
 
-        // if (this.accountRepository.login(this.state.email, this.state.password)) {
-        if (true) {
+        const response = await this.accountRepository.login(this.state.username, this.state.password);
+        
+        if (!response || response === 'error') {
+            return;
+        }
+
+        if (response.status) {
+
+            sessionStorage.setItem("isAuthenticated", "true");
+            sessionStorage.setItem("userId", response.account.ID);
+
             this.setState({
-                email: "",
+                username: "",
                 password: "",
                 invalidCred: false
             });
-    
-            sessionStorage.setItem("isAuthenticated", "true");
-            sessionStorage.setItem("userId", userAccount.id);
         }
         else {
             this.setState({ invalidCred: true });
         }
+
     }
 
     render() {
+        if (sessionStorage.getItem("isAuthenticated") === "true") {
+            return <Redirect to="/" />;
+        }
         return (
             <>
-                {sessionStorage.getItem("isAuthenticated") === "true" &&
-                    (<Redirect to="/" push />)}
                 <form id="account-form" className="col-sm-9 col-md-7 col-lg-4 mt-5 mx-auto border-0" onSubmit={ e => this.login(e) }>
                     <div className="text-center"> <img src={require('../Images/logo.png')} alt="" height="250" width="250"/></div><br></br>
                     <h1 className="text-center">Sign In</h1>
                     <p>{ this.state.jwtValue }</p>
                     { this.state.invalidCred &&
                         <p className="alert alert-danger">
-                            Invalid email or password
+                            Invalid username or password
                         </p> }
                     <div className="form-label-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="username">Username</label>
                         <input
                             type="text"
-                            id="email"
+                            id="username"
                             className="form-control"
-                            value={ this.state.email }
-                            onChange={ e => this.setState({ email: e.target.value }) }/>
+                            value={ this.state.username }
+                            onChange={ e => this.setState({ username: e.target.value }) }/>
                     </div>
                     <div className="form-label-group mt-3">
                         <label htmlFor="password">Password</label>

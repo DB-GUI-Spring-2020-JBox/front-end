@@ -1,2 +1,2 @@
-export const hostname = "http://127.0.0.1:3201";
+export const hostname = "http://localhost:8000";
 export default hostname;

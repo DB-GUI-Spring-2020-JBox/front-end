@@ -11,7 +11,7 @@ export class MessagesRepository {
 
     getMessages(userId) {
         return new Promise((resolve, reject) => {
-            axios.get(`/api/messagesSender/${userId}`)
+            axios.get(`${hostname}/api/messagesSender/${userId}`)
                 .then(response => {
                     resolve(response.data);
                 })
@@ -23,7 +23,7 @@ export class MessagesRepository {
 
     sendMessage(message) {
         return new Promise((resolve, reject) => {
-            axios.post(`/api/messages`, { ...message })
+            axios.post(`${hostname}/api/messages`, { ...message })
                 .then(response => {
                     resolve(response.data);
                 })
@@ -35,7 +35,7 @@ export class MessagesRepository {
 
     editMessage(message) {
         return new Promise((resolve, reject) => {
-            axios.put(`/api/messages/${message.ID}`, { content: message.content })
+            axios.put(`${hostname}/api/messages/${message.ID}`, { content: message.content })
                 .then(response => {
                     resolve(response.data);
                 })

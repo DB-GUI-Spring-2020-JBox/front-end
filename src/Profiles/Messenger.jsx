@@ -43,8 +43,6 @@ export class Messenger extends React.Component {
 			event.stopPropagation();
 		}
 		
-		let messages = this.state.messages;
-
 		if (this.state.editMessage >= 0) {
 			await this.messagesRepository.editMessage({ ID: this.state.editMessage, content: this.state.currentMessage });
 			this.setState({ editMessage: undefined });

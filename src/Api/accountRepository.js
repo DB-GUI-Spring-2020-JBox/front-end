@@ -40,7 +40,7 @@ export class AccountRepository {
         return new Promise((resolve, reject) => {
             axios.post(hostname + '/api/login', { username, password })
                 .then(response => {
-                    resolve({ status: true, account: response.data.account });
+                    resolve({ status: response.data.status, account: response.data.account });
                 })
                 .catch(err => {
                     error(err);

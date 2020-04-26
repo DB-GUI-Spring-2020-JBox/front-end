@@ -111,7 +111,7 @@ export class Messenger extends React.Component {
 	}
 
 	async loadProfiles() {
-		const profiles = await this.accountRepository.profiles();
+		const profiles = await this.accountRepository.getProfiles();
 		this.setState({ profiles });
 	}
 

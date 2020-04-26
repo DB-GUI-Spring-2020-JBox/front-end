@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 //import "./postarticle.css";
 //import Time from "react-time";
 
-const categories = ["All Categories", "Health", "Tech", "Wealth"];
+//const categories = ["All Categories", "Health", "Tech", "Wealth"];
 
 export class PostArticle extends React.Component {
   constructor() {

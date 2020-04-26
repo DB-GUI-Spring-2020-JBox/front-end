@@ -2,21 +2,21 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { ArticleCard } from '../Articles';
 import { feed } from '../SampleData/articles';
+import { HomeRepository } from '../Api/homeRepository';
 import './home.css';
 
-const categories = ["All Categories", "Health", "Tech", "Wealth"]
+const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
 
 //export const Home = (props) => {
   export class Home extends React.Component {
 
-    state = {
-      category: 'All Categories',
-      articles: []
-    }
+    homeRepo = new HomeRepository();
 
-    featured = feed[0];
-    firstRow = feed.slice(1,5);
-    secondRow = feed.slice(6,8);
+    state = {
+      featured: [],
+      firstRow: [],
+      secondRow: []
+    };
 
     render () {
       return <>
@@ -37,18 +37,18 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
             </div>
           <div className="container-fluid" style={{marginTop: '4em', justifyContent: 'space-between'}}>
             <div>
-                <ArticleCard title={ this.featured.title } image={ this.featured.image } snippet={ this.featured.snippet } author={ this.featured.author }
-                    date={ this.featured.date } category={ this.featured.category }/>
+                <ArticleCard title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
+                    date={ this.state.featured.datePosted } category={ this.state.featured.category }/>
             </div>
           </div>
           <div className="container-fluid bg-3">
             <div className="row" style={{overflow: "hidden"}}>
 
             {
-              this.firstRow.map((a, i) => {
+              this.state.firstRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl-3 article-row" style={{ padding: "0"}}>
                     <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
-                        date={ a.date } category={ a.category } key={ i }/>
+                        date={ a.datePosted } category={ a.category } key={ i }/>
                     </div>})
             }
 
@@ -58,10 +58,10 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
             <div className="row article-row">
 
             {
-              this.secondRow.map((a, i) => {
+              this.state.secondRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0"}}>
                     <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
-                        date={ a.date } category={ a.category } key={ i }/>
+                        date={ a.datePosted } category={ a.category } key={ i }/>
                     </div>})
             }
 
@@ -70,18 +70,22 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
           </div>
           <div className = "row personal-feed" style={{marginTop: '6em', marginBottom: "1em"}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Your Feed</p></div>
           </div>
-
         <div className="scrollmenu">
         { feed.map((a, i) => {
           return <div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
               <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
-                  date={ a.date } category={ a.category } key={ i }/>
+                  date={ a.datePosted } category={ a.category } key={ i }/>
               </div>})
         }
         </div>
       </div>
     </>;
   }
+
+    componentDidMount() {
+      this.homeRepo.getLatestArticles()
+        .then(articles => this.setState({ featured: articles[0], firstRow: articles.slice(1, 5), secondRow: articles.slice(6, 8) }));
+    }
 }
 
 export default Home;

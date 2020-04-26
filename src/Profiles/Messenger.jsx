@@ -41,7 +41,7 @@ export class Messenger extends React.Component {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		
+
 		let messages = this.state.messages;
 
 		if (this.state.editMessage >= 0) {
@@ -63,9 +63,9 @@ export class Messenger extends React.Component {
 	}
 
 	updateMessages() {
-		this.setState({ 
-			messagesJSX: <MessagesList 
-							messages={ this.state.messages } 
+		this.setState({
+			messagesJSX: <MessagesList
+							messages={ this.state.messages }
 							sender={this.state.sender}
 							onEdit={ index => this.onEdit(index) } /> });
 	}
@@ -83,13 +83,13 @@ export class Messenger extends React.Component {
 		});
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return;
 		}
 
 		let sender = +sessionStorage.getItem("userId");
-		
+
 		let uniqueUsers = [];
 		messageList.forEach(msg => {
 			if(msg.sender === sender && !uniqueUsers.find(x => x.id === msg.recipient)) {
@@ -118,7 +118,7 @@ export class Messenger extends React.Component {
 
 		return (
 			<div id="messenger" className="container row">
-				{ isPhone && 
+				{ isPhone &&
 					<div className="dropdown">
 					<button className="btn" type="button" data-toggle="dropdown" >
 						<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" alt="" width="30" height="20" style={{marginTop: "-10px"}}/>
@@ -127,15 +127,15 @@ export class Messenger extends React.Component {
 					  	<div className="dropdown-menu drop" aria-labelledby="dropdownMenuButton" style={{border: "none", margin: "8px 0px 0px -20px", paddingRight: "5px", background: "rgb(54, 58, 63)"}}>
 							{
 								this.state.uniqueUsers.map(user => {
-									return <Link 
+									return <Link
 									to={ "/messenger/t/" + user.id }
 									onClick={ () => this.onSwitchMessages(user.id, user.name) }
 									className={ "dropdown-item " + (this.state.recipient === user.id ? "bg-light text-dark" : "") } >
 									{user.name}
 									</Link>})
-							}	  
+							}
 					</div>
-					<hr className="my-0 bg-dark col-12" />	
+					<hr className="my-0 bg-dark col-12" />
 				  </div>
 				}
 				{ !isPhone &&
@@ -144,9 +144,9 @@ export class Messenger extends React.Component {
 						<hr/>
 						{
 							this.state.uniqueUsers.map(user => {
-							return <Link 
+							return <Link
 								to={ "/messenger/t/" + user.id }
-								onClick={ () => this.onSwitchMessages(user.id, user.name) } 
+								onClick={ () => this.onSwitchMessages(user.id, user.name) }
 								className={"btn btn-block " + (this.state.recipient === user.id ? "btn-primary" : "btn-secondary")}>{user.name}
 							</Link>})
 						}
@@ -156,7 +156,7 @@ export class Messenger extends React.Component {
 					<section id="messenger-header" className="row">
 						<h2 className={ isPhone ? "" : "col-8" }>{ this.state.recipientName }</h2>
 						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
-							<Link 
+							<Link
 								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
 								to={ "/userprofile/" + this.state.recipient }>
 								Go to Profile
@@ -168,7 +168,7 @@ export class Messenger extends React.Component {
 					<section id="chat-box">
 						<form>
 							<div className="row form-group">
-								<textarea 
+								<textarea
 									id="chat-textarea"
 									className="form-control col-10"
 									type="text"
@@ -200,9 +200,9 @@ export class Messenger extends React.Component {
 		// 	this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
 		// }
 
-		this.setState({ 
-			messagesJSX: <MessagesList 
-							messages={ this.state.messages } 
+		this.setState({
+			messagesJSX: <MessagesList
+							messages={ this.state.messages }
 							sender={this.state.sender}
 							onEdit={ index => this.onEdit(index) } /> });
 	}

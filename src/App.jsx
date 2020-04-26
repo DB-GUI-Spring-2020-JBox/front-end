@@ -27,6 +27,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
+			{sessionStorage.clear()}
 			<div className="content-wrap" style={{background: this.state.bgDisplay}}>
 				<style type="text/css">
 					{`

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { Account } from '../models';
 import './accounts.css';
 import AccountRepository from '../Api/accountRepository';
 
@@ -11,10 +10,12 @@ export const Register = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [validFirstName, setValidFirstName] = useState(true);
     const [validLastName, setValidLastName] = useState(true);
     const [validEmail, setValidEmail] = useState(true);
+    const [validUsername, setValidUsername] = useState(true);
     const [validPassword, setValidPassword] = useState(true);
     const [complete, setComplete] = useState(false);
 
@@ -24,26 +25,18 @@ export const Register = () => {
         event.preventDefault();
         event.stopPropagation();
 
-        if (!(firstName && lastName && email && password)) {
+        if (!(firstName && lastName && email && username && password)) {
             return;
         }
 
-        let account = new Account(
-            1,
-            firstName,
-            lastName,
+        let account = {
+            name: `${firstName} ${lastName}`,
+            userName: username,
             email,
-            password);
+            password
+        };
 
-        if (!localStorage.getItem('accounts')) {
-            localStorage.setItem('accounts', JSON.stringify([]));
-        }
-
-        let accounts = JSON.parse(localStorage.getItem('accounts'));
-        accounts.push(account);
-        localStorage.setItem('accounts', JSON.stringify(accounts));
-
-        //accountRepository.register(firstName, lastName, email, password);
+        accountRepository.register(firstName, lastName, email, password);
 
         setComplete(true);
     }
@@ -87,12 +80,28 @@ export const Register = () => {
                     type="text"
                     id="lastName"
                     className={`form-control ${!validLastName && "is-invalid"}`}
+                    value={ lastName }
                     onChange={ e => setLastName(e.target.value) }
                     onBlur={ () => {
                         if (lastName)
                             setValidLastName(true);
                         else
                             setValidLastName(false);
+                    } }/>
+            </div>
+            <div className="form-label-group required">
+                <label htmlFor="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    className={`form-control ${!validUsername && "is-invalid"}`}
+                    value={ username }
+                    onChange={ e => setUsername(e.target.value) }
+                    onBlur={ () => {
+                        if (lastName)
+                            setValidUsername(true);
+                        else
+                            setValidUsername(false);
                     } }/>
             </div>
             <div className="form-label-group required">

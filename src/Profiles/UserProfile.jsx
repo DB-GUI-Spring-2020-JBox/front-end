@@ -24,7 +24,7 @@ export class UserProfile extends React.Component {
   componentWillMount() {
     let userId = +this.props.match.params.userId;
     if (userId) {
-      this.setState({ user: users[0] });
+      this.setState({ user: users[userId - 1] });
     }
   }
 
@@ -57,9 +57,6 @@ export class UserProfile extends React.Component {
                     {this.state.user.email}
                     <br />
                     <i class="glyphicon glyphicon-globe"></i>
-                    <a href="http://www.jquery2dotnet.com">
-                      www.jquery2dotnet.com
-                    </a>
                     <br />
                     <i class="glyphicon glyphicon-gift"></i>
                     {this.state.user.joinDate}

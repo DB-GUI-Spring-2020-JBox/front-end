@@ -10,6 +10,12 @@ function error(err) {
 
 export class AccountRepository {
 
+  config = {
+    headers: {
+      'Access-Control-Allow-Origin' : 'http://localhost:3000'
+    }
+  };
+  
     login(email, password) {
         axios.post(`${hostname}/api/login`, { email, password })
             .then(response => {

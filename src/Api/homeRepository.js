@@ -29,44 +29,15 @@ export class HomeRepository {
     });
   }
 
-  // getCategory(category) {
-  //   var config = this.config;
-  //   config.params = category;
-  //   return new Promise((resolve, reject) => {
-  //     axios.get(`http://localhost:3201/api/browse/${category}`, config)
-  //       .then(res => {
-  //         resolve(res.data);
-  //       })
-  //       .catch(res => alert(res))
-  //   });
-  // }
-
-
-  // getFeedArticles(userId) {
-  //   axios.get(`${hostname}/home/:userID`, {
-  //       params: {
-  //         userId
-  //       }
-  //     })
-  //     .then(response => {
-  //       return response;
-  //     })
-  //     .catch(err => {
-  //       error(err);
-  //     });
-  // }
-
-
-  // getArticles(category) {
-  //   return new Promise((resolve, reject) => {
-  //     axios.get(`${hostname}/api/browse/${category}`, this.config)
-  //       .then(res => {
-  //         resolve(res.data);
-  //       })
-  //       .catch(res => alert(res))
-  //   });
-  // }
-
+  getFeed(userId) {
+    return new Promise((resolve, reject) => {
+      axios.get(`http://localhost:3201/api/home/${userId}`, {params:{userId: userId}})
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(res => alert(res))
+    });
+  }
 }
 
 export default HomeRepository;

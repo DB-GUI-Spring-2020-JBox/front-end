@@ -1,8 +1,11 @@
 import React from 'react';
-import { articles } from '../SampleData/articles'
+import { articles } from '../SampleData/articles';
 import './article.css';
+import { ArticleRepository } from '../Api/articleRepository';
 
 export class Article extends React.Component {
+
+    articleRepo = new ArticleRepository();
 
     state = {
         article: {
@@ -23,11 +26,19 @@ export class Article extends React.Component {
         }
     };
 
-    componentWillMount() {
-        let articleId = +this.props.match.params.articleId;
-        if (articleId) {
-            this.setState({ article: articles[0] });
-        }
+    // componentWillMount() {
+    //     let articleId = +this.props.match.params.articleId;
+    //     if (articleId) {
+    //         this.setState({ article: articles[0] });
+    //     }
+    // }
+
+    componentDidMount() {
+      let articleId = +this.props.match.params.articleId;
+      if(articleId){
+        this.articleRepo.getArticle(articleId)
+          .then(articles => this.setState({ articles }));
+      }
     }
 
     render() {

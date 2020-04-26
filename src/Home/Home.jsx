@@ -15,13 +15,14 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
     state = {
       featured: [],
       firstRow: [],
-      secondRow: []
+      secondRow: [],
+      userFeed: []
     };
 
     render () {
       return <>
         <div style={{background: "rgb(238, 238, 238)", paddingBottom: "3em"}}>
-        {sessionStorage.getItem("isAuthenticated") !== "true" &&
+         {sessionStorage.getItem("isAuthenticated") !== "true" &&
           (<Redirect to="/login"/>)}
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
 
@@ -37,7 +38,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
             </div>
           <div className="container-fluid" style={{marginTop: '4em', justifyContent: 'space-between'}}>
             <div>
-                <ArticleCard title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
+                <ArticleCard id={ this.state.featured.ID } title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
                     date={ this.state.featured.datePosted } category={ this.state.featured.category }/>
             </div>
           </div>
@@ -47,7 +48,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
             {
               this.state.firstRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl-3 article-row" style={{ padding: "0"}}>
-                    <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                    <ArticleCard id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.datePosted } category={ a.category } key={ i }/>
                     </div>})
             }
@@ -60,7 +61,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
             {
               this.state.secondRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0"}}>
-                    <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                    <ArticleCard id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.datePosted } category={ a.category } key={ i }/>
                     </div>})
             }
@@ -71,9 +72,9 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
           <div className = "row personal-feed" style={{marginTop: '6em', marginBottom: "1em"}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Your Feed</p></div>
           </div>
         <div className="scrollmenu">
-        { feed.map((a, i) => {
+        { this.state.userFeed.map((a, i) => {
           return <div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
-              <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+              <ArticleCard id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                   date={ a.datePosted } category={ a.category } key={ i }/>
               </div>})
         }
@@ -85,6 +86,9 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
     componentDidMount() {
       this.homeRepo.getLatestArticles()
         .then(articles => this.setState({ featured: articles[0], firstRow: articles.slice(1, 5), secondRow: articles.slice(6, 8) }));
+      this.homeRepo.getFeed()
+        .then(articles => this.setState({ userFeed: articles }));
+
     }
 }
 

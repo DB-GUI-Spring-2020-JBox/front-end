@@ -27,7 +27,8 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-			{sessionStorage.clear()}
+			{sessionStorage.setItem("isAuthenticated", "true")}
+			{sessionStorage.setItem("userId", 1)}
 			<div className="content-wrap" style={{background: this.state.bgDisplay}}>
 				<style type="text/css">
 					{`

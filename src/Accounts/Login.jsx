@@ -16,7 +16,7 @@ export class Login extends React.Component {
 
     login(event) {
         // Authenticate user
-        
+
         event.preventDefault();
         event.stopPropagation();
 
@@ -35,7 +35,7 @@ export class Login extends React.Component {
                 password: "",
                 invalidCred: false
             });
-    
+
             sessionStorage.setItem("isAuthenticated", "true");
             sessionStorage.setItem("userId", userAccount.id);
         }

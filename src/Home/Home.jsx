@@ -43,33 +43,37 @@ const categories = ["All Categories", "Health", "Tech", "Wealth"]
           </div>
           <div className="container-fluid bg-3">
             <div className="row" style={{overflow: "hidden"}}>
-            { this.firstRow.map((a, i) => {
+
+            {
+              this.firstRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl-3 article-row" style={{ padding: "0"}}>
                     <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.date } category={ a.category } key={ i }/>
                     </div>})
             }
+
             </div>
           </div>
           <div className="container-fluid bg-3">
             <div className="row article-row">
-            { this.secondRow.map((a, i) => {
+
+            {
+              this.secondRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0"}}>
                     <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.date } category={ a.category } key={ i }/>
                     </div>})
             }
+
             </div>
             <a className="see-all" href="/browse">see all ➞</a>
           </div>
-
-          <div className = "row personal-feed" style={{marginTop: '6em', marginBottom: "1em"}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Your Feed</p>
-            </div>
+          <div className = "row personal-feed" style={{marginTop: '6em', marginBottom: "1em"}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Your Feed</p></div>
           </div>
 
         <div className="scrollmenu">
         { feed.map((a, i) => {
-          return <div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          return <div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
               <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                   date={ a.date } category={ a.category } key={ i }/>
               </div>})

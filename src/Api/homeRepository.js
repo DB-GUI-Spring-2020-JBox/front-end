@@ -8,14 +8,17 @@ function error(err) {
 
 export class HomeRepository {
 
-  getLatestArticles(userId) {
-      axios.get(`${hostname}/browse`, { params: { userId } })
-          .then(response => {
-              return response;
-          })
-          .catch(err => {
-              error(err);
-          });
+  getLatestArticles(params) {
+    var config = this.config;
+    config.params = params;
+    return new Promise((resolve, reject) => {
+      axios.get(`${hostname}/home`, config)
+        .then(x => resolve(x.data))
+        .catch(x => {
+          alert(x);
+          reject(x);
+        });
+    });
   }
 
   getFeedArticles(userId) {

@@ -23,7 +23,7 @@ export class Search extends React.Component {
         .then(arr => {
             console.log(arr)
             this.setState({
-                parks: arr
+                articles: arr
             });
         })
       }
@@ -107,7 +107,7 @@ export class Search extends React.Component {
   }
 
   carousel() {
-    return <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+      return <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 <img src={require('../Images/logoHead.png')} alt="" width="100" height="100"/>
                 <div class="carousel-item active">

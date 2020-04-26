@@ -2,7 +2,6 @@ import React from 'react';
 import Routes from './Routes';
 import { Footer } from './App/footer';
 import { Header } from './App/header';
-import { Navbar, Nav } from 'react-bootstrap';
 import './index.css';
 
 class App extends React.Component {

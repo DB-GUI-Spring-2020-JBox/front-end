@@ -1,11 +1,6 @@
 import { hostname } from './repositoryConfig';
 import axios from 'axios';
 
-function error(err) {
-    console.error(err);
-    alert("Error:\n" + err);
-}
-
 export class SearchRepository {
 
   search(param){

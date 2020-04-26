@@ -36,7 +36,7 @@ export const Register = () => {
             password
         };
 
-        accountRepository.register(firstName, lastName, email, password);
+        accountRepository.register(account);
 
         setComplete(true);
     }

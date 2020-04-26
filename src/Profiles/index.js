@@ -1,3 +1,3 @@
 export * from "./Messenger";
-export * from "./Profile";
+export * from "./UpdateProfile";
 export * from "./UserProfile";

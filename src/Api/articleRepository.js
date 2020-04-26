@@ -11,14 +11,29 @@ function error(err) {
 export class ArticleRepository {
 
     getArticle(articleId) {
-        axios.get(`${hostname}/api/articles/${articleId}`)
-            .then(response => {
-                return response;
-            })
-            .catch(err => {
-                error(err);
-                return 'error';
-            });
+        return new Promise((resolve, reject) => {
+            axios.get(`${hostname}/api/articles/${articleId}`)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
+
+    getArticlesByUser(userId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${hostname}/api/articles`, { params: { userId } })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
     }
 }
 

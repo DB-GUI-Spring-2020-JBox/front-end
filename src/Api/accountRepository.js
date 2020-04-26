@@ -10,9 +10,9 @@ function error(err) {
 
 export class AccountRepository {
 
-    profiles() {
+    getProfiles() {
         return new Promise((resolve, reject) => {
-            axios.get('/api/profiles')
+            axios.get(hostname + '/api/profiles')
                 .then(response => {
                     resolve(response.data);
                 })
@@ -23,9 +23,9 @@ export class AccountRepository {
         })
     }
 
-    profile(id) {
+    getProfile(id) {
         return new Promise((resolve, reject) => {
-            axios.get('/api/profilesUser/' + id)
+            axios.get(hostname + '/api/profilesUser/' + id)
                 .then(response => {
                     resolve(response.data[0]);
                 })
@@ -38,7 +38,7 @@ export class AccountRepository {
 
     login(username, password) {
         return new Promise((resolve, reject) => {
-            axios.post('/api/login', { username, password })
+            axios.post(hostname + '/api/login', { username, password })
                 .then(response => {
                     resolve({ status: true, account: response.data.account });
                 })
@@ -49,9 +49,9 @@ export class AccountRepository {
         });
     }
 
-    register(firstName, lastName, email, password) {
+    register(account) {
         return new Promise((resolve, reject) => {
-            axios.post('/api/register', { name: `${firstName} ${lastName}`, email, password })
+            axios.post(hostname + '/api/register', { ...account })
                 .then(response => {
                     resolve(response.data);
                 })

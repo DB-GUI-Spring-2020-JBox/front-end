@@ -1,36 +1,43 @@
-import { hostname } from './repositoryConfig';
+import {hostname} from './repositoryConfig';
 import axios from 'axios';
-
-function error(err) {
-    console.error(err);
-    alert("Error:\n" + err);
-}
 
 export class HomeRepository {
 
+  config = {
+    headers: {
+      'Access-Control-Allow-Origin' : 'http://localhost:3000'
+    }
+  };
+
   getLatestArticles(params) {
-    var config = this.config;
-    config.params = params;
     return new Promise((resolve, reject) => {
-      axios.get(`${hostname}/home`, config)
-        .then(x => resolve(x.data))
-        .catch(x => {
-          alert(x);
-          reject(x);
-        });
+      axios.get(hostname + '/api/home')
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(res => alert(res))
     });
   }
 
-  getFeedArticles(userId) {
-      axios.get(`${hostname}/browse`, { params: { userId } })
-          .then(response => {
-              return response;
-          })
-          .catch(err => {
-              error(err);
-          });
+  getArticles(category) {
+    return new Promise((resolve, reject) => {
+      axios.get(hostname + `/api/browse/${category}`, {params:{category: category}})
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(res => alert(res))
+    });
   }
 
+  getFeed(userId) {
+    return new Promise((resolve, reject) => {
+      axios.get(hostname + `/api/home/${userId}`, {params:{userId: userId}})
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(res => alert(res))
+    });
+  }
 }
 
 export default HomeRepository;

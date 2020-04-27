@@ -1,18 +1,22 @@
 import React from 'react';
-import { articles } from '../SampleData/articles'
+import { articles } from '../SampleData/articles';
 import './article.css';
+import { ArticleRepository } from '../Api/articleRepository';
 
 export class Article extends React.Component {
 
+    articleRepo = new ArticleRepository();
+
     state = {
         article: {
-            title: "",
-            content: "",
-            date: "",
-            author: {
-                id: "",
-                name: ""
-            },
+            ID: '',
+            title: '',
+            content: '',
+            author: '',
+            price: '',
+            datePosted: '',
+            dateUpdated: '',
+            image: '',
             category: ""
         }
     }
@@ -23,11 +27,12 @@ export class Article extends React.Component {
         }
     };
 
-    componentWillMount() {
-        let articleId = +this.props.match.params.articleId;
-        if (articleId) {
-            this.setState({ article: articles[0] });
-        }
+    componentDidMount() {
+      let articleId = +this.props.match.params.articleId;
+      if(articleId){
+        this.articleRepo.getFeed(articleId)
+          .then(articles => this.setState({ article: articles[0] }));
+      }
     }
 
     render() {

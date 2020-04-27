@@ -12,8 +12,8 @@ export class Messenger extends React.Component {
 		super(props);
 
 		this.state = {
-			sender: "userid",
-			recipient: "userid",
+			sender: "",
+			recipient: undefined,
 			recipientName: "",
 			messages: [
 				{
@@ -171,7 +171,7 @@ export class Messenger extends React.Component {
 					<section id="messenger-header" className="row">
 						<h2 className={ isPhone ? "" : "col-8" }>{ this.state.recipientName }</h2>
 						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
-							{ !this.state.recipient &&
+							{ !isNaN(this.state.recipient) &&
 							<>
 							<Link 
 								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
@@ -198,11 +198,13 @@ export class Messenger extends React.Component {
 											this.sendMessage(e)
 										}
 									}}
+									readOnly={ isNaN(this.state.recipient) ? "true" : "false" }
 									autoFocus/>
 								<button
 									id="send-button"
 									type="button"
-									className={ `btn btn-primary ${this.state.recipient ? "" : "disabled"}` }
+									className="btn btn-primary"
+									disabled={ isNaN(this.state.recipient) ? "true" : "false" }
 									onClick= { () => this.sendMessage() }>Send</button>
 							</div>
 						</form>

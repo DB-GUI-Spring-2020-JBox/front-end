@@ -11,7 +11,7 @@ export class HomeRepository {
 
   getLatestArticles(params) {
     return new Promise((resolve, reject) => {
-      axios.get('http://localhost:3201/api/home')
+      axios.get(hostname + '/api/home')
         .then(res => {
           resolve(res.data);
         })
@@ -21,7 +21,7 @@ export class HomeRepository {
 
   getArticles(category) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3201/api/browse/${category}`, {params:{category: category}})
+      axios.get(hostname + `/api/browse/${category}`, {params:{category: category}})
         .then(res => {
           resolve(res.data);
         })
@@ -31,7 +31,7 @@ export class HomeRepository {
 
   getFeed(userId) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3201/api/home/${userId}`, {params:{userId: userId}})
+      axios.get(hostname + `/api/home/${userId}`, {params:{userId: userId}})
         .then(res => {
           resolve(res.data);
         })

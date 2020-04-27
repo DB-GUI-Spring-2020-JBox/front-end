@@ -32,7 +32,7 @@ export class Browse extends React.Component {
                   { this.displayArticles(this.state.health, categories[0]) }
                   </div></div>
                   <div style={{marginTop: "60px", marginLeft: "10vw"}}>
-                    <h2>{ categories[1]  }</h2><br></br>
+                    <h2>{ categories[1] }</h2><br></br>
                   <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
                   { this.displayArticles(this.state.tech, categories[1]) }
                   </div></div>
@@ -46,7 +46,6 @@ export class Browse extends React.Component {
                   <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
                   { this.displayArticles(this.state.politics, categories[3]) }
                   </div></div>
-
         </div>
     </>;
   }
@@ -64,7 +63,7 @@ export class Browse extends React.Component {
     articles.map((a, i) =>
     list.push(<div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
               {console.log(i)}
-              <ArticleCard title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+              <ArticleCard id={ a.ID } title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                   date={ a.date } category={ a.category }/>
             </div> ));
     return list;

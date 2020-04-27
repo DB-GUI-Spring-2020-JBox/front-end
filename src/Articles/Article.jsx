@@ -38,7 +38,6 @@ export class Article extends React.Component {
     render() {
         return (
             <div id="article" className="container bg-white">
-            {console.log(this.state.article)}
                 <section id="article-header">
                     <h5 className="badge badge-info" id="article-category">{ this.state.article.category.toUpperCase() }</h5>
                     <h1>{ this.state.article.title }</h1>

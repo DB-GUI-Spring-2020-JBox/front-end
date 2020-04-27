@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import ArticleRepository from "../Api/articleRepository";
 //import "./postarticle.css";
 //import Time from "react-time";
 
@@ -7,13 +8,12 @@ export class PostArticle extends React.Component {
   constructor() {
     super();
     this.state = {
-      article: {
-        title: "",
-        content: "",
-        //date: new Date(),
-        author: +sessionStorage.getItem("userId"),
-        category: "",
-      },
+      title: "",
+      content: "",
+      //date: new Date(),
+      author: +sessionStorage.getItem("userId"),
+      category: "",
+      image: "",
       button: {
         value: "Post Article",
         class: "btn-primary",
@@ -22,7 +22,25 @@ export class PostArticle extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  articleRepository = new ArticleRepository();
+
+  async handleClick() {
+
+    if (this.state.edit) {
+      debugger;
+      const article = {
+        ID: +this.props.match.params.articleId,
+        title: this.state.title,
+        image: this.state.image,
+        content: this.state.content,
+        author: this.state.author,
+        category: this.state.category,
+        date: this.state.date || new Date().toISOString()
+      }
+      await this.articleRepository.editArticle(article);
+      this.setState({ redirect: true });
+      return;
+    }
 
     if (this.state.button.value === "Post Article") {
       this.setState({ button: { value: "Posted", class: "btn-success disabled" } });
@@ -32,6 +50,10 @@ export class PostArticle extends React.Component {
   render() {
     if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return <Redirect to="/login" push />
+    }
+
+    if (this.state.redirect) {
+      return <Redirect to="/profile" />
     }
 
     return (
@@ -45,9 +67,9 @@ export class PostArticle extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-12">
-                <form>
+                <form onSubmit={this.handleClick}>
                   <div className="form-group row">
-                    <label for="username" className="col-4 col-form-label">
+                    <label htmlFor="Title" className="col-4 col-form-label">
                       Title
                     </label>
                     <div className="col-8">
@@ -58,29 +80,50 @@ export class PostArticle extends React.Component {
                         className="form-control here"
                         required="required"
                         type="text"
-                        value={this.state.article.title}
+                        value={this.state.title}
                         onChange={(e) =>
                           this.setState({
-                            article: { title: e.target.value },
+                            title: e.target.value
                           })
                         }
                       ></input>
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="name" className="col-4 col-form-label">
+                    <label htmlFor="image" className="col-4 col-form-label">
+                      Image URL
+                    </label>
+                    <div className="col-8">
+                      <input
+                        id="image"
+                        name="image"
+                        placeholder="Image link"
+                        className="form-control here"
+                        type="text"
+                        value={this.state.image}
+                        onChange={(e) =>
+                          this.setState({
+                            image: e.target.value
+                          })
+                        }
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label htmlFor="Content" className="col-4 col-form-label">
                       Content
                     </label>
                     <div className="col-8">
                       <textarea
                         name="Content"
+                        id="Content"
                         cols="70"
                         rows="10"
                         className="form-control"
-                        value={this.state.article.content}
+                        value={this.state.content}
                         onChange={(e) =>
                           this.setState({
-                            article: { content: e.target.value },
+                            content: e.target.value
                           })
                         }
                       ></textarea>
@@ -88,7 +131,7 @@ export class PostArticle extends React.Component {
                   </div>
                   <p>Date Published: {new Date().toLocaleDateString()}</p>
                   <div className="form-group row">
-                    <label for="select" className="col-4 col-form-label">
+                    <label htmlFor="category" className="col-4 col-form-label">
                       Category
                     </label>
                     <div className="col-8">
@@ -96,44 +139,32 @@ export class PostArticle extends React.Component {
                         id="category"
                         name="category"
                         className="custom-select"
+                        value={ this.state.category }
+                        onChange={(e) =>
+                          this.setState({
+                            category: e.target.value
+                          })}
                       >
                         <option
                           value="All Categories"
-                          onChange={(e) =>
-                            this.setState({
-                              article: { category: e.target.value },
-                            })
-                          }
                         >
                           All Categories
                         </option>
                         <option
-                          value="Health"
-                          onChange={(e) =>
-                            this.setState({
-                              article: { category: e.target.value },
-                            })
-                          }
+                          name="health"
+                          value="health"
                         >
                           Health
                         </option>
                         <option
-                          value="Tech"
-                          onChange={(e) =>
-                            this.setState({
-                              article: { category: e.target.value },
-                            })
-                          }
+                          id="tech"
+                          value="tech"
                         >
                           Tech
                         </option>
                         <option
-                          value="Wealth"
-                          onChange={(e) =>
-                            this.setState({
-                              article: { category: e.target.value },
-                            })
-                          }
+                          id="wealth"
+                          value="wealth"
                         >
                           Wealth
                         </option>
@@ -144,8 +175,7 @@ export class PostArticle extends React.Component {
                   <div className="form-group row">
                     <div className="offset-4 col-8">
                       <button
-                        name="submit"
-                        type="submit"
+                        type="button"
                         className={ "btn " + this.state.button.class }
                         onClick={this.handleClick}
                       >
@@ -160,5 +190,31 @@ export class PostArticle extends React.Component {
         </div>
       </div>
     );
+  }
+
+  async componentDidMount() {
+    const articleId = +this.props.match.params.articleId;
+    if (articleId) {
+      this.setState({ edit: true });
+      let article = await this.articleRepository.getArticle(articleId);
+      if (!article) {
+        alert('Not a valid article!');
+        this.setState({ redirect: true });
+        return;
+      }
+      if (article.author !== +sessionStorage.getItem("userId")) {
+        alert('This is not your article!');
+        this.setState({ redirect: true });
+        return;
+      }
+      this.setState({
+        title: article.title,
+        image: article.image,
+        content: article.content,
+        date: article.datePosted,
+        author: +sessionStorage.getItem("userId"),
+        category: article.category,
+      });
+    }
   }
 }

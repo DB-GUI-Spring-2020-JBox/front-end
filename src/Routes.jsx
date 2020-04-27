@@ -24,6 +24,7 @@ export default function Routes({ appProps }) {
         <Route path="/articles/:articleId" exact component={Article} />
         <Route path="/browse" exact component={Browse} />
         <Route
+          exact
           path="/messenger"
           render={(props) => (
             <Messenger {...props} dimensions={appProps.dimensions} />
@@ -39,6 +40,7 @@ export default function Routes({ appProps }) {
         <Route path="/profile" exact component={UserProfile} />
         <Route path="/profile/update" exact component={UpdateProfile} />
         <Route path="/postarticle" exact component={PostArticle} />
+        <Route path="/articles/:articleId/edit" exact component={PostArticle} />
         <Route path="/userprofile/:userId" exact component={UserProfile} />
         {/* ADD CATCH FOR INVALID URLS */}
       </Switch>

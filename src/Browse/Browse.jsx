@@ -63,7 +63,7 @@ export class Browse extends React.Component {
     articles.map((a, i) =>
     list.push(<div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
               {console.log(i)}
-              <ArticleCard id={ a.ID } title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+              <ArticleCard authorid={ a.authorId } id={ a.ID } title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                   date={ a.date } category={ a.category }/>
             </div> ));
     return list;

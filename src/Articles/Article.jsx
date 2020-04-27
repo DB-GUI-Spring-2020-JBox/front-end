@@ -43,7 +43,7 @@ export class Article extends React.Component {
                     <h1>{ this.state.article.title }</h1>
                     <hr />
                     <h5 id="article-date">{ this.state.article.date }</h5>
-                    <h4 id="article-author">By <a href={`/userprofile/${ this.state.article.author.id }`}>{ this.state.article.author.name }</a></h4>
+                    <h4 id="article-author">By <a href={`/userprofile/${ this.state.article.authorId }`}>{ this.state.article.authorName }</a></h4>
                     { this.imgCheck() }
                 </section>
                 <section id="article-body">

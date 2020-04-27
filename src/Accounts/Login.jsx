@@ -16,7 +16,7 @@ export class Login extends React.Component {
 
     async login(event) {
         // Authenticate user
-        
+
         event.preventDefault();
         event.stopPropagation();
 
@@ -26,7 +26,7 @@ export class Login extends React.Component {
         }
 
         const response = await this.accountRepository.login(this.state.username, this.state.password);
-        
+
         if (!response || response === 'error') {
             return;
         }
@@ -99,5 +99,4 @@ export class Login extends React.Component {
         );
     }
 }
-
 export default Login;

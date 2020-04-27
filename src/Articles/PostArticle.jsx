@@ -33,7 +33,7 @@ export class PostArticle extends React.Component {
     if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return <Redirect to="/login" push />
     }
-    
+
     return (
       <div className="container mx-auto mt-5">
         <div className="card">

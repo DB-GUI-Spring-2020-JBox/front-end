@@ -113,6 +113,9 @@ export class UserProfile extends React.Component {
                 <li>
                   <a className="dropdown-item" href={this.state.profile.linkToFacebook}>Facebook</a>
                 </li>
+                <li>
+                  <a className="dropdown-item" href={this.state.profile.otherLink}>Website</a>
+                </li>
               </ul>
             </div>
           </div>

@@ -35,6 +35,19 @@ export class AccountRepository {
         })
     }
 
+    updateProfile(id, profile) {
+        return new Promise((resolve, reject) => {
+            axios.put(hostname + '/api/profiles/' + id, { ...profile })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject(err);
+                });
+        })
+    }
+
     login(username, password) {
         return new Promise((resolve, reject) => {
             axios.post(hostname + '/api/login', { username, password })

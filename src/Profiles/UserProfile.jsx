@@ -30,6 +30,12 @@ export class UserProfile extends React.Component {
   articleRepository = new ArticleRepository();
   accountRepository = new AccountRepository();
 
+  async onDeleteArticle(articleId) {
+    if (window.confirm('Are you sure you want to delete this article?')) {
+      let res = this.articleRepository.deleteArticle(articleId);
+    }
+  }
+
   componentWillMount() {
     let userId = +this.props.match.params.userId;
     if (!userId) {
@@ -130,9 +136,19 @@ export class UserProfile extends React.Component {
                     { article.title }
                   </Link>
                 </h5>
-                <h6 className="card-subtitle text-muted">
-                  { new Date(article.datePosted).toLocaleString('default', dateOptionsWithTime) }
-                </h6>
+                <div className="d-flex">
+                  <div>
+                    <h6 className="card-subtitle text-muted">
+                      { new Date(article.datePosted).toLocaleString('default', dateOptionsWithTime) } 
+                    </h6>
+                  </div>
+                  <div 
+                    className="btn btn-link edit-link text-danger py-0" 
+                    style={{ marginTop: "-0.6em" }}
+                    onClick={ () => this.onDeleteArticle(article.ID) }>
+                      Delete
+                  </div>
+                </div>
               </div>)
           }
         </section>

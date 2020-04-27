@@ -35,6 +35,19 @@ export class ArticleRepository {
                 });
         });
     }
+
+    deleteArticle(articleId) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${hostname}/api/articles/${articleId}`)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
 }
 
 export default ArticleRepository;

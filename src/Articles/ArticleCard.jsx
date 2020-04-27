@@ -10,7 +10,7 @@ export const ArticleCard = props => {
     }
   };
     return (
-        <a className="card" href={`/articles/:${props.id}`}>
+        <a className="card" style={{color: "black", textDecoration: "none"}} href={`/articles/${props.id}`}>
             {imgCheck()}
             <div className="text-center" style={{ fontSize: "23px", marginTop: "9px" }}><i>{ props.category }</i></div>
             <div className="text-center" style={{ fontSize: "30px", marginBottom: "100px", padding: "10px", whiteSpace: "normal"}}>{ props.title}</div>

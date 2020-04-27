@@ -15,8 +15,6 @@ export const Header = props => {
             <a className="dropdown-item" href="/search">Search</a>
             <a className="dropdown-item" href="/postarticle">Post Article</a>
             <a className="dropdown-item" href="/messenger">Messenger</a>
-            <a className="dropdown-item" href="/">Contact</a>
-
           </div>
         </div>
         <Navbar.Brand href="/">JBox<img src={require('../Images/logoHead.png')} style={{ position: "absolute", left: "48vw", marginTop: "-12px" }} alt="" height="53" width="53" /></Navbar.Brand>

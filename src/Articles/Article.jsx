@@ -9,13 +9,14 @@ export class Article extends React.Component {
 
     state = {
         article: {
-            title: "",
-            content: "",
-            date: "",
-            author: {
-                id: "",
-                name: ""
-            },
+            ID: '',
+            title: '',
+            content: '',
+            author: '',
+            price: '',
+            datePosted: '',
+            dateUpdated: '',
+            image: '',
             category: ""
         }
     }
@@ -26,24 +27,18 @@ export class Article extends React.Component {
         }
     };
 
-    // componentWillMount() {
-    //     let articleId = +this.props.match.params.articleId;
-    //     if (articleId) {
-    //         this.setState({ article: articles[0] });
-    //     }
-    // }
-
     componentDidMount() {
       let articleId = +this.props.match.params.articleId;
       if(articleId){
-        this.articleRepo.getArticle(articleId)
-          .then(articles => this.setState({ articles }));
+        this.articleRepo.getFeed(articleId)
+          .then(articles => this.setState({ article: articles[0] }));
       }
     }
 
     render() {
         return (
             <div id="article" className="container bg-white">
+            {console.log(this.state.article)}
                 <section id="article-header">
                     <h5 className="badge badge-info" id="article-category">{ this.state.article.category.toUpperCase() }</h5>
                     <h1>{ this.state.article.title }</h1>

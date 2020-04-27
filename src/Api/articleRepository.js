@@ -9,9 +9,9 @@ export class ArticleRepository {
     }
   };
 
-  getArticles(category) {
+  getFeed(articleId) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3201/api/browse/${category}`, {params:{category: category}})
+      axios.get(`http://localhost:3201/api/articles/${articleId}`, {params:{articleId: articleId}})
         .then(res => {
           resolve(res.data);
         })

@@ -87,10 +87,15 @@ export class Messenger extends React.Component {
 		});
 
 		messageList.sort((a, b) => a.datePosted - b.datePosted);
+		
+		if (uniqueUsers.length > 0) {
+			this.setState({
+				recipient: uniqueUsers[0].ID,
+				recipientName: uniqueUsers[0].name,
+			});
+		}
 
 		this.setState({
-			recipient: uniqueUsers[0].ID,
-			recipientName: uniqueUsers[0].name,
 			messages: messageList,
 			uniqueUsers
 		});
@@ -156,18 +161,26 @@ export class Messenger extends React.Component {
 								className={"btn btn-block " + (this.state.recipient === user.ID ? "btn-primary" : "btn-secondary")}>{user.name}
 							</Link>})
 						}
+						{
+							!(this.state.uniqueUsers.length > 0) &&
+							<h5 className="text-secondary">No conversations</h5>
+						}
 					</div>
 				}
 				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }>
 					<section id="messenger-header" className="row">
 						<h2 className={ isPhone ? "" : "col-8" }>{ this.state.recipientName }</h2>
 						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
-							<Link
+							{ !this.state.recipient &&
+							<>
+							<Link 
 								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
 								to={ "/userprofile/" + this.state.recipient }>
 								Go to Profile
 							</Link>
 							<span className="clearfix"></span>
+							</>
+							}
 						</div>
 					</section>
 					<section id="message-list">{ this.state.messagesJSX }</section>
@@ -189,7 +202,7 @@ export class Messenger extends React.Component {
 								<button
 									id="send-button"
 									type="button"
-									className="btn btn-primary"
+									className={ `btn btn-primary ${this.state.recipient ? "" : "disabled"}` }
 									onClick= { () => this.sendMessage() }>Send</button>
 							</div>
 						</form>

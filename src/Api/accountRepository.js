@@ -60,6 +60,50 @@ export class AccountRepository {
                 });
         });
     }
+
+    follow(followerId, followedId) {
+        return new Promise((resolve, reject) => {
+            axios.post(hostname + '/api/follows', { follower: followerId, followed: followedId })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    unFollow(followerId, followedId) {
+        return new Promise((resolve, reject) => {
+            axios.delete(hostname + '/api/follows', { params: { follower: followerId, followed: followedId } })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    doesFollow(followerId, followedId) {
+        return new Promise((resolve, reject) => {
+            axios.get(hostname + '/api/followerByID', { params: { follower: followerId } })
+                .then(response => {
+                    if (response.data && response.data.find(x => x.followed === followedId)) {
+                        resolve(true);
+                    }
+                    else {
+                        resolve(false);
+                    }
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
 }
 
 export default AccountRepository;

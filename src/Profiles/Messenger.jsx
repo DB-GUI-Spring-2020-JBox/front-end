@@ -300,6 +300,7 @@ export class Messenger extends React.Component {
 		}
 
 		let recipientId = +this.props.match.params.recipientId;
+		let recipientName;
 
 		if (recipientId) {
 			let profile = this.state.profiles.find(x => x.ID === recipientId);
@@ -307,8 +308,14 @@ export class Messenger extends React.Component {
 				if (profile) {
 					uniqueUsers.push({ ID: profile.ID, name: profile.name });
 				}
+				else {
+					if (uniqueUsers.length > 0) {
+						recipientId = uniqueUsers[0].ID;
+						recipientName = uniqueUsers[0].name;
+					}
+				}
+				this.setState({ recipient: recipientId, recipientName });
 			}
-			this.setState({ recipient: recipientId, recipientName: profile.name });
 		}
 
 		this.setState({ uniqueUsers });

@@ -7,6 +7,7 @@ import { Article } from "./Articles";
 import { Browse } from "./Browse";
 import { Messenger, UpdateProfile, UserProfile } from "./Profiles";
 import { PostArticle } from "./Articles";
+import { Page404 } from "./App/Page404";
 
 export default function Routes({ appProps }) {
   return (
@@ -43,6 +44,7 @@ export default function Routes({ appProps }) {
         <Route path="/articles/:articleId/edit" exact component={PostArticle} />
         <Route path="/userprofile/:userId" exact component={UserProfile} />
         {/* ADD CATCH FOR INVALID URLS */}
+        <Route component={Page404} />
       </Switch>
     </BrowserRouter>
   );

@@ -16,9 +16,7 @@ export const MessagesList = props => {
 		else
 			messageClass = "recipient";
 
-		//debugger;
-
-		let group = []
+		let group = [];
 
 		while (newIndex < props.messages.length && props.messages[newIndex].sender === props.messages[i].sender) {
 			let msg = props.messages[newIndex];

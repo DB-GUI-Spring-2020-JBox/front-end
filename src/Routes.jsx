@@ -5,8 +5,7 @@ import { Home } from "./Home";
 import { Search } from "./Search";
 import { Article } from "./Articles";
 import { Browse } from "./Browse";
-import { Messenger, Profile } from "./Profiles";
-import { UserProfile } from "./Profiles";
+import { Messenger, UpdateProfile, UserProfile } from "./Profiles";
 import { PostArticle } from "./Articles";
 
 export default function Routes({ appProps }) {
@@ -37,7 +36,8 @@ export default function Routes({ appProps }) {
           )}
         />
 
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/profile" exact component={UserProfile} />
+        <Route path="/profile/update" exact component={UpdateProfile} />
         <Route path="/postarticle" exact component={PostArticle} />
         <Route path="/userprofile/:userId" exact component={UserProfile} />
         {/* ADD CATCH FOR INVALID URLS */}

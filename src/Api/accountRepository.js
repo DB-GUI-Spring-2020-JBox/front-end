@@ -37,7 +37,7 @@ export class AccountRepository {
 
     login(username, password) {
         return new Promise((resolve, reject) => {
-            axios.post('http://localhost:3201/api/login', { username, password })
+            axios.post(hostname + '/api/login', { username, password })
                 .then(response => {
                     resolve({ status: response.data.status, account: response.data.account });
                 })

@@ -20,14 +20,30 @@ export class ArticleRepository {
   }
 
     getArticle(articleId) {
-      return new Promise((resolve, reject) => {
-        axios.get(`${hostname}/api/articles/${articleId}`,  {params:{articleId: articleId}})
-        .then(res => {
-          resolve(res.data);
-            })
-          .catch(res => alert(res))
-            });
-          }
+        return new Promise((resolve, reject) => {
+            axios.get(`${hostname}/api/articles/${articleId}`)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
+
+    getArticlesByUser(userId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${hostname}/api/articles`, { params: { userId } })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
 }
 
 export default ArticleRepository;

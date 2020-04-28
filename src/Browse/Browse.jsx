@@ -12,7 +12,6 @@ export class Browse extends React.Component {
 
     homeRepo = new HomeRepository();
 
-
     state = {
       health: [],
       tech: [],
@@ -25,24 +24,24 @@ export class Browse extends React.Component {
       return <>
       {sessionStorage.getItem("isAuthenticated") !== "true" &&
         (<Redirect to="/login"/>)}
-          <div className="stories container-fluid"> <p style={{paddingRight: '10vw', paddingLeft: '10vw', paddingTop: "30px"}}>Stories</p>
+          <div className="container-fluid"> <p className="stories" style={{paddingRight: '10vw', paddingLeft: '10vw', paddingTop: "30px"}}>Stories</p>
           <div style={{marginTop: "60px", marginLeft: "10vw"}}>
-            <h2>{ categories[0] }</h2><br></br>
+            <p className="category-header">{ categories[0] }</p><br></br>
           <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
                   { this.displayArticles(this.state.health, categories[0]) }
                   </div></div>
                   <div style={{marginTop: "60px", marginLeft: "10vw"}}>
-                    <h2>{ categories[1] }</h2><br></br>
+                    <p className="category-header">{ categories[1] }</p><br></br>
                   <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
                   { this.displayArticles(this.state.tech, categories[1]) }
                   </div></div>
                   <div style={{marginTop: "60px", marginLeft: "10vw"}}>
-                    <h2>{ categories[2]  }</h2><br></br>
+                    <p className="category-header">{ categories[2]  }</p><br></br>
                   <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
                   { this.displayArticles(this.state.wealth, categories[2]) }
                   </div></div>
                   <div style={{marginTop: "60px", marginLeft: "10vw"}}>
-                    <h2>{ categories[3] }</h2><br></br>
+                    <p className="category-header">{ categories[3] }</p><br></br>
                   <div className="scrollmenu" style={{marginRight: "0", marginLeft: "0"}}>
                   { this.displayArticles(this.state.politics, categories[3]) }
                   </div></div>
@@ -64,7 +63,7 @@ export class Browse extends React.Component {
     list.push(<div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
               {console.log(i)}
               <ArticleCard authorid={ a.authorId } id={ a.ID } title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
-                  date={ a.date } category={ a.category }/>
+                  date={ a.datePosted } category={ a.category }/>
             </div> ));
     return list;
   }

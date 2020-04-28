@@ -4,7 +4,7 @@ import { SearchRepository } from '../Api/searchRepository';
 import { ArticleCard } from '../Articles';
 import './search.css';
 
-const categories = ["Health", "Tech", "Wealth", "Politics"]
+const categories = ["Health", "Technology", "Wealth", "Politics"]
 
 export class Search extends React.Component {
 

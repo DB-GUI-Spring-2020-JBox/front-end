@@ -14,7 +14,14 @@
   padding-top: 10px;
 }
 
-.stories p {
-  font-size: 50px;
+.stories {
+  margin-top: 80px;
+  font-size: 60px;
   font-weight: 40;
+}
+
+.category-header {
+    font-size: 50px;
+    font-weight: 500;
+    padding-left: 40px;
 }

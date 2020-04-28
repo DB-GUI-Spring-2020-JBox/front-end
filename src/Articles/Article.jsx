@@ -3,6 +3,15 @@ import { articles } from '../SampleData/articles';
 import './article.css';
 import { ArticleRepository } from '../Api/articleRepository';
 
+const dateOptions = {
+  month: '2-digit',
+  day: '2-digit',
+  year: '2-digit',
+  hour: '2-digit',
+  hour12: true,
+  minute: '2-digit'
+}
+
 export class Article extends React.Component {
 
     articleRepo = new ArticleRepository();
@@ -42,7 +51,10 @@ export class Article extends React.Component {
                     <h5 className="badge badge-info" id="article-category">{ this.state.article.category.toUpperCase() }</h5>
                     <h1>{ this.state.article.title }</h1>
                     <hr />
-                    <h5 id="article-date">{ this.state.article.date }</h5>
+                    <div id="article-date">
+                      <h5 id="article-date-left">Posted: { new Date(this.state.article.datePosted).toLocaleString('default', dateOptions) }</h5>
+                      <h5 id="article-date-right">Updated: { new Date(this.state.article.dateUpdated).toLocaleString('default', dateOptions) }</h5>
+                    </div> <br></br>
                     <h4 id="article-author">By <a href={`/userprofile/${ this.state.article.authorId }`}>{ this.state.article.authorName }</a></h4>
                     { this.imgCheck() }
                 </section>

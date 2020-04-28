@@ -11,7 +11,7 @@ export class PostArticle extends React.Component {
       title: "",
       content: "",
       //date: new Date(),
-      authorId: +sessionStorage.getItem("userId"),
+      author: +sessionStorage.getItem("userId"),
       category: "",
       image: "",
       button: {
@@ -32,7 +32,7 @@ export class PostArticle extends React.Component {
         title: this.state.title,
         image: this.state.image,
         content: this.state.content,
-        authorId: this.state.authorId,
+        author: this.state.author,
         category: this.state.category,
         date: this.state.date || new Date().toISOString()
       }
@@ -47,7 +47,7 @@ export class PostArticle extends React.Component {
         title: this.state.title,
         image: this.state.image,
         content: this.state.content,
-        authorId: this.state.authorId,
+        author: this.state.author,
         category: this.state.category,
         date: this.state.date || new Date().toISOString()
       }
@@ -226,7 +226,7 @@ export class PostArticle extends React.Component {
         image: article.image,
         content: article.content,
         date: article.datePosted,
-        authorId: +sessionStorage.getItem("userId"),
+        author: +sessionStorage.getItem("userId"),
         category: article.category,
       });
     }

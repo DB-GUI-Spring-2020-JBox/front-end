@@ -24,7 +24,6 @@ export class Search extends React.Component {
       let tempInput = this.state.input
       if(this.state.input === '') { tempInput = 0 }
       let param = {input: tempInput, category: this.state.category, filter: this.state.filter}
-      console.log(param);
       this.searchRepo.search(param)
         .then(arr => {
             this.setState({articles: this.arrayTo2DArray2(arr, 4)});
@@ -101,7 +100,6 @@ export class Search extends React.Component {
   }
 
   displayArticles() {
-    console.log(this.state.articles)
     const list = []
     for (let i = 1; i < this.state.articles.length; i++) {
       list.push(    <div className="container-fluid bg-3">

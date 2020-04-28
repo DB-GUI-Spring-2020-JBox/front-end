@@ -142,7 +142,6 @@ export class PostArticle extends React.Component {
                       ></textarea>
                     </div>
                   </div>
-                  <p>Date Published: {new Date().toLocaleDateString()}</p>
                   <div className="form-group row">
                     <label htmlFor="category" className="col-4 col-form-label">
                       Category

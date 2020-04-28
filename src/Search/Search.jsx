@@ -17,7 +17,9 @@ export class Search extends React.Component {
       articles: ''
     }
 
-    applySearch() {
+    applySearch(event) {
+      event.preventDefault();
+      event.stopPropagation();
       if(this.state.input !== '' || this.state.category !== '' || this.state.filter !== ''){
       let tempInput = this.state.input
       if(this.state.input === '') { tempInput = 0 }
@@ -43,7 +45,7 @@ export class Search extends React.Component {
 
                 <section className="search-sec">
                     <div className="container">
-                        <form>
+                        <form onSubmit={ e => this.applySearch(e) }>
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="row">
@@ -71,7 +73,7 @@ export class Search extends React.Component {
                                                     id="exampleFormControlSelect1"
                                                     value={ this.state.filter }
                                                     onChange={e => this.setState({filter: e.target.value})}>
-                                                <option value="0">No Filter</option>
+                                                <option value="0">No Sorting</option>
                                                 <option value="DESC">Newest</option>
                                                 <option value="ASC">Oldest</option>
                                                 <option value="rating">User Rating</option>
@@ -79,7 +81,7 @@ export class Search extends React.Component {
 
                                         </div>
                                         <div className="col-lg-3 col-md-3 col-sm-12 p-0">
-                                            <button type="button" className="btn btn-danger wrn-btn" onClick={() => this.applySearch()}>Search</button>
+                                            <button type="button" className="btn btn-danger wrn-btn" onClick={e => this.applySearch(e)}>Search</button>
                                         </div>
                                     </div>
                                 </div>

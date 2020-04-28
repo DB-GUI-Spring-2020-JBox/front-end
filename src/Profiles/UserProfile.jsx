@@ -162,7 +162,7 @@ export class UserProfile extends React.Component {
 
     this.setState({ articles });
 
-    this.setState({ articleId: articles[0].ID });
+    this.setState({ articleId: articles[0] ? articles[0].ID : 0 });
   }
 
   async updateReviews() {
@@ -190,7 +190,12 @@ export class UserProfile extends React.Component {
   }
 
   async onReview() {
-    debugger;
+
+    if (this.state.comment === "") {
+      alert("Your review comment is empty!");
+      return;
+    }
+
     if (this.state.edit) {
       await this.reviewsRepository.editReview(
         this.state.reviewId,

@@ -1,7 +1,7 @@
 import React from "react";
 import ArticleRepository from "../Api/articleRepository";
 import { users } from "../SampleData/users";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import AccountRepository from "../Api/accountRepository";
 import ReviewsRepository from "../Api/reviewsRepository";
 
@@ -134,6 +134,10 @@ export class UserProfile extends React.Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+
     const dateOptionsWithTime = {
       month: "long",
       day: "2-digit",
@@ -410,6 +414,11 @@ export class UserProfile extends React.Component {
 
   async componentDidMount() {
     let profile = await this.accountRepository.getProfile(this.state.userId);
+    if (!profile) {
+      alert("Not a valid user profile!");
+      this.setState({ redirect: true });
+      return;
+    }
     this.setState({ profile });
 
     let doesFollow = await this.accountRepository.doesFollow(

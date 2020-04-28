@@ -7,6 +7,7 @@ export class UpdateProfile extends React.Component {
     name: "",
     password: "",
     email: "",
+    bio: "",
     facebook: "",
     instagram: "",
     linkedin: "",
@@ -21,6 +22,7 @@ export class UpdateProfile extends React.Component {
       name: this.state.name,
       password: this.state.password,
       email: this.state.email,
+      bio: this.state.bio,
       linkToFacebook: this.state.facebook.startsWith('https://') ? this.state.facebook : 'https://' + this.state.facebook,
       linkToInstagram: this.state.instagram.startsWith('https://') ? this.state.instagram : 'https://' + this.state.instagram,
       linkToLinkedIn: this.state.linkedin.startsWith('https://') ? this.state.linkedin : 'https://' + this.state.linkedin,
@@ -102,6 +104,25 @@ export class UpdateProfile extends React.Component {
                           this.setState({ email: e.target.value })
                         }
                       ></input>
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label htmlFor="bio" className="col-4 col-form-label">
+                      Bio
+                    </label>
+                    <div className="col-8">
+                      <textarea
+                        id="bio"
+                        name="bio"
+                        placeholder="Bio"
+                        className="form-control here"
+                        required="required"
+                        type="text"
+                        value={this.state.bio}
+                        onChange={(e) =>
+                          this.setState({ bio: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                   <div className="form-group row">
@@ -231,6 +252,7 @@ export class UpdateProfile extends React.Component {
       username: profile.userName,
       name: profile.name || "",
       email: profile.email || "",
+      bio: profile.bio || "",
       password: "",
       facebook: profile.linkToFacebook || "",
       instagram: profile.linkToInstagram || "",

@@ -16,6 +16,7 @@ export class UserProfile extends React.Component {
         linkToLinkedIn: "",
         otherLink: "",
         joinDate: "",
+        bio: "",
       },
       userId: undefined,
       followButton: {
@@ -149,6 +150,14 @@ export class UserProfile extends React.Component {
             <i className="glyphicon glyphicon-gift"></i>
             Joined: {new Date(this.state.profile.joinDate).toLocaleString('default', dateOptions)}
           </h5>
+          <div>
+            <h3 className="mt-3">
+              About Me
+            </h3>
+            <p>
+              { this.state.profile.bio }
+            </p>
+          </div>
           { this.state.userId === +sessionStorage.getItem("userId") &&
             <Link 
               className="btn btn-outline-primary mt-1"

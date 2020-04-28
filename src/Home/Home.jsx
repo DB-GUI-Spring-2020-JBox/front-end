@@ -38,7 +38,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
             </div>
           <div className="container-fluid" style={{marginTop: '4em', justifyContent: 'space-between'}}>
             <div>
-                <ArticleCard id={ this.state.featured.ID } title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
+                <ArticleCard authorid={ this.state.featured.authorId } id={ this.state.featured.ID } title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
                     date={ this.state.featured.datePosted } category={ this.state.featured.category }/>
             </div>
           </div>
@@ -48,7 +48,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
             {
               this.state.firstRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl-3 article-row" style={{ padding: "0"}}>
-                    <ArticleCard id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                    <ArticleCard authorid={ a.authorId } id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.datePosted } category={ a.category } key={ i }/>
                     </div>})
             }
@@ -61,7 +61,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
             {
               this.state.secondRow.map((a, i) => {
                 return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0"}}>
-                    <ArticleCard id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+                    <ArticleCard authorid={ a.authorId } id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                         date={ a.datePosted } category={ a.category } key={ i }/>
                     </div>})
             }
@@ -74,7 +74,7 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
         <div className="scrollmenu">
         { this.state.userFeed.map((a, i) => {
           return <div className="article-row col-sm-6 col-md-6 col-lg-6 col-xl-4">
-              <ArticleCard id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
+              <ArticleCard authorid={ a.authorId } id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
                   date={ a.datePosted } category={ a.category } key={ i }/>
               </div>})
         }
@@ -86,9 +86,9 @@ const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
     componentDidMount() {
       this.homeRepo.getLatestArticles()
         .then(articles => this.setState({ featured: articles[0], firstRow: articles.slice(1, 5), secondRow: articles.slice(6, 8) }));
-      this.homeRepo.getFeed()
+      let userId = sessionStorage.getItem("userId");
+      this.homeRepo.getFeed(userId)
         .then(articles => this.setState({ userFeed: articles }));
-
     }
 }
 

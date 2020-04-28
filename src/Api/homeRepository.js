@@ -31,7 +31,7 @@ export class HomeRepository {
 
   getFeed(userId) {
     return new Promise((resolve, reject) => {
-      axios.get(hostname + `/api/home/${userId}`, {params:{userId: userId}})
+      axios.get(hostname + `/api/home/${userId}`, {userId})
         .then(res => {
           resolve(res.data);
         })

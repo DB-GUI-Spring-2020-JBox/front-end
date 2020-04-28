@@ -17,9 +17,10 @@ export class UserProfile extends React.Component {
         linkToLinkedIn: "",
         otherLink: "",
         joinDate: "",
+        bio: "",
       },
       userId: undefined,
-      button: {
+      followButton: {
         value: "Follow",
         class: "btn-success",
       },
@@ -51,6 +52,15 @@ export class UserProfile extends React.Component {
       comment: "",
       rating: "",
       articleId: "",
+      reviewButton: {
+        value: "Post",
+        class: "btn-danger",
+      },
+      blockButton: {
+        value: "Block",
+        class: "btn-danger",
+      },
+      articles: [],
     };
     this.handleClick = this.onFollow.bind(this);
     this.handleClick = this.onReview.bind(this);
@@ -76,17 +86,39 @@ export class UserProfile extends React.Component {
   }
 
   onFollow() {
-    if (this.state.button.value === "Follow") {
-      this.setState({ button: { value: "Unfollow", class: "btn-secondary" } });
+    if (this.state.followButton.value === "Follow") {
+      this.setState({
+        followButton: { value: "Unfollow", class: "btn-outline-success" },
+      });
       this.accountRepository.follow(
         +sessionStorage.getItem("userId"),
-        +this.props.match.params.userId
+        this.state.userId
       );
     } else {
-      this.setState({ button: { value: "Follow", class: "btn-success" } });
+      this.setState({
+        followButton: { value: "Follow", class: "btn-success" },
+      });
       this.accountRepository.unFollow(
         +sessionStorage.getItem("userId"),
-        +this.props.match.params.userId
+        this.state.userId
+      );
+    }
+  }
+
+  onBlock() {
+    if (this.state.blockButton.value === "Block") {
+      this.setState({
+        blockButton: { value: "Unblock", class: "btn-outline-danger" },
+      });
+      this.accountRepository.block(
+        +sessionStorage.getItem("userId"),
+        this.state.userId
+      );
+    } else {
+      this.setState({ blockButton: { value: "Block", class: "btn-danger" } });
+      this.accountRepository.unBlock(
+        +sessionStorage.getItem("userId"),
+        this.state.userId
       );
     }
   }
@@ -125,9 +157,11 @@ export class UserProfile extends React.Component {
                 <button
                   onClick={() => this.onFollow()}
                   type="button"
-                  className={"btn my-auto ml-4 " + this.state.button.class}
+                  className={
+                    "btn my-auto ml-4 " + this.state.followButton.class
+                  }
                 >
-                  {this.state.button.value}
+                  {this.state.followButton.value}
                 </button>
                 <Link
                   to={"/messenger/t/" + this.state.userId}
@@ -135,6 +169,13 @@ export class UserProfile extends React.Component {
                 >
                   Message
                 </Link>
+                <button
+                  onClick={() => this.onBlock()}
+                  type="button"
+                  className={"btn my-auto ml-4 " + this.state.blockButton.class}
+                >
+                  {this.state.blockButton.value}
+                </button>
               </>
             )}
           </div>
@@ -204,6 +245,10 @@ export class UserProfile extends React.Component {
               dateOptions
             )}
           </h5>
+          <div>
+            <h3 className="mt-3">About Me</h3>
+            <p>{this.state.profile.bio}</p>
+          </div>
           {this.state.userId === +sessionStorage.getItem("userId") && (
             <Link className="btn btn-outline-primary mt-1" to="/profile/update">
               Update Profile
@@ -349,9 +394,11 @@ export class UserProfile extends React.Component {
                 <button
                   onClick={() => this.onReview()}
                   type="button"
-                  className={"btn my-auto ml-3" + this.state.button.class}
+                  className={
+                    "btn my-auto ml-3 " + this.state.reviewButton.class
+                  }
                 >
-                  Post
+                  {this.state.reviewButton.value}
                 </button>
               </div>
             </>
@@ -367,10 +414,22 @@ export class UserProfile extends React.Component {
 
     let doesFollow = await this.accountRepository.doesFollow(
       +sessionStorage.getItem("userId"),
-      +this.props.match.params.userId
+      this.state.userId
     );
     if (doesFollow) {
-      this.setState({ button: { value: "Unfollow", class: "btn-secondary" } });
+      this.setState({
+        followButton: { value: "Unfollow", class: "btn-outline-success" },
+      });
+    }
+
+    let doesBlock = await this.accountRepository.isBlocked(
+      +sessionStorage.getItem("userId"),
+      this.state.userId
+    );
+    if (doesBlock) {
+      this.setState({
+        blockButton: { value: "Unblock", class: "btn-outline-danger" },
+      });
     }
 
     let articles = await this.articleRepository.getArticlesByUser(

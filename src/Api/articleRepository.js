@@ -16,7 +16,7 @@ export class ArticleRepository {
 
   getFeed(articleId) {
     return new Promise((resolve, reject) => {
-      axios.get(hostname + `/api/articles/${articleId}`, {params:{articleId: articleId}})
+      axios.get(hostname + `/api/articles/${articleId}`, {articleId})
         .then(res => {
           resolve(res.data);
         })
@@ -71,6 +71,20 @@ export class ArticleRepository {
     editArticle(article) {
         return new Promise((resolve, reject) => {
             axios.put(`${hostname}/api/articles/${article.ID}`, { ...article })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    debugger;
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
+
+    postArticle(article) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${hostname}/api/articles`, { ...article })
                 .then(response => {
                     resolve(response.data);
                 })

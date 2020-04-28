@@ -53,7 +53,7 @@ export class UserProfile extends React.Component {
       rating: 1,
       articleId: "",
       reviewButton: {
-        value: "Post",
+        value: "Submit",
         class: "btn-primary",
       },
       blockButton: {
@@ -290,7 +290,7 @@ export class UserProfile extends React.Component {
         <section>
           <h3>Articles</h3>
           {this.state.articles.map((article) => (
-            <div className="card my-3 border-0">
+            <div className="card my-3 p-3 shadow-sm">
               <h5 className="card-title">
                 <Link to={"/articles/" + article.ID}>{article.title}</Link>
               </h5>
@@ -331,7 +331,7 @@ export class UserProfile extends React.Component {
             <>
               <h3>Reviews: Average Rating: {this.state.averageRating}</h3>
               {this.state.reviews.map((review) => (
-                <div className="card my-3 border-0">
+                <div className="card my-3 p-3 shadow-sm">
                   <h5 className="card-title">
                     <Link to={"/articles/" + review.article}>
                       Review for: {review.title}
@@ -355,7 +355,8 @@ export class UserProfile extends React.Component {
                   </div>
                 </div>
               ))}
-              <h5>Post Your Review:</h5>
+              <hr />
+              <h3>Post Your Review:</h3>
               <div>
                 <label htmlFor="Title" className="col-4 col-form-label">
                   Title

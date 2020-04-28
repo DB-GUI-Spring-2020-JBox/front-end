@@ -157,10 +157,6 @@ export class Messenger extends React.Component {
 		return this.state.blocked.find(x => x.blocker === +sessionStorage.getItem("userId") && x.blocked === blocked);
 	}
 
-	getConversations() {
-		
-	}
-
 	render() {
 		if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return <Redirect to="/login" push />

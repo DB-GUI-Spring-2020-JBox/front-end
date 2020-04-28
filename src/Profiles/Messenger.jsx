@@ -209,8 +209,12 @@ export class Messenger extends React.Component {
 						}
 					</div>
 				}
-				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }>
-					<section id="messenger-header" className="row">
+				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }
+				
+				style={(this.state.uniqueUsers.length > 0) ? {} : { visibility: "hidden" }}>
+					<section 
+						id="messenger-header" 
+						className="row" >
 						<div className={ "d-flex flex-row " + (isPhone ? "" : "col-8") }>
 							<h2>
 								{ this.state.recipientName }
@@ -219,7 +223,7 @@ export class Messenger extends React.Component {
 								<span className="text-danger mt-2 pl-3"><h5 className="d-inline">(Blocked by you)</h5></span> }
 						</div>
 						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
-							{ !isNaN(this.state.recipient) &&
+							{ this.state.uniqueUsers.length > 0 &&
 							<>
 							<Link 
 								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
@@ -316,10 +320,9 @@ export class Messenger extends React.Component {
 		let recipientName;
 
 		if (recipientId) {
-			debugger;
 			let profile = this.state.profiles.find(x => x.ID === recipientId);
 			if (!uniqueUsers.find(x => x.ID === recipientId)) {
-				if (profile && !blocked.find(x => x.blocker === userId && x.blocked === sender)) {
+				if (profile && !blocked.find(x => x.blocker === recipientId && x.blocked === sender)) {
 					uniqueUsers.push({ ID: profile.ID, name: profile.name });
 				}
 				else {
@@ -329,7 +332,7 @@ export class Messenger extends React.Component {
 					}
 				}
 			}
-			else if (profile) {
+			if (profile) {
 				recipientName = profile.name;
 			}
 			this.setState({ recipient: recipientId, recipientName });

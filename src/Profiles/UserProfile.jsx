@@ -50,11 +50,11 @@ export class UserProfile extends React.Component {
       ],
       averageRating: "",
       comment: "",
-      rating: "",
+      rating: 1,
       articleId: "",
       reviewButton: {
         value: "Post",
-        class: "btn-danger",
+        class: "btn-primary",
       },
       blockButton: {
         value: "Block",
@@ -123,14 +123,41 @@ export class UserProfile extends React.Component {
     }
   }
 
+  async updateReviews() {
+    let reviews = await this.reviewsRepository.getReviewsByUser(
+      this.state.userId
+    );
+
+    reviews.sort(
+      (a, b) =>
+        new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()
+    );
+
+    this.setState({ reviews });
+
+    let averageRating = 0;
+    var i;
+    for (i = 0; i < reviews.length; i++) {
+      averageRating = averageRating + reviews[i].ranking;
+    }
+    averageRating = averageRating / reviews.length;
+    averageRating = averageRating.toFixed(1);
+    this.setState({ averageRating });
+  }
+
   async onReview() {
     debugger;
-    this.reviewsRepository.review(
+    await this.reviewsRepository.review(
       +sessionStorage.getItem("userId"),
       this.state.comment,
       this.state.rating,
       this.state.articleId
     );
+
+    this.setState({ comment: "", rating: 1 });
+
+    this.updateReviews();
+
   }
 
   render() {
@@ -335,6 +362,7 @@ export class UserProfile extends React.Component {
                 </label>
                 <div className="col-8">
                   <select
+                    className="form-control"
                     value={this.state.articleId}
                     onChange={(e) =>
                       this.setState({
@@ -378,6 +406,7 @@ export class UserProfile extends React.Component {
                 </label>
                 <div className="col-8">
                   <select
+                    className="form-control col-1"
                     value={this.state.rating}
                     onChange={(e) =>
                       this.setState({
@@ -452,25 +481,9 @@ export class UserProfile extends React.Component {
 
     this.setState({ articles });
 
-    let reviews = await this.reviewsRepository.getReviewsByUser(
-      this.state.userId
-    );
+    this.setState({ articleId: articles[0].ID });
+    debugger;
 
-    reviews.sort(
-      (a, b) =>
-        new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()
-    );
-
-    this.setState({ reviews });
-
-    let averageRating = 0;
-    var i;
-    for (i = 0; i < reviews.length; i++) {
-      averageRating = averageRating + reviews[i].ranking;
-    }
-    averageRating = averageRating / reviews.length;
-    averageRating = averageRating.toFixed(1);
-    this.setState({ averageRating });
-    console.log("hi");
+    this.updateReviews();
   }
 }

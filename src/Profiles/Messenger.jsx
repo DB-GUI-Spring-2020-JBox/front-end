@@ -272,11 +272,6 @@ export class Messenger extends React.Component {
 
 	async componentDidMount() {
 
-		// let recipientId = +this.props.match.params.recipientId;
-		// if (recipientId !== this.state.recipient) {
-		// 	this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
-		// }
-
 		if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return;
 		}
@@ -321,6 +316,7 @@ export class Messenger extends React.Component {
 		let recipientName;
 
 		if (recipientId) {
+			debugger;
 			let profile = this.state.profiles.find(x => x.ID === recipientId);
 			if (!uniqueUsers.find(x => x.ID === recipientId)) {
 				if (profile && !blocked.find(x => x.blocker === userId && x.blocked === sender)) {
@@ -332,8 +328,11 @@ export class Messenger extends React.Component {
 						recipientName = uniqueUsers[0].name;
 					}
 				}
-				this.setState({ recipient: recipientId, recipientName });
 			}
+			else if (profile) {
+				recipientName = profile.name;
+			}
+			this.setState({ recipient: recipientId, recipientName });
 		}
 
 		this.setState({ uniqueUsers });

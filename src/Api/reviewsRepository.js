@@ -32,12 +32,28 @@ export class ReviewsRepository {
         })
         .then((response) => {
           resolve(response.data);
-          debugger;
-          console.log(reviewRanking);
         })
         .catch((err) => {
           error(err);
           resolve(undefined);
+        });
+    });
+  }
+
+  editReview(reviewID, reviewContent, reviewRanking, reviewArticle) {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(`${hostname}/api/articles/${reviewID}`, {
+          content: reviewContent,
+          ranking: reviewRanking,
+          article: reviewArticle,
+        })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((err) => {
+          error(err);
+          reject(err);
         });
     });
   }

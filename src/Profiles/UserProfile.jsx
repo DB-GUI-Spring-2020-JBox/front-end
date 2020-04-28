@@ -141,8 +141,10 @@ export class UserProfile extends React.Component {
       averageRating = averageRating + reviews[i].ranking;
     }
     averageRating = averageRating / reviews.length;
-    averageRating = averageRating.toFixed(1);
-    this.setState({ averageRating });
+    if (averageRating) {
+      averageRating = averageRating.toFixed(1);
+    }
+    this.setState({ averageRating: averageRating || "N/A" });
   }
 
   async onReview() {
@@ -329,7 +331,10 @@ export class UserProfile extends React.Component {
         <section>
           {this.state.userId !== +sessionStorage.getItem("userId") && (
             <>
-              <h3>Reviews: Average Rating: {this.state.averageRating}</h3>
+              <h3>Reviews: </h3>
+              <h4>
+                Average Rating: {this.state.averageRating}
+              </h4>
               {this.state.reviews.map((review) => (
                 <div className="card my-3 p-3 shadow-sm">
                   <h5 className="card-title">

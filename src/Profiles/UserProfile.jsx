@@ -18,9 +18,13 @@ export class UserProfile extends React.Component {
         joinDate: "",
       },
       userId: undefined,
-      button: {
+      followButton: {
         value: "Follow",
         class: "btn-success"
+      },
+      blockButton: {
+        value: "Block",
+        class: "btn-danger"
       },
       articles: []
     };
@@ -46,12 +50,22 @@ export class UserProfile extends React.Component {
   }
 
   onFollow() {
-    if (this.state.button.value === "Follow") {
-      this.setState({ button: { value: "Unfollow", class: "btn-secondary" } });
-      this.accountRepository.follow(+sessionStorage.getItem("userId"), +this.props.match.params.userId);
+    if (this.state.followButton.value === "Follow") {
+      this.setState({ followButton: { value: "Unfollow", class: "btn-outline-success" } });
+      this.accountRepository.follow(+sessionStorage.getItem("userId"), this.state.userId);
     } else {
-      this.setState({ button: { value: "Follow", class: "btn-success" } });
-      this.accountRepository.unFollow(+sessionStorage.getItem("userId"), +this.props.match.params.userId);
+      this.setState({ followButton: { value: "Follow", class: "btn-success" } });
+      this.accountRepository.unFollow(+sessionStorage.getItem("userId"), this.state.userId);
+    }
+  }
+
+  onBlock() {
+    if (this.state.blockButton.value === "Block") {
+      this.setState({ blockButton: { value: "Unblock", class: "btn-outline-danger" } });
+      this.accountRepository.block(+sessionStorage.getItem("userId"), this.state.userId);
+    } else {
+      this.setState({ blockButton: { value: "Block", class: "btn-danger" } });
+      this.accountRepository.unBlock(+sessionStorage.getItem("userId"), this.state.userId);
     }
   }
 
@@ -79,14 +93,20 @@ export class UserProfile extends React.Component {
               <button
                 onClick={() => this.onFollow()}
                 type="button"
-                className={ "btn my-auto ml-4 " + this.state.button.class }>
-                {this.state.button.value}
+                className={ "btn my-auto ml-4 " + this.state.followButton.class }>
+                {this.state.followButton.value}
               </button>
               <Link
                 to={ "/messenger/t/" + this.state.userId }
                 className="btn btn-warning my-auto ml-4">
                 Message
               </Link>
+              <button
+                onClick={() => this.onBlock()}
+                type="button"
+                className={ "btn my-auto ml-4 " + this.state.blockButton.class }>
+                {this.state.blockButton.value}
+              </button>
             </>
             }
           </div>
@@ -184,9 +204,14 @@ export class UserProfile extends React.Component {
     let profile = await this.accountRepository.getProfile(this.state.userId);
     this.setState({ profile });
 
-    let doesFollow = await this.accountRepository.doesFollow(+sessionStorage.getItem("userId"), +this.props.match.params.userId);
+    let doesFollow = await this.accountRepository.doesFollow(+sessionStorage.getItem("userId"), this.state.userId);
     if (doesFollow) {
-      this.setState({ button: { value: "Unfollow", class: "btn-secondary" } });
+      this.setState({ followButton: { value: "Unfollow", class: "btn-outline-success" } });
+    }
+
+    let doesBlock = await this.accountRepository.isBlocked(+sessionStorage.getItem("userId"), this.state.userId);
+    if (doesBlock) {
+      this.setState({ blockButton: { value: "Unblock", class: "btn-outline-danger" } });
     }
 
     let articles = await this.articleRepository.getArticlesByUser(this.state.userId);

@@ -24,11 +24,17 @@ export class UserProfile extends React.Component {
       },
       articles: []
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.onFollow.bind(this);
   }
 
   articleRepository = new ArticleRepository();
   accountRepository = new AccountRepository();
+
+  async onDeleteArticle(articleId) {
+    if (window.confirm('Are you sure you want to delete this article?')) {
+      let res = await this.articleRepository.deleteArticle(articleId);
+    }
+  }
 
   componentWillMount() {
     let userId = +this.props.match.params.userId;
@@ -39,11 +45,13 @@ export class UserProfile extends React.Component {
     this.setState({ userId });
   }
 
-  handleClick() {
+  onFollow() {
     if (this.state.button.value === "Follow") {
       this.setState({ button: { value: "Unfollow", class: "btn-secondary" } });
+      this.accountRepository.follow(+sessionStorage.getItem("userId"), +this.props.match.params.userId);
     } else {
       this.setState({ button: { value: "Follow", class: "btn-success" } });
+      this.accountRepository.unFollow(+sessionStorage.getItem("userId"), +this.props.match.params.userId);
     }
   }
 
@@ -66,13 +74,21 @@ export class UserProfile extends React.Component {
         <section>
           <div className="d-flex">
             <h1>{this.state.profile.name}</h1>
-
-            <button
-              onClick={this.handleClick}
-              type="button"
-              className={ "btn my-auto ml-4 " + this.state.button.class }>
-              {this.state.button.value}
-            </button>
+            { this.state.userId !== +sessionStorage.getItem("userId") &&
+            <>
+              <button
+                onClick={() => this.onFollow()}
+                type="button"
+                className={ "btn my-auto ml-4 " + this.state.button.class }>
+                {this.state.button.value}
+              </button>
+              <Link
+                to={ "/messenger/t/" + this.state.userId }
+                className="btn btn-warning my-auto ml-4">
+                Message
+              </Link>
+            </>
+            }
           </div>
           <div className="row">
             <div className="btn-group col-1 mb-3">
@@ -97,6 +113,9 @@ export class UserProfile extends React.Component {
                 <li>
                   <a className="dropdown-item" href={this.state.profile.linkToFacebook}>Facebook</a>
                 </li>
+                <li>
+                  <a className="dropdown-item" href={this.state.profile.otherLink}>Website</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -111,13 +130,12 @@ export class UserProfile extends React.Component {
             Joined: {new Date(this.state.profile.joinDate).toLocaleString('default', dateOptions)}
           </h5>
           { this.state.userId === +sessionStorage.getItem("userId") &&
-          <>
             <Link 
               className="btn btn-outline-primary mt-1"
               to="/profile/update">
               Update Profile
             </Link>
-          </> }
+          }
         </section>
         <hr />
         <section>
@@ -130,9 +148,30 @@ export class UserProfile extends React.Component {
                     { article.title }
                   </Link>
                 </h5>
-                <h6 className="card-subtitle text-muted">
-                  { new Date(article.datePosted).toLocaleString('default', dateOptionsWithTime) }
-                </h6>
+                <div className="d-flex">
+                  <div>
+                    <h6 className="card-subtitle text-muted">
+                      { new Date(article.datePosted).toLocaleString('default', dateOptionsWithTime) } 
+                    </h6>
+
+                  </div>
+                  { this.state.userId === +sessionStorage.getItem("userId") &&
+                    <>
+                    <Link 
+                      to={ `/articles/${ article.ID }/edit` }
+                      className="btn btn-link py-0" 
+                      style={{ marginTop: "-0.6em" }} >
+                        Edit
+                    </Link>
+                    <div 
+                      className="btn btn-link text-danger py-0" 
+                      style={{ marginTop: "-0.6em" }}
+                      onClick={ () => this.onDeleteArticle(article.ID) }>
+                        Delete
+                    </div>
+                    </>
+                  }
+                </div>
               </div>)
           }
         </section>
@@ -144,6 +183,11 @@ export class UserProfile extends React.Component {
 
     let profile = await this.accountRepository.getProfile(this.state.userId);
     this.setState({ profile });
+
+    let doesFollow = await this.accountRepository.doesFollow(+sessionStorage.getItem("userId"), +this.props.match.params.userId);
+    if (doesFollow) {
+      this.setState({ button: { value: "Unfollow", class: "btn-secondary" } });
+    }
 
     let articles = await this.articleRepository.getArticlesByUser(this.state.userId);
     articles.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime());

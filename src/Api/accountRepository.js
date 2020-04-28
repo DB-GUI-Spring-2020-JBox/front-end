@@ -35,6 +35,19 @@ export class AccountRepository {
         })
     }
 
+    updateProfile(id, profile) {
+        return new Promise((resolve, reject) => {
+            axios.put(hostname + '/api/profiles/' + id, { ...profile })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject(err);
+                });
+        })
+    }
+
     login(username, password) {
         return new Promise((resolve, reject) => {
             axios.post(hostname + '/api/login', { username, password })
@@ -53,6 +66,50 @@ export class AccountRepository {
             axios.post(hostname + '/api/register', { ...account })
                 .then(response => {
                     resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    follow(followerId, followedId) {
+        return new Promise((resolve, reject) => {
+            axios.post(hostname + '/api/follows', { follower: followerId, followed: followedId })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    unFollow(followerId, followedId) {
+        return new Promise((resolve, reject) => {
+            axios.delete(hostname + '/api/follows', { params: { follower: followerId, followed: followedId } })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    doesFollow(followerId, followedId) {
+        return new Promise((resolve, reject) => {
+            axios.get(hostname + '/api/followerByID', { params: { follower: followerId } })
+                .then(response => {
+                    if (response.data && response.data.find(x => x.followed === followedId)) {
+                        resolve(true);
+                    }
+                    else {
+                        resolve(false);
+                    }
                 })
                 .catch(err => {
                     error(err);

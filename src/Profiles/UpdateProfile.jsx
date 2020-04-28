@@ -1,22 +1,41 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import AccountRepository from "../Api/accountRepository";
 export class UpdateProfile extends React.Component {
   state = {
     username: "",
-    firstName: "",
-    lastName: "",
+    name: "",
     password: "",
     email: "",
     facebook: "",
     instagram: "",
     linkedin: "",
-    other: ""
+    other: "",
   };
 
   accountRepository = new AccountRepository();
 
+  async onSubmit() {
+    const account = {
+      userName: this.state.username,
+      name: this.state.name,
+      password: this.state.password,
+      email: this.state.email,
+      linkToFacebook: this.state.facebook.startsWith('https://') ? this.state.facebook : 'https://' + this.state.facebook,
+      linkToInstagram: this.state.instagram.startsWith('https://') ? this.state.instagram : 'https://' + this.state.instagram,
+      linkToLinkedIn: this.state.linkedin.startsWith('https://') ? this.state.linkedin : 'https://' + this.state.linkedin,
+      otherLink: this.state.other.startsWith('https://') ? this.state.other : 'https://' + this.state.other,
+    }
+
+    await this.accountRepository.updateProfile(+sessionStorage.getItem("userId"), account);
+    this.setState({ redirect: true });
+  }
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/profile" />
+    }
+
     return (
       <div className="container mt-5">
         <div className="card">
@@ -147,7 +166,7 @@ export class UpdateProfile extends React.Component {
                       <input
                         id="other"
                         name="other"
-                        placeholder="youtube.com"
+                        placeholder="Website link"
                         className="form-control here"
                         type="text"
                         value={this.state.other}
@@ -179,8 +198,8 @@ export class UpdateProfile extends React.Component {
                     <div className="offset-4 col-8">
                       <div>
                         <button
-                          name="submit"
-                          type="submit"
+                          type="button"
+                          onClick={ () => this.onSubmit() }
                           className="btn btn-primary"
                         >
                           Submit Changes

@@ -28,7 +28,12 @@ export class ArticleRepository {
         return new Promise((resolve, reject) => {
             axios.get(hostname + `/api/articles/${articleId}`)
                 .then(response => {
-                    resolve(response.data);
+                    if (response.data.length > 0) {
+                        resolve(response.data[0])
+                    }
+                    else {
+                        resolve(undefined);
+                    }
                 })
                 .catch(err => {
                     error(err);
@@ -44,6 +49,47 @@ export class ArticleRepository {
                     resolve(response.data);
                 })
                 .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
+
+    deleteArticle(articleId) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${hostname}/api/articles/${articleId}`)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
+
+    editArticle(article) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${hostname}/api/articles/${article.ID}`, { ...article })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    debugger;
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
+
+    postArticle(article) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${hostname}/api/articles`, { ...article })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    debugger;
                     error(err);
                     reject(err);
                 });

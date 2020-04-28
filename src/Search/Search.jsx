@@ -75,7 +75,6 @@ export class Search extends React.Component {
                                                 <option value="DESC">Newest</option>
                                                 <option value="ASC">Oldest</option>
                                                 <option value="rating">User Rating</option>
-                                                <option value="article">Articles Only</option>
                                             </select>
 
                                         </div>
@@ -91,24 +90,25 @@ export class Search extends React.Component {
             </section>
         </div>
         <div className="search-results">
+          {this.state.articles.length > 1 && <div className="results"><p>Showing Results ... </p></div>}
+          {this.state.articles.length == 1 && <div className="results"><p>No Results Found</p></div>}
           { this.displayArticles() }
         </div>
       </div>
     </>;
   }
 
-
   displayArticles() {
-
+    console.log(this.state.articles)
     const list = []
     for (let i = 1; i < this.state.articles.length; i++) {
       list.push(    <div className="container-fluid bg-3">
             <div className="row results-row">
               {
                 this.state.articles[i].map((a, i) => {
-                  return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  style={{ padding: "0", justifyContent: "space-between"}}>
-                    <ArticleCard authorid={ a.authorId } id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
-                      date={ a.datePosted } category={ a.category } key={ i }/>
+                  return <div className="col-sm-6 col-md-6 col-lg-6 col-xl article-row"  key={ i } style={{ padding: "0", justifyContent: "space-between"}}>
+                    <ArticleCard authorid={ a.authorId } id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.authorName }
+                      date={ a.datePosted } category={ a.category } rating={ a.rating }/>
                   </div>})
                 }
             </div>

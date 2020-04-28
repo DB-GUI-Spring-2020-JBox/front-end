@@ -7,14 +7,14 @@ export const Footer = props => {
           <div className="row footer-head" style={{marginTop: "-20px", marginBottom: "-20px"}}>
             <div className="col-sm-12 col-md-6">
               <h6>ABOUT</h6>
-              <div><p className="text-justify ">JBox is a free lance journalism website that blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah...</p></div>
+              <div><p className="text-justify ">JBox is a free lance journalism website where users can post their own content and represent themselves in the journalism community. Open your content to publishers around the world!</p></div>
             </div>
             <div className="col-xs-6 col-md-3 links">
               <h6 className="footer-title">CATEGORIES</h6>
               <ul className="footer-links">
-                <li><a href="/">Health, Wealth,</a></li>
-                <li><a href="/">Technology, Politics,</a></li>
-                <li><a href="/">and More!</a></li>
+                <li><a href="/browse">Health, Wealth,</a></li>
+                <li><a href="/browse">Technology, Politics,</a></li>
+                <li><a href="/browse">and More!</a></li>
               </ul>
             </div>
             <div className="col-xs-6 col-md-3">

@@ -26,7 +26,7 @@ const categories = ["All Categories", "Health", "Technology", "Wealth", "Politic
           (<Redirect to="/login"/>)}
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
 
-            <div className = "row-fluid latest-stories" style={{marginBottom: "-30px", paddingTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <p style={{fontSize: "50px", fontWeight: "40"}}>Latest Stories</p>
+            <div className = "row-fluid latest-stories" style={{marginBottom: "-30px", paddingTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <p style={{fontSize: "50px", fontWeight: "40", marginBottom: '2em'}}>Latest Stories</p>
               <div className="dropdown" style={{paddingTop: '25px'}} >
         				<button className="btn dropdown-toggle" type="button" data-toggle="dropdown" style={{ fontSize: "22.5px"}}>
       						{ this.state.category }
@@ -36,12 +36,8 @@ const categories = ["All Categories", "Health", "Technology", "Wealth", "Politic
       	  				</div>
       					</div>
             </div>
-          <div className="container-fluid" style={{marginTop: '4em', justifyContent: 'space-between'}}>
-            <div>
                 <ArticleCard authorid={ this.state.featured.authorId } id={ this.state.featured.ID } title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
                     date={ this.state.featured.datePosted } category={ this.state.featured.category }/>
-            </div>
-          </div>
           <div className="container-fluid bg-3">
             <div className="row" style={{overflow: "hidden"}}>
 

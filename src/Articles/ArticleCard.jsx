@@ -21,7 +21,7 @@ export const ArticleCard = props => {
             <div className="text-center" style={{ fontSize: "23px", marginTop: "9px" }}><i>{ props.category }</i></div>
             <div className="text-center" style={{ fontSize: "30px", marginBottom: "100px", padding: "10px", whiteSpace: "normal"}}>{ props.title}</div>
             <div className="text-center" style={{ fontSize: "20px", position: "absolute", bottom: "35px", width: "100%"}}><i>by </i>
-                <b style={{ color: "rgb(25, 161, 230)", textDecoration: "none" }} href={`/userprofile/${ props.authorId }`}>{ props.author }</b> - <i>{ new Date(props.date).toLocaleString('default', dateOptions) }</i></div>
+                <b style={{ color: "rgb(25, 161, 230)"}} href={`/userprofile/${ props.authorId }`}>{ props.author }</b> - <i>{ new Date(props.date).toLocaleString('default', dateOptions) }</i></div>
             <hr style={{border: "lightgray solid 2px", position: "absolute", bottom: "5px", width: "85%", left: "7%"}}/>
         </a>
     );

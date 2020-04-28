@@ -170,10 +170,10 @@ export class PostArticle extends React.Component {
                           Health
                         </option>
                         <option
-                          id="tech"
-                          value="tech"
+                          id="technology"
+                          value="technology"
                         >
-                          Tech
+                          Technology
                         </option>
                         <option
                           id="wealth"

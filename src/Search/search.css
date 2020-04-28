@@ -28,6 +28,12 @@
 .results-row {
   margin-top: 5vw;
 }
+
+.results {
+  margin-top: 10px;
+  color: gray;
+  font-size: 30px;
+}
 /* @media (min-width: 700px){
     .search-sec{
         top: -114px;

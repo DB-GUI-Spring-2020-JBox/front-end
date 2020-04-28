@@ -57,6 +57,36 @@ export class ReviewsRepository {
         });
     });
   }
+
+  returnReviewByID(reviewID) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(hostname + `/api/reviewsIndiv/${reviewID}`)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((err) => {
+          error(err);
+          reject(err);
+        });
+    });
+  }
+
+  deleteReview(reviewID) {
+    return new Promise((resolve, reject) => {
+      debugger;
+      axios
+        .delete(`${hostname}/api/reviews/${reviewID}`)
+        .then((response) => {
+          resolve(response.data);
+        }, console.log("hi"))
+
+        .catch((err) => {
+          error(err);
+          reject(err);
+        });
+    });
+  }
 }
 
 export default ReviewsRepository;

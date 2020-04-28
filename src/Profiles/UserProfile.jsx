@@ -48,6 +48,8 @@ export class UserProfile extends React.Component {
           val: 5,
         },
       ],
+      edit: "false",
+      reviewId: "",
       averageRating: "",
       comment: "",
       rating: 1,
@@ -64,6 +66,7 @@ export class UserProfile extends React.Component {
     };
     this.handleClick = this.onFollow.bind(this);
     this.handleClick = this.onReview.bind(this);
+    this.handleClick = this.onEditReview(this);
   }
 
   articleRepository = new ArticleRepository();
@@ -74,6 +77,27 @@ export class UserProfile extends React.Component {
     if (window.confirm("Are you sure you want to delete this article?")) {
       let res = await this.articleRepository.deleteArticle(articleId);
     }
+  }
+
+  async onDeleteReview(reviewID) {
+    debugger;
+    if (window.confirm("Are you sure you want to delete this review?")) {
+      let res = await this.reviewsRepository.deleteReview(reviewID);
+    }
+    this.updateReviews();
+  }
+
+  async onEditReview(reviewID) {
+    this.setState({
+      reviewId: reviewID,
+      rating: await this.reviewsRepository.returnReviewByID(reviewID).ranking,
+      comment: await this.reviewsRepository.returnReviewByID(reviewID).content,
+      articleId: await this.reviewsRepository.returnReviewByID(reviewID)
+        .article,
+      edit: "true",
+    });
+    this.forceUpdate();
+    console.log(this.reviewsRepository.getReviewsByUser(4));
   }
 
   componentWillMount() {
@@ -149,6 +173,15 @@ export class UserProfile extends React.Component {
 
   async onReview() {
     debugger;
+    /*if (this.state.edit === "true") {
+      await this.reviewsRepository.editReview(
+        this.state.reviewId,
+        this.state.comment,
+        this.state.rating,
+        this.state.articleId
+      );
+      this.setState({ edit: "false" });
+    } */
     await this.reviewsRepository.review(
       +sessionStorage.getItem("userId"),
       this.state.comment,
@@ -157,9 +190,7 @@ export class UserProfile extends React.Component {
     );
 
     this.setState({ comment: "", rating: 1 });
-
     this.updateReviews();
-
   }
 
   render() {
@@ -332,9 +363,7 @@ export class UserProfile extends React.Component {
           {this.state.userId !== +sessionStorage.getItem("userId") && (
             <>
               <h3>Reviews: </h3>
-              <h4>
-                Average Rating: {this.state.averageRating}
-              </h4>
+              <h4>Average Rating: {this.state.averageRating}</h4>
               {this.state.reviews.map((review) => (
                 <div className="card my-3 p-3 shadow-sm">
                   <h5 className="card-title">
@@ -357,6 +386,18 @@ export class UserProfile extends React.Component {
                         )}
                       </h6>
                     </div>
+                    {this.state.userId !== +sessionStorage.getItem("userId") &&
+                      review.author === +sessionStorage.getItem("userId") && (
+                        <>
+                          <div
+                            className="btn btn-link text-danger py-0"
+                            style={{ marginTop: "-0.6em" }}
+                            onClick={() => this.onDeleteReview(review.ID)}
+                          >
+                            Delete
+                          </div>
+                        </>
+                      )}
                   </div>
                 </div>
               ))}

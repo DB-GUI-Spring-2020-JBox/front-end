@@ -48,7 +48,6 @@ export class UserProfile extends React.Component {
           val: 5,
         },
       ],
-      edit: "false",
       reviewId: "",
       averageRating: "",
       comment: "",
@@ -66,7 +65,6 @@ export class UserProfile extends React.Component {
     };
     this.handleClick = this.onFollow.bind(this);
     this.handleClick = this.onReview.bind(this);
-    this.handleClick = this.onEditReview(this);
   }
 
   articleRepository = new ArticleRepository();
@@ -76,6 +74,7 @@ export class UserProfile extends React.Component {
   async onDeleteArticle(articleId) {
     if (window.confirm("Are you sure you want to delete this article?")) {
       let res = await this.articleRepository.deleteArticle(articleId);
+      this.updateArticles();
     }
   }
 
@@ -88,16 +87,20 @@ export class UserProfile extends React.Component {
   }
 
   async onEditReview(reviewID) {
+
+    let review = await this.reviewsRepository.returnReviewByID(reviewID);
+    debugger;
+
     this.setState({
       reviewId: reviewID,
-      rating: await this.reviewsRepository.returnReviewByID(reviewID).ranking,
-      comment: await this.reviewsRepository.returnReviewByID(reviewID).content,
-      articleId: await this.reviewsRepository.returnReviewByID(reviewID)
-        .article,
-      edit: "true",
+      rating: review.ranking,
+      comment: review.content,
+      articleId: review.article,
+      edit: true,
     });
-    this.forceUpdate();
-    console.log(this.reviewsRepository.getReviewsByUser(4));
+
+    window.scrollTo(0,document.body.scrollHeight);
+
   }
 
   componentWillMount() {
@@ -147,6 +150,21 @@ export class UserProfile extends React.Component {
     }
   }
 
+  async updateArticles() {
+    let articles = await this.articleRepository.getArticlesByUser(
+      this.state.userId
+    );
+
+    articles.sort(
+      (a, b) =>
+        new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()
+    );
+
+    this.setState({ articles });
+
+    this.setState({ articleId: articles[0].ID });
+  }
+
   async updateReviews() {
     let reviews = await this.reviewsRepository.getReviewsByUser(
       this.state.userId
@@ -173,21 +191,23 @@ export class UserProfile extends React.Component {
 
   async onReview() {
     debugger;
-    /*if (this.state.edit === "true") {
+    if (this.state.edit) {
       await this.reviewsRepository.editReview(
         this.state.reviewId,
         this.state.comment,
         this.state.rating,
         this.state.articleId
       );
-      this.setState({ edit: "false" });
-    } */
-    await this.reviewsRepository.review(
-      +sessionStorage.getItem("userId"),
-      this.state.comment,
-      this.state.rating,
-      this.state.articleId
-    );
+      this.setState({ edit: false });
+    } 
+    else {
+      await this.reviewsRepository.review(
+        +sessionStorage.getItem("userId"),
+        this.state.comment,
+        this.state.rating,
+        this.state.articleId
+      );
+    }
 
     this.setState({ comment: "", rating: 1 });
     this.updateReviews();
@@ -212,7 +232,7 @@ export class UserProfile extends React.Component {
       year: "numeric",
     };
     return (
-      <div className="container bg-white p-5 mt-4 border-dark">
+      <div id="page" className="container bg-white p-5 mt-4 border-dark">
         <section>
           <div className="d-flex">
             <h1>{this.state.profile.name}</h1>
@@ -366,9 +386,12 @@ export class UserProfile extends React.Component {
               <h4>Average Rating: {this.state.averageRating}</h4>
               {this.state.reviews.map((review) => (
                 <div className="card my-3 p-3 shadow-sm">
+                  <h4 className="mb-0">Rating: { review.ranking }</h4>
+                  <hr/>
                   <h5 className="card-title">
+                    Review for:
                     <Link to={"/articles/" + review.article}>
-                      Review for: {review.title}
+                      {"  " + review.title}
                     </Link>
                   </h5>
                   <h5 classname="card-title">"{review.content}"</h5>
@@ -390,6 +413,13 @@ export class UserProfile extends React.Component {
                       review.author === +sessionStorage.getItem("userId") && (
                         <>
                           <div
+                            className="btn btn-link py-0"
+                            style={{ marginTop: "-0.6em" }}
+                            onClick={ () => this.onEditReview(review.ID) }
+                          >
+                            Edit
+                          </div>
+                          <div
                             className="btn btn-link text-danger py-0"
                             style={{ marginTop: "-0.6em" }}
                             onClick={() => this.onDeleteReview(review.ID)}
@@ -403,7 +433,7 @@ export class UserProfile extends React.Component {
               ))}
               <hr />
               <h3>Post Your Review:</h3>
-              <div>
+              <div id="post-review">
                 <label htmlFor="Title" className="col-4 col-form-label">
                   Title
                 </label>
@@ -517,19 +547,7 @@ export class UserProfile extends React.Component {
       });
     }
 
-    let articles = await this.articleRepository.getArticlesByUser(
-      this.state.userId
-    );
-
-    articles.sort(
-      (a, b) =>
-        new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()
-    );
-
-    this.setState({ articles });
-
-    this.setState({ articleId: articles[0].ID });
-    debugger;
+    this.updateArticles();
 
     this.updateReviews();
   }

@@ -43,7 +43,7 @@ export class ReviewsRepository {
   editReview(reviewID, reviewContent, reviewRanking, reviewArticle) {
     return new Promise((resolve, reject) => {
       axios
-        .put(`${hostname}/api/articles/${reviewID}`, {
+        .put(`${hostname}/api/reviews/${reviewID}`, {
           content: reviewContent,
           ranking: reviewRanking,
           article: reviewArticle,
@@ -63,7 +63,7 @@ export class ReviewsRepository {
       axios
         .get(hostname + `/api/reviewsIndiv/${reviewID}`)
         .then((response) => {
-          resolve(response.data);
+          resolve(response.data[0]);
         })
         .catch((err) => {
           error(err);

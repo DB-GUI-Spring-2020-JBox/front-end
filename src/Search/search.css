@@ -22,6 +22,12 @@
     border-radius: 0;
 }
 
+.search-results {
+}
+
+.results-row {
+  margin-top: 5vw;
+}
 /* @media (min-width: 700px){
     .search-sec{
         top: -114px;

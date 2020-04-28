@@ -181,6 +181,12 @@ export class PostArticle extends React.Component {
                         >
                           Wealth
                         </option>
+                        <option
+                          id="politics"
+                          value="politics"
+                        >
+                          Politics
+                        </option>
                       </select>
                     </div>
                   </div>

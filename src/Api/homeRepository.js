@@ -21,7 +21,7 @@ export class HomeRepository {
 
   getArticles(category) {
     return new Promise((resolve, reject) => {
-      axios.get(hostname + `/api/browse/${category}`, {params:{category: category}})
+      axios.get(hostname + `/api/browse/${category}`)
         .then(res => {
           resolve(res.data);
         })

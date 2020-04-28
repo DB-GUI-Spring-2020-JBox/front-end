@@ -5,7 +5,7 @@ export class SearchRepository {
 
   search(param){
     return new Promise((resolve, reject) => {
-        axios.post(`${hostname}/search`, param, this.config)
+        axios.get(hostname + `/api/search/${param.input}/${param.category}/${param.filter}`)
         .then(res => {
             resolve(res.data);
         })

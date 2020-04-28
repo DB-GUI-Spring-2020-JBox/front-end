@@ -57,6 +57,10 @@
   align-self: flex-end;
 }
 
+#message-list .recipient .message {
+  align-self: flex-start;
+}
+
 .message-group {
   display: flex;
   flex-direction: column;

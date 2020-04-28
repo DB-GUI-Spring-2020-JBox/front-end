@@ -259,6 +259,5 @@ export class UpdateProfile extends React.Component {
       linkedin: profile.linkToLinkedIn || "",
       other: profile.otherLink || ""
     })
-
   }
 }

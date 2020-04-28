@@ -11,7 +11,7 @@ export class PostArticle extends React.Component {
       title: "",
       content: "",
       //date: new Date(),
-      author: +sessionStorage.getItem("userId"),
+      authorId: +sessionStorage.getItem("userId"),
       category: "",
       image: "",
       button: {
@@ -32,7 +32,7 @@ export class PostArticle extends React.Component {
         title: this.state.title,
         image: this.state.image,
         content: this.state.content,
-        author: this.state.author,
+        authorId: this.state.authorId,
         category: this.state.category,
         date: this.state.date || new Date().toISOString()
       }
@@ -47,7 +47,7 @@ export class PostArticle extends React.Component {
         title: this.state.title,
         image: this.state.image,
         content: this.state.content,
-        author: this.state.author,
+        authorId: this.state.authorId,
         category: this.state.category,
         date: this.state.date || new Date().toISOString()
       }
@@ -215,7 +215,8 @@ export class PostArticle extends React.Component {
         this.setState({ redirect: true });
         return;
       }
-      if (article.author !== +sessionStorage.getItem("userId")) {
+      if (article.authorId !== +sessionStorage.getItem("userId")) {
+        debugger;
         alert('This is not your article!');
         this.setState({ redirect: true });
         return;
@@ -225,7 +226,7 @@ export class PostArticle extends React.Component {
         image: article.image,
         content: article.content,
         date: article.datePosted,
-        author: +sessionStorage.getItem("userId"),
+        authorId: +sessionStorage.getItem("userId"),
         category: article.category,
       });
     }

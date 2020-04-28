@@ -5,7 +5,7 @@ import { feed } from '../SampleData/articles';
 import { HomeRepository } from '../Api/homeRepository';
 import './home.css';
 
-const categories = ["All Categories", "Health", "Tech", "Wealth", "Politics"]
+const categories = ["All Categories", "Health", "Technology", "Wealth", "Politics"]
 
 //export const Home = (props) => {
   export class Home extends React.Component {

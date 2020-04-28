@@ -8,7 +8,7 @@ const categories = ["Health", "Tech", "Wealth", "Politics"]
 
 export class Search extends React.Component {
 
-  searchRepo = new SearchRepository();
+    searchRepo = new SearchRepository();
 
     state = {
       input: '',
@@ -22,8 +22,7 @@ export class Search extends React.Component {
       let tempInput = this.state.input
       if(this.state.input === '') { tempInput = 0 }
       let param = {input: tempInput, category: this.state.category, filter: this.state.filter}
-      // let param = this.state.filter;
-
+      console.log(param);
       this.searchRepo.search(param)
         .then(arr => {
             this.setState({articles: this.arrayTo2DArray2(arr, 4)});
@@ -72,10 +71,10 @@ export class Search extends React.Component {
                                                     id="exampleFormControlSelect1"
                                                     value={ this.state.filter }
                                                     onChange={e => this.setState({filter: e.target.value})}>
-                                                <option value="0">Filter</option>
-                                                <option value="date">Most Recent</option>
-                                                <option value="rating">Highest Rating</option>
-                                                <option value="author">Authors Only</option>
+                                                <option value="0">No Filter</option>
+                                                <option value="DESC">Newest</option>
+                                                <option value="ASC">Oldest</option>
+                                                <option value="rating">User Rating</option>
                                                 <option value="article">Articles Only</option>
                                             </select>
 
@@ -98,6 +97,7 @@ export class Search extends React.Component {
     </>;
   }
 
+
   displayArticles() {
 
     const list = []
@@ -114,18 +114,9 @@ export class Search extends React.Component {
             </div>
           </div>)
     }
-
-
-
-
-    // list.push()
-    // this.state.articles.map((a, i) =>
-    //   list.push(
-    //     <ArticleCard authorid={ a.authorId } id={a.ID} title={ a.title } image={ a.image } snippet={ a.snippet } author={ a.author }
-    //       date={ a.datePosted } category={ a.category } key={ i }/>
-    //   ))
      return list;
   }
+
 
   arrayTo2DArray2(list, howMany) {
     var idx = 0

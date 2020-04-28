@@ -28,6 +28,7 @@ export class Messenger extends React.Component {
 			phone: {},
 			profiles: [],
 			uniqueUsers: [],
+			blocked: [],
 			hasMessages: false
 		}
 	}
@@ -152,6 +153,14 @@ export class Messenger extends React.Component {
 		this.setState({ profiles });
 	}
 
+	isBlocked(blocked) {
+		return this.state.blocked.find(x => x.blocker === +sessionStorage.getItem("userId") && x.blocked === blocked);
+	}
+
+	getConversations() {
+		
+	}
+
 	render() {
 		if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return <Redirect to="/login" push />
@@ -200,11 +209,21 @@ export class Messenger extends React.Component {
 						}
 					</div>
 				}
-				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }>
-					<section id="messenger-header" className="row">
-						<h2 className={ isPhone ? "" : "col-8" }>{ this.state.recipientName }</h2>
+				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }
+				
+				style={(this.state.uniqueUsers.length > 0) ? {} : { visibility: "hidden" }}>
+					<section 
+						id="messenger-header" 
+						className="row" >
+						<div className={ "d-flex flex-row " + (isPhone ? "" : "col-8") }>
+							<h2>
+								{ this.state.recipientName }
+							</h2>
+							{ this.isBlocked(this.state.recipient) &&
+								<span className="text-danger mt-2 pl-3"><h5 className="d-inline">(Blocked by you)</h5></span> }
+						</div>
 						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
-							{ !isNaN(this.state.recipient) &&
+							{ this.state.uniqueUsers.length > 0 &&
 							<>
 							<Link 
 								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
@@ -257,11 +276,6 @@ export class Messenger extends React.Component {
 
 	async componentDidMount() {
 
-		// let recipientId = +this.props.match.params.recipientId;
-		// if (recipientId !== this.state.recipient) {
-		// 	this.onSwitchMessages(recipientId, userList.find(x => x.id === recipientId));
-		// }
-
 		if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return;
 		}
@@ -275,6 +289,9 @@ export class Messenger extends React.Component {
 
 		let uniqueUsers = [];
 
+		const blocked = await this.accountRepository.getBlocked(sender);
+		this.setState({ blocked });
+
 		let userId;
 		this.state.messages.forEach(msg => {
 			userId = undefined;
@@ -285,7 +302,7 @@ export class Messenger extends React.Component {
 				userId = msg.sender;
 			}
 
-			if (userId) {
+			if (userId && !blocked.find(x => x.blocker === userId && x.blocked === sender)) {
 				let name = this.state.profiles.find(x => x.ID === userId).name;
 				uniqueUsers.push({ID: userId, name });
 			}
@@ -305,7 +322,7 @@ export class Messenger extends React.Component {
 		if (recipientId) {
 			let profile = this.state.profiles.find(x => x.ID === recipientId);
 			if (!uniqueUsers.find(x => x.ID === recipientId)) {
-				if (profile) {
+				if (profile && !blocked.find(x => x.blocker === recipientId && x.blocked === sender)) {
 					uniqueUsers.push({ ID: profile.ID, name: profile.name });
 				}
 				else {
@@ -314,8 +331,11 @@ export class Messenger extends React.Component {
 						recipientName = uniqueUsers[0].name;
 					}
 				}
-				this.setState({ recipient: recipientId, recipientName });
 			}
+			if (profile) {
+				recipientName = profile.name;
+			}
+			this.setState({ recipient: recipientId, recipientName });
 		}
 
 		this.setState({ uniqueUsers });

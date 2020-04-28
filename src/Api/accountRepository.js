@@ -117,6 +117,64 @@ export class AccountRepository {
                 });
         });
     }
+
+    block(blocker, blocked) {
+        return new Promise((resolve, reject) => {
+            axios.post(hostname + '/api/blocks', { blocker, blocked })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    unBlock(blocker, blocked) {
+        return new Promise((resolve, reject) => {
+            axios.delete(hostname + '/api/blocks', { params: { blocker, blocked } })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    isBlocked(blocker, blocked) {
+        return new Promise((resolve, reject) => {
+            axios.get(hostname + '/api/blocks', { params: { blocker, blocked } })
+                .then(response => {
+                    if (response.data && response.data.length > 0) {
+                        resolve(true);
+                    }
+                    else {
+                        resolve(false);
+                    }
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
+    getBlocked(blocker) {
+        return new Promise((resolve, reject) => {
+            axios.get(hostname + '/api/blocks', { params: { blocker } })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    error(err);
+                    resolve(undefined);
+                });
+        });
+    }
+
 }
 
 export default AccountRepository;

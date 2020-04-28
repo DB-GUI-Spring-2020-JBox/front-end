@@ -221,7 +221,8 @@ export class PostArticle extends React.Component {
         this.setState({ redirect: true });
         return;
       }
-      if (article.author !== +sessionStorage.getItem("userId")) {
+      if (article.authorId !== +sessionStorage.getItem("userId")) {
+        debugger;
         alert('This is not your article!');
         this.setState({ redirect: true });
         return;

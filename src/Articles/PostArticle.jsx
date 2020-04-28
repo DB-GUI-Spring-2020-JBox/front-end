@@ -27,7 +27,6 @@ export class PostArticle extends React.Component {
   async handleClick() {
 
     if (this.state.edit) {
-      debugger;
       const article = {
         ID: +this.props.match.params.articleId,
         title: this.state.title,
@@ -37,9 +36,23 @@ export class PostArticle extends React.Component {
         category: this.state.category,
         date: this.state.date || new Date().toISOString()
       }
+      debugger;
       await this.articleRepository.editArticle(article);
       this.setState({ redirect: true });
       return;
+    }
+
+    else {
+      const article = {
+        title: this.state.title,
+        image: this.state.image,
+        content: this.state.content,
+        author: this.state.author,
+        category: this.state.category,
+        date: this.state.date || new Date().toISOString()
+      }
+      await this.articleRepository.postArticle(article);
+      this.setState({ redirect: true });
     }
 
     if (this.state.button.value === "Post Article") {

@@ -81,6 +81,20 @@ export class ArticleRepository {
                 });
         });
     }
+
+    postArticle(article) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${hostname}/api/articles`, { ...article })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    debugger;
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
 }
 
 export default ArticleRepository;

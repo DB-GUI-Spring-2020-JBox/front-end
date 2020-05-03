@@ -25,3 +25,19 @@
     font-weight: 500;
     padding-left: 40px;
 }
+
+.stories {
+  padding-right: 10vw;
+  padding-left: 10vw;
+  padding-top: 30px;
+}
+
+.category-scroll {
+  margin-top: 60px;
+  margin-left: 10vw;
+}
+
+.browse-items {
+  margin-right: 0;
+  margin-left: 0;
+}

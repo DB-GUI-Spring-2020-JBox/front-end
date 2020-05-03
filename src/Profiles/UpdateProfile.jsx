@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import AccountRepository from "../Api/accountRepository";
 export class UpdateProfile extends React.Component {

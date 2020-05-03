@@ -4,7 +4,7 @@ export const Footer = props => {
     return (
       <footer className="site-footer">
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
-          <div className="row footer-head" style={{marginTop: "-20px", marginBottom: "-20px"}}>
+          <div className="row" style={{marginTop: "-20px", marginBottom: "-20px"}}>
             <div className="col-sm-12 col-md-6">
               <h6>ABOUT</h6>
               <div><p className="text-justify ">JBox is a free lance journalism website where users can post their own content and represent themselves in the journalism community. Open your content to publishers around the world!</p></div>
@@ -32,7 +32,7 @@ export const Footer = props => {
           <div className="row">
             <div className="col">
               <p className="copyright-text">Copyright &copy; 2020 - Guys Who Code.</p>
-              <ul className="social-icons" style={{marginTop: "-10px"}}>
+              <ul className="social-icons">
                 <li><a href="https://www.facebook.com"><img src={require('../Images/facebook.png')} alt="facebook" width="40" height="40"/></a></li>
                 <li><a href="https://www.twitter.com"><img src={require('../Images/twitter.png')} alt="twitter" width="40" height="40"/></a></li>
                 <li><a href="https://www.instagram.com"><img src={require('../Images/instagram.png')} alt="instagram" width="40" height="40"/></a></li>

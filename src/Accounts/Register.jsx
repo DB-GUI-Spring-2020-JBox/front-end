@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import './accounts.css';
 import AccountRepository from '../Api/accountRepository';
 
-
 export const Register = () => {
 
     const [firstName, setFirstName] = useState("");
@@ -37,7 +36,6 @@ export const Register = () => {
         };
 
         accountRepository.register(account);
-
         setComplete(true);
     }
 

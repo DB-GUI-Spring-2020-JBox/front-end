@@ -20,6 +20,7 @@ export class Search extends React.Component {
     applySearch(event) {
       event.preventDefault();
       event.stopPropagation();
+
       if(this.state.input !== '' || this.state.category !== '' || this.state.filter !== ''){
       let tempInput = this.state.input
       if(this.state.input === '') { tempInput = 0 }
@@ -33,12 +34,11 @@ export class Search extends React.Component {
 
     render () {
       return <>
-      {sessionStorage.getItem("isAuthenticated") !== "true" &&
-        (<Redirect to="/login"/>)}
-
+      { sessionStorage.getItem("isAuthenticated") !== "true" &&
+        (<Redirect to="/login"/>) }
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
-            <div className = "" style={{marginTop: '4em', display: 'flex', justifyContent: 'space-between'}}>
-              <section style={{width: "82.5vw", margin: "auto"}}>
+            <div className = "search-wrap">
+              <section className="carousel-sec">
 
                 { this.carousel() }
 
@@ -92,7 +92,7 @@ export class Search extends React.Component {
         </div>
         <div className="search-results">
           {this.state.articles.length > 1 && <div className="results"><p>Showing Results ... </p></div>}
-          {this.state.articles.length == 1 && <div className="results"><p>No Results Found</p></div>}
+          {this.state.articles.length === 1 && <div className="results"><p>No Results Found</p></div>}
           { this.displayArticles() }
         </div>
       </div>

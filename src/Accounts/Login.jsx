@@ -45,7 +45,6 @@ export class Login extends React.Component {
         else {
             this.setState({ invalidCred: true });
         }
-
     }
 
     render() {

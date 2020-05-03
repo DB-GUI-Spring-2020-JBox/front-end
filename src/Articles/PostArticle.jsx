@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ArticleRepository from "../Api/articleRepository";
 //import "./postarticle.css";
 //import Time from "react-time";

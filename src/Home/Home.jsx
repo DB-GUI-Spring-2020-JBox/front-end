@@ -1,14 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { ArticleCard } from '../Articles';
-import { feed } from '../SampleData/articles';
 import { HomeRepository } from '../Api/homeRepository';
 import './home.css';
 
-const categories = ["All Categories", "Health", "Technology", "Wealth", "Politics"]
-
-//export const Home = (props) => {
-  export class Home extends React.Component {
+export class Home extends React.Component {
 
     homeRepo = new HomeRepository();
 
@@ -27,7 +23,7 @@ const categories = ["All Categories", "Health", "Technology", "Wealth", "Politic
         <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
 
             <div className = "row-fluid latest-stories" style={{marginBottom: "-30px", paddingTop: '5em', display: 'flex', justifyContent: 'space-between'}}> <p style={{fontSize: "50px", fontWeight: "40", marginBottom: '2em'}}>Latest Stories</p>
-          
+
             </div>
                 <ArticleCard authorid={ this.state.featured.authorId } id={ this.state.featured.ID } title={ this.state.featured.title } image={ this.state.featured.image } snippet={ this.state.featured.snippet } author={ this.state.featured.author }
                     date={ this.state.featured.datePosted } category={ this.state.featured.category }/>

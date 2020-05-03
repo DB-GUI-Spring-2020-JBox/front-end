@@ -3,12 +3,6 @@ import axios from 'axios';
 
 export class HomeRepository {
 
-  config = {
-    headers: {
-      'Access-Control-Allow-Origin' : 'http://localhost:3000'
-    }
-  };
-
   getLatestArticles(params) {
     return new Promise((resolve, reject) => {
       axios.get(hostname + '/api/home')

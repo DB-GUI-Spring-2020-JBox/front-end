@@ -1,6 +1,5 @@
 import React from "react";
 import ArticleRepository from "../Api/articleRepository";
-import { users } from "../SampleData/users";
 import { Link, Redirect } from "react-router-dom";
 import AccountRepository from "../Api/accountRepository";
 import ReviewsRepository from "../Api/reviewsRepository";
@@ -61,7 +60,6 @@ export class UserProfile extends React.Component {
         value: "Block",
         class: "btn-danger",
       },
-      articles: [],
     };
     this.handleClick = this.onFollow.bind(this);
     this.handleClick = this.onReview.bind(this);
@@ -73,7 +71,7 @@ export class UserProfile extends React.Component {
 
   async onDeleteArticle(articleId) {
     if (window.confirm("Are you sure you want to delete this article?")) {
-      let res = await this.articleRepository.deleteArticle(articleId);
+      await this.articleRepository.deleteArticle(articleId);
       this.updateArticles();
     }
   }
@@ -81,7 +79,7 @@ export class UserProfile extends React.Component {
   async onDeleteReview(reviewID) {
     debugger;
     if (window.confirm("Are you sure you want to delete this review?")) {
-      let res = await this.reviewsRepository.deleteReview(reviewID);
+      await this.reviewsRepository.deleteReview(reviewID);
     }
     this.updateReviews();
   }
@@ -204,7 +202,7 @@ export class UserProfile extends React.Component {
         this.state.articleId
       );
       this.setState({ edit: false });
-    } 
+    }
     else {
       await this.reviewsRepository.review(
         +sessionStorage.getItem("userId"),

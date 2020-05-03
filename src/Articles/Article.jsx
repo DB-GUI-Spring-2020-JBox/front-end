@@ -1,5 +1,4 @@
 import React from 'react';
-import { articles } from '../SampleData/articles';
 import './article.css';
 import { ArticleRepository } from '../Api/articleRepository';
 

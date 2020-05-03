@@ -17,12 +17,6 @@ code {
   min-height: 100vh;
 }
 
-.drop a {
-  color: white;
-  font-size: 20px;
-  margin: 5px;
-}
-
 .content-wrap {
   min-height: 100vh;
   overflow: hidden;
@@ -33,6 +27,29 @@ code {
   background-attachment: fixed;
 }
 
+/* header styles */
+
+.header-drop {
+  margin-top: -4px;
+}
+
+.hamburger-img {
+  margin-top: -10px;
+}
+
+.header-logo {
+  position: absolute;
+  left: 48vw;
+  margin-top: -12px;
+}
+
+.drop a {
+  color: white;
+  font-size: 20px;
+  margin: 5px;
+}
+
+/* footer styles */
 footer {
   background-color: rgb(54, 58, 63);
   position: absolute;
@@ -94,6 +111,7 @@ footer {
 .social-icons {
   float: right;
   margin-bottom: -5px;
+  margin-top: -10px;
 }
 
 @media only screen and (max-width: 800px) {

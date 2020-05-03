@@ -39,3 +39,47 @@
     margin: 3em auto;
     width: 80%;
 }
+
+
+/* article card styles */
+
+.card-link {
+  text-align: center;
+  color: black;
+}
+
+.card-link:hover {
+  font-weight: 350;
+  color: black;
+}
+
+.category-sec {
+  font-size: 23px;
+  margin-top: 9px;
+}
+
+.title-sec {
+  font-size: 30px;
+  margin-bottom: 100px;
+  padding: 10px;
+  white-space: normal;
+}
+
+.author-sec {
+  font-size: 20px;
+  position: absolute;
+  bottom: 35px;
+  width: 100%;
+}
+
+.author-sec b {
+  color: rgb(25, 161, 230);
+}
+
+.card-link hr {
+  border: lightgray solid 2px;
+  position: absolute;
+  bottom: 5px;
+  width: 85%;
+  left: 7%;
+}

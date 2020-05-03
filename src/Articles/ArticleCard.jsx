@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import '../Home/home.css';
 
 const dateOptions = {
@@ -16,13 +15,13 @@ export const ArticleCard = props => {
     }
   };
     return (
-        <a className="card" style={{color: "black", textDecoration: "none"}} href={`/articles/${props.id}`}>
+        <a className="card card-link" href={`/articles/${props.id}`}>
             {imgCheck()}
-            <div className="text-center" style={{ fontSize: "23px", marginTop: "9px" }}><i>{ `${props.category}`.toUpperCase() }</i></div>
-            <div className="text-center" style={{ fontSize: "30px", marginBottom: "100px", padding: "10px", whiteSpace: "normal"}}>{ props.title }</div>
-            <div className="text-center" style={{ fontSize: "20px", position: "absolute", bottom: "35px", width: "100%"}}><i>by </i>
-                <b style={{ color: "rgb(25, 161, 230)"}} href={`/userprofile/${ props.authorId }`}>{ props.author }</b> - <i>{ new Date(props.date).toLocaleString('default', dateOptions) }</i></div>
-            <hr style={{border: "lightgray solid 2px", position: "absolute", bottom: "5px", width: "85%", left: "7%"}}/>
+            <div className="category-sec"><i>{ `${props.category}`.toUpperCase() }</i></div>
+            <div className="title-sec">{ props.title }</div>
+            <div className="author-sec"><i>by </i>
+                <b href={`/userprofile/${ props.authorId }`}>{ props.author }</b> - <i>{ new Date(props.date).toLocaleString('default', dateOptions) }</i></div>
+            <hr/>
         </a>
     );
 }

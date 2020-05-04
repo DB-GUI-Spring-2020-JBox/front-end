@@ -160,6 +160,7 @@ export class UserProfile extends React.Component {
 
     this.setState({ articles });
 
+    debugger;
     this.setState({ articleId: articles[0] ? articles[0].ID : 0 });
   }
 

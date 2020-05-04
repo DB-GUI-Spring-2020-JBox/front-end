@@ -16,6 +16,17 @@
   color: #999;
 }
 
+#conversation-hamburger {
+  margin-top: -10px;
+}
+
+#dropdown-menu-button {
+  border: none;
+  margin: 8px 0 0 -20px;
+  padding-right: 5px;
+  background: rgb(54, 58, 63);
+}
+
 #message-list {
   border: solid 0.1em #ddd;
   overflow-y: auto;
@@ -59,6 +70,10 @@
 
 #message-list .recipient .message {
   align-self: flex-start;
+}
+
+#message-section.hidden {
+  visibility: hidden;
 }
 
 .message-group {

@@ -162,17 +162,24 @@ export class Messenger extends React.Component {
 			return <Redirect to="/login" push />
 		}
 
-		const isPhone = this.props.dimensions.width < 1000;
+		if ((this.props.dimensions.width < 1000) != this.state.isPhone) {
+			this.setState({ isPhone: !this.state.isPhone });
+		}
 
 		return (
 			<div id="messenger" className="container row">
-				{ isPhone &&
+				{ this.state.isPhone &&
 					<div className="dropdown">
 					<button className="btn" type="button" data-toggle="dropdown" >
-						<img src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" alt="" width="30" height="20" style={{marginTop: "-10px"}}/>
+						<img 
+							id="conversation-hamburger"
+							src="https://pngimage.net/wp-content/uploads/2019/05/menu-hamburger-png-.png" 
+							alt="" 
+							width="30" 
+							height="20" />
 						<span className="caret"></span></button>
 						Conversations
-					  	<div className="dropdown-menu drop" aria-labelledby="dropdownMenuButton" style={{border: "none", margin: "8px 0px 0px -20px", paddingRight: "5px", background: "rgb(54, 58, 63)"}}>
+					  	<div id="dropdown-menu-button" className="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
 							{
 								this.state.uniqueUsers.map(user => {
 									return <Link
@@ -186,7 +193,7 @@ export class Messenger extends React.Component {
 					<hr className="my-0 bg-dark col-12" />
 				  </div>
 				}
-				{ !isPhone &&
+				{ !this.state.isPhone &&
 					<div id="sidebar" className="container col-3">
 						<h2 id="conversation-header">Conversations</h2>
 						<hr/>
@@ -205,24 +212,23 @@ export class Messenger extends React.Component {
 						}
 					</div>
 				}
-				<div id="message-section" className={ "container " + (isPhone ? "" : "col-9") }
-				
-				style={(this.state.uniqueUsers.length > 0) ? {} : { visibility: "hidden" }}>
+				<div id="message-section" className={ "container " + (this.state.isPhone ? "" : "col-9 ") + 
+				(this.state.uniqueUsers.length > 0 ? "" : "hidden") }>
 					<section 
 						id="messenger-header" 
 						className="row" >
-						<div className={ "d-flex flex-row " + (isPhone ? "" : "col-8") }>
+						<div className={ "d-flex flex-row " + (this.state.isPhone ? "" : "col-8") }>
 							<h2>
 								{ this.state.recipientName }
 							</h2>
 							{ this.isBlocked(this.state.recipient) &&
 								<span className="text-danger mt-2 pl-3"><h5 className="d-inline">(Blocked by you)</h5></span> }
 						</div>
-						<div className={"pt-1 " + (isPhone ? "col-12" : "col-4") }>
+						<div className={"pt-1 " + (this.state.isPhone ? "col-12" : "col-4") }>
 							{ this.state.uniqueUsers.length > 0 &&
 							<>
 							<Link 
-								className={"btn btn-warning " + (isPhone ? "btn-block" : "float-right") }
+								className={"btn btn-warning " + (this.state.isPhone ? "btn-block" : "float-right") }
 								to={ "/userprofile/" + this.state.recipient }>
 								Go to Profile
 							</Link>
@@ -275,6 +281,8 @@ export class Messenger extends React.Component {
 		if (sessionStorage.getItem("isAuthenticated") !== "true") {
 			return;
 		}
+
+		this.setState({ isPhone: this.props.dimensions.width < 1000 });
 
 		let sender = +sessionStorage.getItem("userId");
 		this.setState({ sender });

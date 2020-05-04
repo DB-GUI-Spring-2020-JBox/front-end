@@ -364,14 +364,12 @@ export class UserProfile extends React.Component {
                   <>
                     <Link
                       to={`/articles/${article.ID}/edit`}
-                      className="btn btn-link py-0"
-                      style={{ marginTop: "-0.6em" }}
+                      className="btn btn-link py-0 clickable-text"
                     >
                       Edit
                     </Link>
                     <div
-                      className="btn btn-link text-danger py-0"
-                      style={{ marginTop: "-0.6em" }}
+                      className="btn btn-link text-danger py-0 clickable-text"
                       onClick={() => this.onDeleteArticle(article.ID)}
                     >
                       Delete
@@ -417,15 +415,13 @@ export class UserProfile extends React.Component {
                       review.author === +sessionStorage.getItem("userId") && (
                         <>
                           <div
-                            className="btn btn-link py-0"
-                            style={{ marginTop: "-0.6em" }}
+                            className="btn btn-link py-0 clickable-text"
                             onClick={ () => this.onEditReview(review.ID) }
                           >
                             Edit
                           </div>
                           <div
-                            className="btn btn-link text-danger py-0"
-                            style={{ marginTop: "-0.6em" }}
+                            className="btn btn-link text-danger py-0 clickable-text"
                             onClick={() => this.onDeleteReview(review.ID)}
                           >
                             Delete
